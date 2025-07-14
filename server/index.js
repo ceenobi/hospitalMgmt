@@ -21,7 +21,7 @@ import appointmentRoutes from "./src/routes/appointment.js";
 const app = express();
 
 const corsOptions = {
-  origin: ["http://localhost:4400"],
+  origin: ["http://localhost:4400", "https://hospital-mgmt-care.vercel.app"],
   optionsSuccessStatus: 200,
   methods: ["GET", "POST", "PATCH", "DELETE"],
   credentials: true,
