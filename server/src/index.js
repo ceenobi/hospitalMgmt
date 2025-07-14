@@ -49,7 +49,7 @@ app.use((req, res, next) => {
 });
 
 // Mount routes
-app.get("/api/v1/health", (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).json({
     status: "success",
     message: "Server is running",
