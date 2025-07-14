@@ -1,0 +1,26 @@
+@import url("https://fonts.cdnfonts.com/css/afacad");
+@import url('https://fonts.cdnfonts.com/css/br-sonoma');
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+:root {
+  font-family: "Br Sonoma", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+}

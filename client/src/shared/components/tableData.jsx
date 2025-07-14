@@ -1,0 +1,44 @@
+export default function TableData({ tableColumns, tableData, renderCell }) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="table">
+        <thead className="bg-gray-100">
+          <tr>
+            <th>#</th>
+            {tableColumns.map((header) => (
+              <th key={header.uid} className="text-md">
+                {header.name}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {tableData?.length > 0 ? (
+            tableData.map((item, index) => (
+              <tr
+                key={item._id}
+                className="hover:bg-base-300 border-b border-gray-300"
+              >
+                <td>{index + 1}</td>
+                {tableColumns.map((header) => (
+                  <td key={header.uid}>
+                    {renderCell ? renderCell(item, header.uid) : ""}
+                  </td>
+                ))}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan={tableColumns.length + 1}
+                className="h-24 text-center text-gray-500"
+              >
+                No data available
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}
