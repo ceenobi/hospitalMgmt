@@ -15,7 +15,7 @@ export const createSendToken = (user, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/", // Cookie is accessible on all paths
-      sameSite: "strict", // Prevent CSRF attacks
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     };
     res.cookie("jwt", token, cookieOptions);
   }

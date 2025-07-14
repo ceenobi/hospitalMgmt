@@ -89,33 +89,38 @@ const appointmentService = {
   ) => {
     const sanitizeStartDate = startDate ? new Date(startDate) : null;
     const sanitizeEndDate = endDate ? new Date(endDate) : null;
-
+    const sanitizeQuery = query
+      ? query
+          .trim()
+          .toLowerCase()
+          .replace(/[^\w\s]/gi, "")
+      : "";
     const [matchingDoctors, matchingPatients] = await Promise.all([
       Doctor.find().populate("userId", "fullname").select("_id").lean(),
       Patient.find({
-        $or: [{ fullname: { $regex: query, $options: "i" } }],
+        $or: [{ fullname: { $regex: sanitizeQuery, $options: "i" } }],
       })
         .select("_id")
         .lean(),
     ]);
 
     const doctorIds = matchingDoctors.map((doc) =>
-      doc.userId.fullname
-        .toLowerCase()
-        .includes(query.toLowerCase().replace(/[^\w\s]/gi, ""))
+      doc.userId.fullname.toLowerCase().includes(sanitizeQuery)
         ? doc.userId._id
         : null
     );
     const patientIds = matchingPatients.map((patient) => patient._id);
 
     const [appointments, total] =
-      query || time || status || startDate || endDate
+      sanitizeQuery || time || status || startDate || endDate
         ? await Promise.all([
             Appointment.find({
-              $or: [
-                { doctorId: { $in: doctorIds } },
-                { patientId: { $in: patientIds } },
-              ],
+              ...(sanitizeQuery && {
+                $or: [
+                  { doctorId: { $in: doctorIds } },
+                  { patientId: { $in: patientIds } },
+                ],
+              }),
               ...(status && { status: status }),
               ...(time && { appointmentTime: time }),
               ...(sanitizeStartDate || sanitizeEndDate
@@ -133,15 +138,17 @@ const appointmentService = {
             })
               .populate("doctorId", "fullname")
               .populate("patientId", "fullname email phone")
-              .sort({ appointmentDate: 1, appointmentTime: 1 })
+              .sort({ createdAt: -1 })
               .skip((page - 1) * limit)
               .limit(limit)
               .lean(),
             Appointment.countDocuments({
-              $or: [
-                { doctorId: { $in: doctorIds } },
-                { patientId: { $in: patientIds } },
-              ],
+              ...(sanitizeQuery && {
+                $or: [
+                  { doctorId: { $in: doctorIds } },
+                  { patientId: { $in: patientIds } },
+                ],
+              }),
               ...(status && { status: status }),
               ...(time && { appointmentTime: time }),
               ...(sanitizeStartDate || sanitizeEndDate

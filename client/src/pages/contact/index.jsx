@@ -9,17 +9,16 @@ export function Component() {
             className="h-[70%] w-full mb-4"
           />
           <h1 className="text-2xl md:text-3xl font-bold mb-2">Contact Us</h1>
-          <p className="text-zinc-800 mb-2">You can contact us at:</p>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1">
             <a
               href="mailto:clinicare@gmail.com"
-              className="text-zinc-800 mb-2 hover:text-blue-500 transition-all duration-300"
+              className="text-zinc-800 hover:text-blue-500 transition-all duration-300"
             >
               Email: clinicare@gmail.com
             </a>
             <a
               href="tel:+234123456789"
-              className="text-zinc-800 mb-2 hover:text-blue-500 transition-all duration-300"
+              className="text-zinc-800 hover:text-blue-500 transition-all duration-300"
             >
               Phone: +234 123 456 789
             </a>

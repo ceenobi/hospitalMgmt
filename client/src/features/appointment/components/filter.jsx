@@ -49,7 +49,7 @@ export default function Filter() {
     setOpenOptions(false);
   };
 
-  const status = ["scheduled", "completed", "cancelled"];
+  const status = ["scheduled", "confirmed", "cancelled"];
   const time = ["10:00 AM", "1:00 PM", "3:00 PM"];
 
   return (
