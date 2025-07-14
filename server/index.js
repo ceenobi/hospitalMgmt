@@ -8,14 +8,14 @@ import helmet from "helmet";
 import {
   catchNotFound,
   globalErrorHandler,
-} from "./middelwares/errorHandler.js";
+} from "./src/middelwares/errorHandler.js";
 //routes
-import authRoutes from "./routes/authRoutes.js";
-import doctorRoutes from "./routes/doctorRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
-import patientRoutes from "./routes/patientRoutes.js";
-import roomRoutes from "./routes/roomRoutes.js";
-import appointmentRoutes from "./routes/appointment.js";
+import authRoutes from "./src/routes/authRoutes.js";
+import doctorRoutes from "./src/routes/doctorRoutes.js";
+import userRoutes from "./src/routes/userRoutes.js";
+import patientRoutes from "./src/routes/patientRoutes.js";
+import roomRoutes from "./src/routes/roomRoutes.js";
+import appointmentRoutes from "./src/routes/appointment.js";
 
 // Initialize Express app
 const app = express();

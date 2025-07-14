@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch --env-file .env.local src/index.js",
-    "start": "node src/index.js"
+    "dev": "node --watch --env-file .env.local index.js",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
