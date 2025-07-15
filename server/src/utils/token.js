@@ -16,6 +16,10 @@ export const createSendToken = (user, res) => {
       secure: process.env.NODE_ENV === "production",
       path: "/", // Cookie is accessible on all paths
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      domain:
+        process.env.NODE_ENV === "production"
+          ? "hospital-mgmt-care.vercel.app"
+          : undefined,
     };
     res.cookie("jwt", token, cookieOptions);
   }

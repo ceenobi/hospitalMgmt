@@ -1,9 +1,7 @@
-import { Outlet, ScrollRestoration, useLoaderData } from "react-router";
+import { Outlet, ScrollRestoration } from "react-router";
 import { Toaster } from "sonner";
 
 export function Component() {
-  const user = useLoaderData();
-  console.log(user);
   return (
     <main>
       <Toaster richColors position="top-center" />
