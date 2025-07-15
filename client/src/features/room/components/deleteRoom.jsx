@@ -13,7 +13,6 @@ export default function DeleteRoom({ room, onClose, isOpen }) {
       setShowSuccess(true);
     }
   }, [fetcher.data, setShowSuccess]);
-
   const error = ["fail", "error"].includes(fetcher.data?.status)
     ? fetcher.data.message
     : null;
@@ -40,6 +39,7 @@ export default function DeleteRoom({ room, onClose, isOpen }) {
         showClose
         onClose={onClose}
       >
+        {error && <ErrorAlert error={error} />}
         {!showSuccess ? (
           <div className="flex flex-col items-center gap-2 w-full">
             <RiDeleteBinLine
@@ -86,7 +86,6 @@ export default function DeleteRoom({ room, onClose, isOpen }) {
             </button>
           </div>
         )}
-        {error && <ErrorAlert error={error} />}
       </Modal>
     </>
   );

@@ -1,17 +1,13 @@
 import axiosInstance from "@/shared/utils/axiosInstance";
+import { tryCatchFn } from "@/shared/utils/constants";
 
-export const register = async (doctorData) => {
-  try {
-    const response = await axiosInstance.post(
-      "/api/v1/doctor/register",
-      doctorData
-    );
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error.response.data;
-  }
-};
+export const register = tryCatchFn(async (doctorData) => {
+  const response = await axiosInstance.post(
+    "/api/v1/doctor/register",
+    doctorData
+  );
+  return response.data;
+});
 
 export const getAllUserCollections = async () => {
   const response = await axiosInstance.get("/api/v1/doctor/meta");
@@ -31,27 +27,17 @@ export const getDoctors = async ({ request }) => {
   return response.data;
 };
 
-export const updateDoctor = async (doctorId, doctorData) => {
-  try {
-    const response = await axiosInstance.patch(
-      `/api/v1/doctor/${doctorId}/update`,
-      doctorData
-    );
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error.response.data;
-  }
-};
+export const updateDoctor = tryCatchFn(async (doctorId, doctorData) => {
+  const response = await axiosInstance.patch(
+    `/api/v1/doctor/${doctorId}/update`,
+    doctorData
+  );
+  return response.data;
+});
 
-export const deleteDoctor = async (doctorId) => {
-  try {
-    const response = await axiosInstance.delete(
-      `/api/v1/doctor/${doctorId}/delete`
-    );
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error.response.data;
-  }
-};
+export const deleteDoctor = tryCatchFn(async (doctorId) => {
+  const response = await axiosInstance.delete(
+    `/api/v1/doctor/${doctorId}/delete`
+  );
+  return response.data;
+});

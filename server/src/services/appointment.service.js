@@ -9,8 +9,11 @@ const { errorResponse, notFoundResponse } = responseHandler;
 const appointmentService = {
   getAppointmentMeta: async () => {
     const [patientMeta, doctorMeta] = await Promise.all([
-      Patient.find().select("fullname").lean(),
-      Doctor.find().select("userId").populate("userId", "fullname").lean(),
+      Patient.find().select("userId").populate("userId", "fullname").lean(),
+      Doctor.find({ availability: "available" })
+        .select("userId")
+        .populate("userId", "fullname")
+        .lean(),
     ]);
     if (!patientMeta || !doctorMeta) {
       return next(notFoundResponse("No patient or doctor found"));
@@ -75,6 +78,20 @@ const appointmentService = {
     const appointment = await Appointment.create({
       ...appointmentData,
     });
+    if (appointment.status === "confirmed") {
+      const patient = await Patient.findOne({
+        userId: appointment.patientId,
+      }).lean();
+      const html = appointmentStatusTemplate(
+        patient.fullname,
+        appointment.status
+      );
+      await sendMail({
+        to: patient.email,
+        subject: "Appointment Update",
+        html,
+      });
+    }
     return appointment;
   },
   getAllAppointments: async (

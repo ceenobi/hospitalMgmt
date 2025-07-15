@@ -13,7 +13,6 @@ import UpdateAppointment from "./updateAppointment";
 import DeleteAppointment from "./deleteAppointment";
 
 export default function Table({ appointments, meta }) {
-  console.log(appointments);
   const [isOpen, setIsOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [appointmentId, setAppointmentId] = useState(null);

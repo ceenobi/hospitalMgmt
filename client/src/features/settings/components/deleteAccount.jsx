@@ -19,7 +19,7 @@ export default function DeleteAccount() {
   return (
     <>
       <button
-        className="btn flex gap-2 items-center text-base cursor-pointer bg-red-500 text-white"
+        className="btn flex gap-2 items-center text-base cursor-pointer bg-red-500 text-white w-full md:w-fit"
         onClick={() => setIsOpen(true)}
       >
         Delete Account

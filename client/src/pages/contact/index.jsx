@@ -1,4 +1,11 @@
+import useMetaArgs from "@/shared/hooks/useMeta";
+
 export function Component() {
+  useMetaArgs({
+    title: "Contact Us - Clinicare",
+    description: "Contact Us for any inquiries.",
+    keywords: "Clinicare, contact us, inquiries",
+  });
   return (
     <div className="container mx-auto py-5 px-4 min-h-[calc(100vh-7rem)] flex flex-col items-center justify-center text-center">
       <div className="grid grid-cols-12 gap-4 lg:gap-8">

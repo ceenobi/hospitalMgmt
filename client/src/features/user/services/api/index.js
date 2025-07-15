@@ -1,14 +1,10 @@
 import axiosInstance from "@/shared/utils/axiosInstance";
+import { tryCatchFn } from "@/shared/utils/constants";
 
-export const createUser = async (userData) => {
-  try {
-    const response = await axiosInstance.post("/api/v1/user/create", userData);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error.response.data;
-  }
-};
+export const createUser = tryCatchFn(async (userData) => {
+  const response = await axiosInstance.post("/api/v1/user/create", userData);
+  return response.data;
+});
 
 export const getAllUsers = async ({ request }) => {
   const searchParams = new URL(request.url).searchParams;
@@ -23,27 +19,15 @@ export const getAllUsers = async ({ request }) => {
   return response.data;
 };
 
-export const updateUserRole = async (userId, userData) => {
-  try {
-    const response = await axiosInstance.patch(
-      `/api/v1/user/${userId}/update`,
-      userData
-    );
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error.response.data;
-  }
-};
+export const updateUserRole = tryCatchFn(async (userId, userData) => {
+  const response = await axiosInstance.patch(
+    `/api/v1/user/${userId}/update`,
+    userData
+  );
+  return response.data;
+});
 
-export const deleteUser = async (userId) => {
-  try {
-    const response = await axiosInstance.delete(
-      `/api/v1/user/${userId}/delete`
-    );
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error.response.data;
-  }
-};
+export const deleteUser = tryCatchFn(async (userId) => {
+  const response = await axiosInstance.delete(`/api/v1/user/${userId}/delete`);
+  return response.data;
+});

@@ -1,19 +1,15 @@
 import axiosInstance from "@/shared/utils/axiosInstance";
+import { tryCatchFn } from "@/shared/utils/constants";
 
 export const getRoomMeta = async () => {
   const response = await axiosInstance.get("/api/v1/room/meta");
   return response.data;
 };
 
-export const createRoom = async (roomData) => {
-  try {
-    const response = await axiosInstance.post("/api/v1/room/create", roomData);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error.response.data;
-  }
-};
+export const createRoom = tryCatchFn(async (roomData) => {
+  const response = await axiosInstance.post("/api/v1/room/create", roomData);
+  return response.data;
+});
 
 export const getAllRooms = async ({ request }) => {
   const searchParams = new URL(request.url).searchParams;
@@ -29,27 +25,15 @@ export const getAllRooms = async ({ request }) => {
   return response.data;
 };
 
-export const updateRoom = async (roomId, roomData) => {
-  try {
-    const response = await axiosInstance.patch(
-      `/api/v1/room/${roomId}/update`,
-      roomData
-    );
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error.response.data;
-  }
-};
+export const updateRoom = tryCatchFn(async (roomId, roomData) => {
+  const response = await axiosInstance.patch(
+    `/api/v1/room/${roomId}/update`,
+    roomData
+  );
+  return response.data;
+});
 
-export const deleteRoom = async (roomId) => {
-  try {
-    const response = await axiosInstance.delete(
-      `/api/v1/room/${roomId}/delete`
-    );
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error.response.data;
-  }
-};
+export const deleteRoom = tryCatchFn(async (roomId) => {
+  const response = await axiosInstance.delete(`/api/v1/room/${roomId}/delete`);
+  return response.data;
+});

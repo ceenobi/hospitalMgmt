@@ -399,3 +399,17 @@ export const isRoleVisible = (sessionUser, role) => {
   }
   return false;
 };
+
+export const tryCatchFn = (fn) => {
+  return async (...params) => {
+    try {
+      const response = await fn(...params);
+      return response;
+    } catch (error) {
+      if (import.meta.env.DEV) {
+        console.error("API Error:", error);
+      }
+      return error.response?.data;
+    }
+  };
+};

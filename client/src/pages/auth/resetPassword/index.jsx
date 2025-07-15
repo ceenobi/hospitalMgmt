@@ -7,6 +7,7 @@ import { validateResetPasswordSchema } from "@/shared/utils/dataSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormField from "@/shared/components/formField";
 import { RiLockFill } from "@remixicon/react";
+import ErrorAlert from "@/shared/components/errorAlert";
 
 export function Component() {
   useMetaArgs({
@@ -30,6 +31,7 @@ export function Component() {
   const isSubmitting = fetcher.state === "submitting";
   const email = searchParams.get("email");
   const token = searchParams.get("token");
+  const error = fetcher.data?.status === "fail" ? fetcher.data.message : null;
 
   useEffect(() => {
     if (fetcher.data?.success) {
@@ -68,6 +70,7 @@ export function Component() {
           your previous password.
         </p>
         <div className="w-full md:w-[350px]">
+          {error && <ErrorAlert error={error} />}
           <FormField
             label="Password"
             type="password"

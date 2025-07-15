@@ -41,6 +41,7 @@ export default function DeleteAppointment({ appointment, isOpen, onClose }) {
         showClose
         onClose={onClose}
       >
+        {error && <ErrorAlert error={error} />}
         {!showSuccess ? (
           <div className="flex flex-col items-center gap-2 w-full">
             <RiDeleteBinLine
@@ -76,14 +77,14 @@ export default function DeleteAppointment({ appointment, isOpen, onClose }) {
             </div>
           </div>
         ) : (
-          <div className="p-4 text-center max-w-[300px] mx-auto">
+          <div className="p-4 text-center max-w-[400px] mx-auto">
             <img
               src="/Success.svg"
               alt="success"
               className="w-full h-[250px]"
             />
             <h1 className="text-2xl font-bold">Success!</h1>
-            <p className="text-gray-600">Appointment deleted successfully.</p>
+            <p className="text-gray-600">{fetcher.data?.message}</p>
             <button
               onClick={onClose}
               className="my-4 btn bg-blue-500 hover:bg-blue-600 text-white"
@@ -92,7 +93,6 @@ export default function DeleteAppointment({ appointment, isOpen, onClose }) {
             </button>
           </div>
         )}
-        {error && <ErrorAlert error={error} />}
       </Modal>
     </>
   );

@@ -1,6 +1,6 @@
 import { ZodError } from "zod";
 
-export const validateFormData = (schema) => (req, res, next) => {
+export const validateFormData = (schema) => (req, res, next) => {;
   try {
     const parsedData = schema.parse(req.body);
     req.validatedData = parsedData;

@@ -250,7 +250,7 @@ export const validateRoomSchema = z.object({
 });
 
 export const validateAppointmentSchema = z.object({
-  patientName: z.string().min(3, {
+  patientId: z.string().min(3, {
     message: "Patient ID is required",
   }),
   doctorId: z.string().min(3, {

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useFetcher, Link, useRouteLoaderData } from "react-router";
 import PinField from "react-pin-field";
 import { usePrivateRoutes } from "@/shared/hooks/useProtected";
+import ErrorAlert from "@/shared/components/errorAlert";
 
 export function Component() {
   usePrivateRoutes();
@@ -19,6 +20,7 @@ export function Component() {
   const [showSuccess, setShowSuccess] = useState(false);
   const fetcher = useFetcher();
   const isSubmitting = fetcher.state === "submitting";
+  const error = fetcher.data?.status === "fail" ? fetcher.data.message : null;
 
   useEffect(() => {
     if (
@@ -100,6 +102,7 @@ export function Component() {
           </div>
         ) : (
           <div className="bg-white p-4 rounded-xl shadow-lg w-full max-w-[400px]">
+            {error && <ErrorAlert error={error} />}
             <fetcher.Form
               className="flex flex-col items-center gap-2 w-full"
               onSubmit={onSubmit}

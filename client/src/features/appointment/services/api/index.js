@@ -1,40 +1,26 @@
 import axiosInstance from "@/shared/utils/axiosInstance";
+import { tryCatchFn } from "@/shared/utils/constants";
 
-export const getAppointmentMeta = async () => {
-  try {
-    const response = await axiosInstance.get("/api/v1/appointment/meta");
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error.response.data;
-  }
-};
+export const getAppointmentMeta = tryCatchFn(async () => {
+  const response = await axiosInstance.get("/api/v1/appointment/meta");
+  return response.data;
+});
 
-export const bookAppointment = async (appointmentData) => {
-  try {
-    const response = await axiosInstance.post(
-      "/api/v1/appointment/book",
-      appointmentData
-    );
-    return response?.data;
-  } catch (error) {
-    console.error(error);
-    return error.response.data;
-  }
-};
+export const bookAppointment = tryCatchFn(async (appointmentData) => {
+  const response = await axiosInstance.post(
+    "/api/v1/appointment/book",
+    appointmentData
+  );
+  return response?.data;
+});
 
-export const createAppointment = async (appointmentData) => {
-  try {
-    const response = await axiosInstance.post(
-      "/api/v1/appointment/create",
-      appointmentData
-    );
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error.response.data;
-  }
-};
+export const createAppointment = tryCatchFn(async (appointmentData) => {
+  const response = await axiosInstance.post(
+    "/api/v1/appointment/create",
+    appointmentData
+  );
+  return response.data;
+});
 
 export const getAllAppointments = async ({ request }) => {
   const searchParams = new URL(request.url).searchParams;
@@ -66,27 +52,19 @@ export const getPatientAppointments = async ({ request }) => {
   return response.data;
 };
 
-export const updateAppointment = async (appointmentId, appointmentData) => {
-  try {
+export const updateAppointment = tryCatchFn(
+  async (appointmentId, appointmentData) => {
     const response = await axiosInstance.patch(
       `/api/v1/appointment/${appointmentId}/update`,
       appointmentData
     );
     return response.data;
-  } catch (error) {
-    console.error(error);
-    return error.response.data;
   }
-};
+);
 
-export const deleteAppointment = async (appointmentId) => {
-  try {
-    const response = await axiosInstance.delete(
-      `/api/v1/appointment/${appointmentId}/delete`
-    );
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error.response.data;
-  }
-};
+export const deleteAppointment = tryCatchFn(async (appointmentId) => {
+  const response = await axiosInstance.delete(
+    `/api/v1/appointment/${appointmentId}/delete`
+  );
+  return response.data;
+});

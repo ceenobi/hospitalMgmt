@@ -34,8 +34,8 @@ export default function CreateAppointment({ appointmentMeta }) {
   const { patientMeta, doctorMeta } = appointmentMeta?.data || {};
 
   const patientsName = patientMeta?.map((patient) => ({
-    id: patient._id,
-    name: patient.fullname,
+    id: patient.userId._id,
+    name: patient.userId.fullname,
   }));
 
   const doctorsName = doctorMeta?.map((doctor) => ({
@@ -66,7 +66,7 @@ export default function CreateAppointment({ appointmentMeta }) {
         className="btn bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
         onClick={() => setIsOpen(true)}
       >
-        New Appointment
+        Create <span className="hidden md:inline">Appointment</span>
       </button>
       <Modal
         isOpen={isOpen}

@@ -22,11 +22,22 @@ export default function UpdateAppointment({ appointment, isOpen, onClose }) {
   } = useForm({
     resolver: zodResolver(validateAppointmentSchema),
   });
+  const { doctorMeta } = appointmentMeta?.data || {};
+
+  const doctorsName = doctorMeta?.map((doctor) => ({
+    id: doctor.userId._id,
+    name: doctor.userId.fullname,
+  }));
 
   useEffect(() => {
     if (appointment) {
-      setValue("patientName", appointment.patientId?.fullname);
-      setValue("doctorId", appointment.doctorId?._id);
+      setValue("patientId", appointment?.patientId?.fullname);
+      setValue(
+        "doctorId",
+        doctorsName.find(
+          (doctor) => doctor.name === appointment?.doctorId?.fullname
+        )?.id
+      );
       setValue(
         "appointmentDate",
         formatDate(appointment.appointmentDate, "input")
@@ -35,24 +46,13 @@ export default function UpdateAppointment({ appointment, isOpen, onClose }) {
       setValue("status", appointment.status);
       setValue("notes", appointment.notes);
     }
-  }, [appointment, setValue]);
+  }, [appointment, doctorsName, setValue]);
 
   useEffect(() => {
     if (fetcher.data?.success) {
       setShowSuccess(true);
     }
   }, [fetcher.data, setShowSuccess]);
-  const { doctorMeta } = appointmentMeta?.data || {};
-
-  // const patientsName = patientMeta?.map((patient) => ({
-  //   id: patient._id,
-  //   name: patient.fullname,
-  // }));
-
-  const doctorsName = doctorMeta?.map((doctor) => ({
-    id: doctor.userId._id,
-    name: doctor.userId.fullname,
-  }));
   const status = ["scheduled", "confirmed", "cancelled"];
   const appointmentTime = ["10:00 AM", "1:00 PM", "3:00 PM"];
 
@@ -68,16 +68,16 @@ export default function UpdateAppointment({ appointment, isOpen, onClose }) {
   };
 
   const onSubmit = (data) => {
-    fetcher.submit(
-      {
-        ...data,
-        appointmentId: appointment._id,
-      },
-      {
-        method: "patch",
-        action: "/dashboard/appointments",
-      }
-    );
+    const formDetails = {
+      ...data,
+      patientId: appointment?.patientId?._id,
+      doctorId: appointment?.doctorId?._id || data.doctorId,
+      appointmentId: appointment._id,
+    };
+    fetcher.submit(formDetails, {
+      method: "patch",
+      action: "/dashboard/appointments",
+    });
   };
 
   return (
@@ -97,9 +97,9 @@ export default function UpdateAppointment({ appointment, isOpen, onClose }) {
               <div className="md:col-span-6">
                 <FormField
                   label="Patient Name"
-                  id="patientName"
+                  id="patientId"
                   register={register}
-                  name="patientName"
+                  name="patientId"
                   placeholder="Patient name"
                   errors={errors}
                   type="text"

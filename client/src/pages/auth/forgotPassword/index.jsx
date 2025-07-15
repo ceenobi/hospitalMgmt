@@ -7,6 +7,7 @@ import { validateResendPasswordTokenSchema } from "@/shared/utils/dataSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormField from "@/shared/components/formField";
 import { RiLockFill } from "@remixicon/react";
+import ErrorAlert from "@/shared/components/errorAlert";
 
 export function Component() {
   useMetaArgs({
@@ -23,6 +24,7 @@ export function Component() {
   });
   const fetcher = useFetcher();
   const isSubmitting = fetcher.state === "submitting";
+  const error = fetcher.data?.status === "fail" ? fetcher.data.message : null;
 
   useEffect(() => {
     if (fetcher.data?.success) {
@@ -53,6 +55,7 @@ export function Component() {
           password.
         </p>
         <div className="w-full md:w-[350px]">
+          {error && <ErrorAlert error={error} />}
           <FormField
             label="Email"
             type="email"
