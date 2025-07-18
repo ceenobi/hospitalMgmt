@@ -413,3 +413,26 @@ export const tryCatchFn = (fn) => {
     }
   };
 };
+
+  // useEffect(() => {
+  //   let cleanupFunc;
+  //   const setup = async () => {
+  //     cleanupFunc = await refreshTokenAction({ setAccessToken });
+  //   };
+  //   setup();
+  //   return () => {
+  //     if (cleanupFunc && typeof cleanupFunc === "function") cleanupFunc();
+  //   };
+  // }, [accessToken, setAccessToken]);
+
+  // useEffect(() => {
+  //   if (!accessToken) return;
+  //   let cleanupFunc;
+  //   const setup = async () => {
+  //     cleanupFunc = await setupTokenRefresh(accessToken, setAccessToken);
+  //   };
+  //   setup();
+  //   return () => {
+  //     if (cleanupFunc && typeof cleanupFunc === "function") cleanupFunc();
+  //   };
+  // }, [accessToken, setAccessToken]);

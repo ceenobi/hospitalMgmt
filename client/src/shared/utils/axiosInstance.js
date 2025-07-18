@@ -11,4 +11,12 @@ const config = {
 
 const axiosInstance = axios.create(config);
 
+// axiosInstance.interceptors.request.use(async (config) => {
+//   if (!accessToken) {
+//     accessToken = await refreshTokenAction();
+//   }
+//   config.headers.Authorization = `Bearer ${accessToken}`;
+//   return config;
+// });
+
 export default axiosInstance;

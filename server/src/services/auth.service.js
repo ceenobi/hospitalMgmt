@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import { sendMail } from "./mail.js";
 import {
   passwordResetTemplate,
@@ -56,6 +57,17 @@ const authService = {
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
       return next(errorResponse("Incorrect email or password", 401));
+    }
+    return user;
+  },
+  refreshToken: async (refreshToken, next) => {
+    if (!refreshToken) {
+      return next(errorResponse("Refresh token required", 401));
+    }
+    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      return next(errorResponse("Invalid refresh token", 401));
     }
     return user;
   },
@@ -194,12 +206,12 @@ const authService = {
     return user;
   },
   logout: async (req, res, next) => {
-    res.cookie("jwt", "", {
+    res.cookie("clinicareUserRefreshToken", "", {
       maxAge: 0,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      path: "/", // Cookie is accessible on all paths
-      sameSite: "strict", // Prevent CSRF attacks
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      path: "/api/v1/auth/refresh-token",
     });
     return true;
   },

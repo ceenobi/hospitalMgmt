@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RiUser4Fill } from "@remixicon/react";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
-import { Link, useFetcher, useSearchParams } from "react-router";
+import { Link, useFetcher, useNavigate, useOutletContext } from "react-router";
 import useMetaArgs from "@/shared/hooks/useMeta";
 import { toast } from "sonner";
 import ErrorAlert from "@/shared/components/errorAlert";
@@ -17,7 +17,7 @@ export function Component() {
     keywords: "Clinicare, login, account",
   });
   const [isVisible, setIsVisible] = useState(false);
-  const [searchParams] = useSearchParams();
+  const { setAccessToken } = useOutletContext();
   const {
     register,
     handleSubmit,
@@ -26,20 +26,22 @@ export function Component() {
     resolver: zodResolver(validateSignInSchema),
   });
   const fetcher = useFetcher();
+  const navigate = useNavigate();
   const isSubmitting = fetcher.state === "submitting";
   const error = fetcher.data?.status === "fail" ? fetcher.data.message : null;
-  const role = searchParams.get("role");
 
   useEffect(() => {
     if (fetcher.data?.success) {
       toast.success(fetcher.data.message);
+      setAccessToken(fetcher.data.data.accessToken);
+      navigate("/", { from: "/account/signin", replace: true });
     }
-  }, [fetcher.data]);
+  }, [fetcher.data, navigate, setAccessToken]);
 
   const onSubmit = (data) => {
     fetcher.submit(data, {
       method: "post",
-      action: `/account/signin?role=${role}`,
+      action: `/account/signin`,
     });
   };
 

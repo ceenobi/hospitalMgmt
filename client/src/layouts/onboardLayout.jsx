@@ -1,11 +1,12 @@
 import Logo from "@/shared/components/logo";
 import { Form } from "react-router";
 import { usePrivateRoutes } from "@/shared/hooks/useProtected";
-import { Outlet } from "react-router";
+import { Outlet, useOutletContext } from "react-router";
 import { RiCopyrightFill } from "@remixicon/react";
 
 export function Component() {
-  usePrivateRoutes();
+  const { accessToken, user } = useOutletContext();
+  usePrivateRoutes(accessToken, user);
   return (
     <div className="min-h-screen bg-slate-100 p-4">
       <div className="flex justify-between items-center">
@@ -19,7 +20,7 @@ export function Component() {
           </button>
         </Form>
       </div>
-      <Outlet />
+      <Outlet context={{ user }} />
       <div className="flex justify-center md:justify-start items-center text-gray-600">
         <div className="flex gap-1 items-center">
           <RiCopyrightFill size={18} />

@@ -1,18 +1,24 @@
 import { useEffect } from "react";
-import { useFetcher, useNavigate, useRouteLoaderData } from "react-router";
+import { useActionData, useNavigate, useRouteLoaderData } from "react-router";
 
 export function Component() {
   const user = useRouteLoaderData("auth_user");
-  const fetcher = useFetcher();
   const navigate = useNavigate();
+  const data = useActionData();
+
+  console.log(user);
 
   useEffect(() => {
-    if (fetcher.data?.success || !user) {
+    if (!user || data) {
       navigate("/account/signin");
     }
-  }, [fetcher.data, navigate, user]);
+  }, [navigate, user, data]);
 
-  return null;
+  return (
+    <div>
+      <h1>Logout</h1>
+    </div>
+  )
 }
 
 Component.displayName = "Logout";

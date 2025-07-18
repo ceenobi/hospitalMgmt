@@ -31,24 +31,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(compression());
 app.use(cookieParser());
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "trusted-scripts.com"],
-        objectSrc: ["'none'"],
-        upgradeInsecureRequests: [],
-      },
-    },
-    frameguard: {
-      action: "deny",
-    },
-    referrerPolicy: {
-      policy: "no-referrer",
-    },
-  })
-);
+app.use(helmet());
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
 app.disable("x-powered-by");

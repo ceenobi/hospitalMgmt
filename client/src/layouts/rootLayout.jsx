@@ -1,10 +1,11 @@
 import Logo from "@/shared/components/logo";
 import { RiCopyrightFill } from "@remixicon/react";
-import { NavLink, Outlet } from "react-router";
+import { NavLink, Outlet, useOutletContext } from "react-router";
 import { usePublicRoutes } from "@/shared/hooks/useProtected";
 
 export function Component() {
-  usePublicRoutes();
+  const { accessToken, user } = useOutletContext();
+  usePublicRoutes(accessToken, user);
   return (
     <>
       <div className="fixed top-0 left-0 right-0 z-50 bg-white">
@@ -27,7 +28,7 @@ export function Component() {
           </div>
         </div>
       </div>
-      <Outlet />
+      <Outlet context={{ user }} />
       <div className="container mx-auto px-4 py-5">
         <div className="container mx-auto divider"></div>
         <div className="flex gap-1 items-center justify-center md:justify-start">

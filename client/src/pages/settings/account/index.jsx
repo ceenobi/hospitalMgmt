@@ -1,5 +1,5 @@
 import useMetaArgs from "@/shared/hooks/useMeta";
-import { useRouteLoaderData, useFetcher, useNavigate } from "react-router";
+import { useFetcher, useNavigate, useOutletContext } from "react-router";
 import UploadImage from "@/features/settings/components/uploadImage";
 import { validateUserSchema } from "@/shared/utils/dataSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +18,7 @@ export function Component() {
     keywords: "Clinicare, account, settings",
   });
   const [showSuccess, setShowSuccess] = useState(false);
-  const user = useRouteLoaderData("auth_user");
+  const { user } = useOutletContext();
   const {
     register,
     handleSubmit,

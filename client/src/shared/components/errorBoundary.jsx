@@ -40,7 +40,11 @@ export default function ErrorBoundary() {
       )}
       <h1 className="text-2xl font-bold">Something went wrong</h1>
       <p className="text-red-600 font-bold text-xl">{message}</p>
-      <p className="text-gray-600">{details}</p>
+      <p className="text-gray-600">
+        {details === "jwt expired" || details === "jwt malformed"
+          ? "Session expired"
+          : details}
+      </p>
       <button
         onClick={redirect}
         className="my-4 btn bg-blue-500 hover:bg-blue-700 text-white"

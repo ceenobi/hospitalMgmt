@@ -8,7 +8,7 @@ import {
   useFetcher,
   useNavigate,
   useLocation,
-  useRouteLoaderData,
+  useOutletContext,
 } from "react-router";
 
 export function Component() {
@@ -17,12 +17,12 @@ export function Component() {
     description: "Manage your account settings.",
     keywords: "Clinicare, settings, account",
   });
+  const { user } = useOutletContext();
   const fetcher = useFetcher();
   const navigate = useNavigate();
   const location = useLocation();
   const isSubmitting = fetcher.state === "submitting";
-  const user = useRouteLoaderData("auth_user");
-  
+
   useEffect(() => {
     location.pathname === "/dashboard/settings" &&
       navigate("/dashboard/settings/account");
@@ -78,7 +78,7 @@ export function Component() {
           </div>
         </div>
         <div className="col-span-10 p-4">
-          <Outlet />
+          <Outlet context={{ user }} />
         </div>
       </div>
     </Container>

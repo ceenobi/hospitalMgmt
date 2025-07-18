@@ -3,6 +3,7 @@ import {
   getPasswordResetToken,
   login,
   logout,
+  refreshToken,
   register,
   resendVerifyToken,
   resetPassword,
@@ -11,6 +12,7 @@ import {
   uploadAvatar,
   verifyAccount,
 } from "../api";
+// import { jwtDecode } from "jwt-decode";
 
 export const registerAction = async ({ request }) => {
   const formData = await request.formData();
@@ -54,10 +56,9 @@ export const verifyAccountAction = async ({ request }) => {
   }
 };
 
-export const logoutAction = async ({ request }) => {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  const res = await logout(data);
+export const logoutAction = async ({ setAccessToken }) => {
+  const res = await logout({});
+  setAccessToken(null);
   return res;
 };
 
@@ -85,3 +86,49 @@ export const updatePasswordAction = async ({ request }) => {
   const res = await updateUserPassword(data);
   return res;
 };
+
+export const refreshTokenAction = async ({ setAccessToken }) => {
+  const res = await refreshToken(setAccessToken);
+  return res;
+};
+
+// export const setupTokenRefresh = async (accessToken, setAccessToken) => {
+//   if (!accessToken) return;
+//   try {
+//     const decodedToken = jwtDecode(accessToken);
+//     const expirationTime = decodedToken?.exp ?? 0;
+//     const currentTime = Date.now();
+//     const timeUntilExpiry = expirationTime * 1000 - currentTime;
+//     const refreshBuffer = 2 * 60 * 1000;
+//     const timeUntilRefresh = timeUntilExpiry - refreshBuffer;
+
+//     if (timeUntilRefresh <= 0) {
+//       try {
+//         const res = await refreshToken();
+//         setAccessToken(res?.data?.accessToken);
+//       } catch (error) {
+//         if (import.meta.env.DEV) {
+//           console.error(error);
+//         }
+//       }
+//     } else {
+//       const refreshTimer = setTimeout(async () => {
+//         try {
+//           const res = await refreshToken();
+//           setAccessToken(res?.data?.accessToken);
+//         } catch (error) {
+//           if (import.meta.env.DEV) {
+//             console.error(error);
+//           }
+//         }
+//       }, timeUntilRefresh);
+
+//       return () => clearTimeout(refreshTimer);
+//     }
+//   } catch (error) {
+//     if (import.meta.env.DEV) {
+//       console.error("Error setting up token refresh:", error);
+//     }
+//     setAccessToken("");
+//   }
+// };

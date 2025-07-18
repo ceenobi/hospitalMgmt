@@ -1,16 +1,17 @@
 import Logo from "@/shared/components/logo";
 import { usePublicRoutes } from "@/shared/hooks/useProtected";
 import { RiCopyrightFill } from "@remixicon/react";
-import { Outlet } from "react-router";
+import { Outlet, useOutletContext } from "react-router";
 
 export function Component() {
-  usePublicRoutes();
+  const { accessToken, setAccessToken, user } = useOutletContext();
+  usePublicRoutes(accessToken, user);
   return (
     <>
       <div className="min-h-screen bg-slate-100 p-4">
         <Logo />
         <div className="flex items-center justify-center min-h-[calc(100vh-6rem)] gap-2">
-          <Outlet />
+          <Outlet context={{ accessToken, setAccessToken }} />
         </div>
         <div className="flex justify-center md:justify-start items-center text-gray-600">
           <div className="flex gap-1 items-center">

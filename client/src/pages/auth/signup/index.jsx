@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RiUser4Fill } from "@remixicon/react";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
-import { Link, useFetcher } from "react-router";
+import { Link, useFetcher, useOutletContext } from "react-router";
 import useMetaArgs from "@/shared/hooks/useMeta";
 import { toast } from "sonner";
 import ErrorAlert from "@/shared/components/errorAlert";
@@ -17,6 +17,7 @@ export function Component() {
     keywords: "Clinicare, register, account",
   });
   const [isVisible, setIsVisible] = useState(false);
+  const { setAccessToken } = useOutletContext();
   const {
     register,
     handleSubmit,
@@ -32,8 +33,9 @@ export function Component() {
   useEffect(() => {
     if (fetcher.data?.success) {
       toast.success(fetcher.data.message);
+      setAccessToken(fetcher.data.data.accessToken);
     }
-  }, [fetcher.data]);
+  }, [fetcher.data, setAccessToken]);
 
   const onSubmit = (data) => {
     fetcher.submit(data, {
@@ -48,7 +50,10 @@ export function Component() {
         className="flex flex-col items-center gap-2 w-full"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <RiUser4Fill size={40} className="text-blue-500 p-2 border-[0.2px] border-blue-500 rounded-full shadow-lg" />
+        <RiUser4Fill
+          size={40}
+          className="text-blue-500 p-2 border-[0.2px] border-blue-500 rounded-full shadow-lg"
+        />
         <h1 className="text-2xl font-bold">Create Account</h1>
         <p className="text-gray-600">Enter your details to sign up</p>
         <div className="w-full md:w-[350px]">

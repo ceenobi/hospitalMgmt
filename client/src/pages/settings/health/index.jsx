@@ -4,7 +4,7 @@ import {
   useFetcher,
   useLoaderData,
   useNavigate,
-  useRouteLoaderData,
+  useOutletContext,
 } from "react-router";
 import { validatePatientSchema } from "@/shared/utils/dataSchema";
 import { useEffect, useState } from "react";
@@ -21,7 +21,7 @@ export function Component() {
     keywords: "Clinicare, health, settings",
   });
   const [showSuccess, setShowSuccess] = useState(false);
-  const user = useRouteLoaderData("auth_user");
+  const { user } = useOutletContext();
   const patient = useLoaderData();
   const {
     register,

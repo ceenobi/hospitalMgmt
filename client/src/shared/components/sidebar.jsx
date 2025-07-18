@@ -3,13 +3,12 @@ import {
   roleBasedPathPermissions,
 } from "@/shared/utils/constants";
 import Logo from "./logo";
-import { NavLink, useLocation, useRouteLoaderData } from "react-router";
+import { NavLink, useLocation } from "react-router";
 import Logout from "./logout";
 
-export default function Sidebar() {
+export default function Sidebar({ user }) {
   const location = useLocation();
   const path = location.pathname;
-  const user = useRouteLoaderData("auth_user");
   const roles = ["patient", "doctor", "admin", "nurse", "staff"];
   const userRole = roles.find((role) => role === user?.role);
   const isAuthorized =

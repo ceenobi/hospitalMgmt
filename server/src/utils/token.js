@@ -1,9 +1,13 @@
 import jwt from "jsonwebtoken";
 
 export const signToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE,
+  const accessToken = jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES,
   });
+  const refreshToken = jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_REFRESH_EXPIRES,
+  });
+  return { accessToken, refreshToken };
 };
 
 export const createSendToken = (user, res) => {
@@ -11,16 +15,17 @@ export const createSendToken = (user, res) => {
     const token = signToken(user._id);
     const cookieOptions = {
       // maxAge: 7 * 24 * 60 * 60 * 1000,
-      maxAge: 60 * 60 * 1000,
+      maxAge: 10 * 60 * 1000, // 10 minutes for testing
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      path: "/", // Cookie is accessible on all paths
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      // domain:
-      //   process.env.NODE_ENV === "production"
-      //     ? "hospital-mgmt-care.vercel.app"
-      //     : undefined,
+      path: "/api/v1/auth/refresh-token", // Cookie is accessible on this path
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      domain:
+        process.env.NODE_ENV === "production"
+          ? "hospital-mgmt-care.vercel.app"
+          : undefined,
     };
-    res.cookie("jwt", token, cookieOptions);
+    res.cookie("clinicareUserRefreshToken", token.refreshToken, cookieOptions);
+    return { accessToken: token.accessToken };
   }
 };

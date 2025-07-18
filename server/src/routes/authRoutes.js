@@ -21,6 +21,7 @@ import {
   updateUser,
   updateUserPassword,
   deleteAccount,
+  refreshToken,
 } from "../controllers/authController.js";
 import { validateFormData } from "../middelwares/validateFormData.js";
 import { rateLimiter } from "../middelwares/rateLimit.js";
@@ -36,6 +37,7 @@ router.post(
   validateFormData(validateLoginSchema),
   signin
 );
+router.post("/refresh-token", refreshToken);
 router.post(
   "/resend-verify-token",
   rateLimiter,
@@ -62,7 +64,7 @@ router.patch(
   validateFormData(validateResetPasswordSchema),
   resetPassword
 );
-router.post("/logout", protect, clearCache("auth_user"), logout);
+router.post("/logout", clearCache("auth_user"), logout);
 
 router.get("/user", protect, cacheMiddleware("auth_user", 3600), getUser);
 

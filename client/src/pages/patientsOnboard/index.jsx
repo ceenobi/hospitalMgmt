@@ -1,4 +1,4 @@
-import { useFetcher, useRouteLoaderData } from "react-router";
+import { useFetcher, useOutletContext } from "react-router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,8 +18,7 @@ export function Component() {
     description: "Complete your patient profile.",
     keywords: "Clinicare, patients, account",
   });
-  const user = useRouteLoaderData("auth_user");
-
+  const { user } = useOutletContext();
   const [showSuccess, setShowSuccess] = useState(false);
   const {
     register,
