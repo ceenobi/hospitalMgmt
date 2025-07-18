@@ -210,8 +210,8 @@ const authService = {
       maxAge: 0,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      path: "/api/v1/auth/refresh-token",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      path: "/",
     });
     return true;
   },

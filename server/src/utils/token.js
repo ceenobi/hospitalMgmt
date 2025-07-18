@@ -18,8 +18,8 @@ export const createSendToken = (user, res) => {
       maxAge: 10 * 60 * 1000, // 10 minutes for testing
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      path: "/api/v1/auth/refresh-token", // Cookie is accessible on this path
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      path: "/", // Cookie is accessible on this path
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       domain:
         process.env.NODE_ENV === "production"
           ? "hospital-mgmt-care.vercel.app"
