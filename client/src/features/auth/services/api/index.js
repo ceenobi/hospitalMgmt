@@ -37,7 +37,6 @@ export const refreshToken = tryCatchFn(async (setAccessToken) => {
   const response = await axiosInstance.post("/api/v1/auth/refresh-token", {
     withCredentials: true,
   });
-  console.log("response", response);
   const newAccessToken = response.data.data.accessToken;
   setAccessToken(newAccessToken);
   return newAccessToken;

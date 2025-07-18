@@ -20,15 +20,59 @@ import appointmentRoutes from "./src/routes/appointment.js";
 // Initialize Express app
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:4400",
+  "https://hospital-mgmt-care.vercel.app",
+];
+
 const corsOptions = {
-  origin: ["http://localhost:4400", "https://hospital-mgmt-care.vercel.app"],
-  optionsSuccessStatus: 200,
-  methods: ["GET", "POST", "PATCH", "DELETE"],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg =
+        "The CORS policy for this site does not allow access from the specified Origin.";
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   credentials: true,
+  methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  exposedHeaders: ["Content-Range", "X-Content-Range"],
+  optionsSuccessStatus: 200,
 };
+
+// Handle preflight requests
+app.options("*", cors(corsOptions));
 
 // Middleware
 app.use(cors(corsOptions));
+
+// Add headers before the routes are defined
+app.use(function (req, res, next) {
+  // Set CORS headers
+  if (allowedOrigins.includes(req.headers.origin)) {
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+  }
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATCH, DELETE, OPTIONS"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+
+  // Handle preflight
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  next();
+});
 app.use(compression());
 app.use(cookieParser());
 app.use(helmet());
