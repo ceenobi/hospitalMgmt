@@ -24,23 +24,7 @@ const app = express();
 // Trust first proxy (important for rate limiting behind proxies)
 app.set('trust proxy', 1);
 
-// const allowedOrigins = [
-//   "http://localhost:4400",
-//   "https://hospital-mgmt-care.vercel.app",
-// ];
-
 const corsOptions = {
-  // origin: function (origin, callback) {
-  //   // Allow requests with no origin (like mobile apps, curl, etc.)
-  //   if (!origin) return callback(null, true);
-
-  //   if (allowedOrigins.indexOf(origin) === -1) {
-  //     const msg =
-  //       "The CORS policy for this site does not allow access from the specified Origin.";
-  //     return callback(new Error(msg), false);
-  //   }
-  //   return callback(null, true);
-  // },
   origin: ["http://localhost:4400", "https://hospital-mgmt-care.vercel.app"],
   credentials: true,
   methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
@@ -48,9 +32,6 @@ const corsOptions = {
   exposedHeaders: ["Content-Range", "X-Content-Range"],
   optionsSuccessStatus: 200,
 };
-
-// Handle preflight requests
-// app.options("*", cors(corsOptions));
 
 // Middleware
 app.use(cors(corsOptions));
