@@ -21,6 +21,9 @@ import paymentRoutes from "./src/routes/paymentRoutes.js";
 // Initialize Express app
 const app = express();
 
+// Trust first proxy (important for rate limiting behind proxies)
+app.set('trust proxy', 1);
+
 // const allowedOrigins = [
 //   "http://localhost:4400",
 //   "https://hospital-mgmt-care.vercel.app",
