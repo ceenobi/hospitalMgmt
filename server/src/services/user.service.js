@@ -2,7 +2,7 @@ import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import { welcomeUserTemplate } from "../utils/emailTemplates.js";
 import crypto from "crypto";
-import { sendMail } from "./mail.js";
+import { sendMail } from "../utils/mail.js";
 import { sortUserMethods } from "../utils/sortMethods.js";
 import responseHandler from "../utils/responseHandler.js";
 const { errorResponse, notFoundResponse } = responseHandler;

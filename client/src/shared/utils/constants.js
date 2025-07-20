@@ -1,4 +1,5 @@
 import {
+  RiBankCardLine,
   RiBuildingLine,
   RiCalendarLine,
   RiDashboardLine,
@@ -43,6 +44,12 @@ export const dashBoardLinks = [
         href: "/dashboard/rooms",
         Icon: RiHotelBedLine,
       },
+      {
+        id: "payments",
+        name: "Payments",
+        href: "/dashboard/payments",
+        Icon: RiBankCardLine,
+      },
     ],
   },
   {
@@ -50,8 +57,8 @@ export const dashBoardLinks = [
     title: "Management",
     children: [
       {
-        id: "doctor",
-        name: "Doctor",
+        id: "doctors",
+        name: "Doctors",
         href: "/dashboard/doctors",
         Icon: RiStethoscopeLine,
       },
@@ -62,8 +69,8 @@ export const dashBoardLinks = [
         Icon: RiGroupLine,
       },
       {
-        id: "inpatient",
-        name: "Inpatient",
+        id: "inpatients",
+        name: "Inpatients",
         href: "/dashboard/inpatients",
         Icon: RiGroup3Line,
       },
@@ -328,6 +335,7 @@ export const roleBasedPathPermissions = {
       "/dashboard",
       "/dashboard/appointments",
       "/dashboard/rooms",
+      "/dashboard/payments",
       "/dashboard/doctors",
       "/dashboard/patients",
       "/dashboard/inpatients",
@@ -413,26 +421,3 @@ export const tryCatchFn = (fn) => {
     }
   };
 };
-
-  // useEffect(() => {
-  //   let cleanupFunc;
-  //   const setup = async () => {
-  //     cleanupFunc = await refreshTokenAction({ setAccessToken });
-  //   };
-  //   setup();
-  //   return () => {
-  //     if (cleanupFunc && typeof cleanupFunc === "function") cleanupFunc();
-  //   };
-  // }, [accessToken, setAccessToken]);
-
-  // useEffect(() => {
-  //   if (!accessToken) return;
-  //   let cleanupFunc;
-  //   const setup = async () => {
-  //     cleanupFunc = await setupTokenRefresh(accessToken, setAccessToken);
-  //   };
-  //   setup();
-  //   return () => {
-  //     if (cleanupFunc && typeof cleanupFunc === "function") cleanupFunc();
-  //   };
-  // }, [accessToken, setAccessToken]);

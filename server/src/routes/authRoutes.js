@@ -24,7 +24,7 @@ import {
   refreshToken,
 } from "../controllers/authController.js";
 import { validateFormData } from "../middelwares/validateFormData.js";
-import { rateLimiter } from "../middelwares/rateLimit.js";
+import { rateLimiter, refreshTokenLimiter } from "../middelwares/rateLimit.js";
 import { protect } from "../middelwares/authenticate.js";
 import { cacheMiddleware, clearCache } from "../middelwares/cache.js";
 
@@ -37,7 +37,7 @@ router.post(
   validateFormData(validateLoginSchema),
   signin
 );
-router.post("/refresh-token", refreshToken);
+router.post("/refresh-token", refreshTokenLimiter, refreshToken);
 router.post(
   "/resend-verify-token",
   rateLimiter,

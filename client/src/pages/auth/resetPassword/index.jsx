@@ -96,7 +96,7 @@ export function Component() {
         </div>
         <button
           type="submit"
-          className="btn bg-blue-500 hover:bg-blue-600 text-white w-full md:w-[350px]"
+          className="mt-2 btn bg-blue-500 hover:bg-blue-600 text-white w-full md:w-[350px]"
           disabled={isSubmitting}
         >
           {isSubmitting ? "Resetting..." : "Reset Password"}

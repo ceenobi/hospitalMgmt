@@ -10,22 +10,25 @@ export const signToken = (id) => {
   return { accessToken, refreshToken };
 };
 
-export const createSendToken = (user, res) => {
+export const createSendToken = (user) => {
   if (user) {
     const token = signToken(user._id);
     const cookieOptions = {
       // maxAge: 7 * 24 * 60 * 60 * 1000,
-      maxAge: 10 * 60 * 1000, // 10 minutes for testing
+      maxAge: 24 * 60 * 60 * 1000,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      path: "/", // Cookie is accessible on this path
+      path: "/api/v1/auth/refresh-token",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      domain:
-        process.env.NODE_ENV === "production"
-          ? "hospital-mgmt-care.vercel.app"
-          : undefined,
+      // domain:
+      //   process.env.NODE_ENV === "production"
+      //     ? "hospital-mgmt-care.vercel.app"
+      //     : undefined,
     };
-    res.cookie("clinicareUserRefreshToken", token.refreshToken, cookieOptions);
-    return { accessToken: token.accessToken };
+    return {
+      accessToken: token.accessToken,
+      refreshToken: token.refreshToken,
+      cookieOptions,
+    };
   }
 };

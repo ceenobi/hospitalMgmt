@@ -1,6 +1,12 @@
-import { isRouteErrorResponse, useRouteError, useNavigate } from "react-router";
+import {
+  isRouteErrorResponse,
+  useRouteError,
+  useNavigate,
+  useSubmit,
+} from "react-router";
 
 export default function ErrorBoundary() {
+  const submit = useSubmit();
   const error = useRouteError();
   const navigate = useNavigate();
   if (import.meta.env.DEV) {
@@ -24,10 +30,11 @@ export default function ErrorBoundary() {
     stack = error.stack;
     console.log(stack);
   }
+  const msgs = ["You are not logged in!", "jwt expired", "jwt malformed"];
 
   const redirect = () => {
-    details.includes("You are not logged in!")
-      ? (window.location.href = "/logout")
+    msgs.includes(details)
+      ? submit({}, { action: "/logout", method: "post" })
       : navigate("/");
   };
 
@@ -47,6 +54,7 @@ export default function ErrorBoundary() {
       </p>
       <button
         onClick={redirect}
+        type="button"
         className="my-4 btn bg-blue-500 hover:bg-blue-700 text-white"
       >
         Go back to home

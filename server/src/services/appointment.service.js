@@ -1,7 +1,7 @@
 import Patient from "../models/patient.js";
 import Doctor from "../models/doctor.js";
 import Appointment from "../models/appointment.js";
-import { sendMail } from "./mail.js";
+import { sendMail } from "../utils/mail.js";
 import { appointmentStatusTemplate } from "../utils/emailTemplates.js";
 import responseHandler from "../utils/responseHandler.js";
 const { errorResponse, notFoundResponse } = responseHandler;

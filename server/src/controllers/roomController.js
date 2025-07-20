@@ -5,12 +5,12 @@ const { successResponse } = responseHandler;
 
 export const getRoomMeta = tryCatchFn(async (req, res, next) => {
   const roomMeta = await roomService.getRoomMeta();
-  successResponse(res, roomMeta, "Room meta data fetched successfully", 200);
+  return successResponse(res, roomMeta, "Room meta data fetched successfully", 200);
 });
 
 export const createRoom = tryCatchFn(async (req, res, next) => {
   const room = await roomService.createRoom(req.validatedData, next);
-  successResponse(res, room.roomNumber, "Room created successfully", 201);
+  return successResponse(res, room.roomNumber, "Room created successfully", 201);
 });
 
 export const getAllRooms = tryCatchFn(async (req, res, next) => {
@@ -24,7 +24,7 @@ export const getAllRooms = tryCatchFn(async (req, res, next) => {
     sort,
     next
   );
-  successResponse(res, responseData, "Rooms data fetched successfully", 200);
+  return successResponse(res, responseData, "Rooms data fetched successfully", 200);
 });
 
 export const updateRoom = tryCatchFn(async (req, res, next) => {
@@ -34,11 +34,11 @@ export const updateRoom = tryCatchFn(async (req, res, next) => {
     req.validatedData,
     next
   );
-  successResponse(res, responseData, "Room updated successfully", 200);
+  return successResponse(res, responseData, "Room updated successfully", 200);
 });
 
 export const deleteRoom = tryCatchFn(async (req, res, next) => {
   const { id: roomId } = req.params;
   const responseData = await roomService.deleteRoom(roomId, next);
-  successResponse(res, responseData, "Room deleted successfully", 200);
+  return successResponse(res, responseData, "Room deleted successfully", 200);
 });

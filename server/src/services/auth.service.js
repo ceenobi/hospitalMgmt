@@ -1,7 +1,7 @@
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { sendMail } from "./mail.js";
+import { sendMail } from "../utils/mail.js";
 import {
   passwordResetTemplate,
   resendVerificationTemplate,
@@ -60,11 +60,11 @@ const authService = {
     }
     return user;
   },
-  refreshToken: async (refreshToken, next) => {
-    if (!refreshToken) {
+  refreshToken: async (token, next) => {
+    if (!token) {
       return next(errorResponse("Refresh token required", 401));
     }
-    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id);
     if (!user) {
       return next(errorResponse("Invalid refresh token", 401));
@@ -211,7 +211,7 @@ const authService = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      path: "/",
+      path: "/api/v1/auth/refresh-token",
     });
     return true;
   },

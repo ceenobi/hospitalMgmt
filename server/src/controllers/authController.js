@@ -6,26 +6,34 @@ const { successResponse } = responseHandler;
 
 export const signup = tryCatchFn(async (req, res, next) => {
   const user = await authService.register(req.validatedData, next);
-  const accessToken = createSendToken(user, res);
-  return successResponse(res, accessToken, "Registration successful", 201);
+  const { accessToken, refreshToken, cookieOptions } = createSendToken(user);
+  res.cookie("clinicareUserRefreshToken", refreshToken, cookieOptions);
+  return successResponse(res, { accessToken }, "Registration successfull", 201);
 });
 
 export const signin = tryCatchFn(async (req, res, next) => {
   const user = await authService.login(req.validatedData, next);
-  const accessToken = createSendToken(user, res);
+  const { accessToken, refreshToken, cookieOptions } = createSendToken(user);
+  res.cookie("clinicareUserRefreshToken", refreshToken, cookieOptions);
   return successResponse(
     res,
-    accessToken,
+    { accessToken },
     `Welcome back ${user.fullname}!`,
     200
   );
 });
 
 export const refreshToken = tryCatchFn(async (req, res, next) => {
-  const { clinicareUserRefreshToken: refreshToken } = req.cookies;
-  const user = await authService.refreshToken(refreshToken, next);
-  const accessToken = createSendToken(user, res);
-  return successResponse(res, accessToken, "Refresh token successfull", 200);
+  const { clinicareUserRefreshToken: token } = req.cookies;
+  const user = await authService.refreshToken(token, next);
+  const { accessToken, refreshToken, cookieOptions } = createSendToken(user);
+  res.cookie("clinicareUserRefreshToken", refreshToken, cookieOptions);
+  return successResponse(
+    res,
+    { accessToken },
+    "Refresh token successfull",
+    200
+  );
 });
 
 export const verifyAccount = tryCatchFn(async (req, res, next) => {

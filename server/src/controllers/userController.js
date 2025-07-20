@@ -5,7 +5,7 @@ const { successResponse } = responseHandler;
 
 export const createUser = tryCatchFn(async (req, res, next) => {
   const user = await userService.createUser(req.validatedData, next);
-  successResponse(res, user.fullname, "User created successfully", 201);
+  return successResponse(res, user.fullname, "User created successfully", 201);
 });
 
 export const getAllUsers = tryCatchFn(async (req, res, next) => {
@@ -18,7 +18,7 @@ export const getAllUsers = tryCatchFn(async (req, res, next) => {
     sort,
     next
   );
-  successResponse(res, responseData, "Users data fetched successfully", 200);
+  return successResponse(res, responseData, "Users data fetched successfully", 200);
 });
 
 export const updateUserRole = tryCatchFn(async (req, res, next) => {
@@ -28,11 +28,11 @@ export const updateUserRole = tryCatchFn(async (req, res, next) => {
     req.validatedData,
     next
   );
-  successResponse(res, responseData, "User updated successfully", 200);
+  return successResponse(res, responseData, "User updated successfully", 200);
 });
 
 export const deleteUser = tryCatchFn(async (req, res, next) => {
   const { id: userId } = req.params;
   const responseData = await userService.deleteUser(userId, next);
-  successResponse(res, responseData, "User deleted successfully", 200);
+  return successResponse(res, responseData, "User deleted successfully", 200);
 });

@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import {
   deleteAccount,
   getPasswordResetToken,
@@ -12,7 +13,7 @@ import {
   uploadAvatar,
   verifyAccount,
 } from "../api";
-// import { jwtDecode } from "jwt-decode";
+import { toast } from "sonner";
 
 export const registerAction = async ({ request }) => {
   const formData = await request.formData();
@@ -58,7 +59,8 @@ export const verifyAccountAction = async ({ request }) => {
 
 export const logoutAction = async ({ setAccessToken }) => {
   const res = await logout({});
-  setAccessToken(null);
+  toast.success(res.message);
+  setAccessToken("");
   return res;
 };
 
@@ -87,48 +89,30 @@ export const updatePasswordAction = async ({ request }) => {
   return res;
 };
 
-export const refreshTokenAction = async ({ setAccessToken }) => {
-  const res = await refreshToken(setAccessToken);
-  return res;
+export const refreshTokenAction = async ({ accessToken, setAccessToken }) => {
+  if (!accessToken) return;
+  const decodedToken = jwtDecode(accessToken);
+  const expirationTime = decodedToken?.exp ?? 0;
+  const currentTime = Date.now();
+  const timeUntilExpiry = expirationTime * 1000 - currentTime;
+  const refreshBuffer = 2 * 60 * 1000;
+  const timeUntilRefresh = timeUntilExpiry - refreshBuffer;
+  if (timeUntilRefresh <= 0) {
+    const res = await refreshToken(setAccessToken);
+    return res;
+  } else {
+    const refreshTimer = setTimeout(async () => {
+      const res = await refreshToken(setAccessToken);
+      return res;
+    }, timeUntilRefresh);
+
+    return () => clearTimeout(refreshTimer);
+  }
 };
 
-// export const setupTokenRefresh = async (accessToken, setAccessToken) => {
-//   if (!accessToken) return;
-//   try {
-//     const decodedToken = jwtDecode(accessToken);
-//     const expirationTime = decodedToken?.exp ?? 0;
-//     const currentTime = Date.now();
-//     const timeUntilExpiry = expirationTime * 1000 - currentTime;
-//     const refreshBuffer = 2 * 60 * 1000;
-//     const timeUntilRefresh = timeUntilExpiry - refreshBuffer;
-
-//     if (timeUntilRefresh <= 0) {
-//       try {
-//         const res = await refreshToken();
-//         setAccessToken(res?.data?.accessToken);
-//       } catch (error) {
-//         if (import.meta.env.DEV) {
-//           console.error(error);
-//         }
-//       }
-//     } else {
-//       const refreshTimer = setTimeout(async () => {
-//         try {
-//           const res = await refreshToken();
-//           setAccessToken(res?.data?.accessToken);
-//         } catch (error) {
-//           if (import.meta.env.DEV) {
-//             console.error(error);
-//           }
-//         }
-//       }, timeUntilRefresh);
-
-//       return () => clearTimeout(refreshTimer);
-//     }
-//   } catch (error) {
-//     if (import.meta.env.DEV) {
-//       console.error("Error setting up token refresh:", error);
-//     }
-//     setAccessToken("");
+// } catch (error) {
+//   if (import.meta.env.DEV) {
+//     console.error("Error refreshing token:", error);
 //   }
-// };
+//   await logoutAction({ setAccessToken });
+// }

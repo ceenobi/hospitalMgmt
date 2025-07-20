@@ -5,12 +5,12 @@ const { successResponse } = responseHandler;
 
 export const register = tryCatchFn(async (req, res, next) => {
   const responseData = await doctorService.register(req.validatedData, next);
-  successResponse(res, responseData, "Doctor registered successfully", 201);
+  return successResponse(res, responseData, "Doctor registered successfully", 201);
 });
 
 export const getAllUserCollections = tryCatchFn(async (req, res, next) => {
   const responseData = await doctorService.getAllUserCollections(next);
-  successResponse(res, responseData, "Users data fetched successfully", 200);
+  return successResponse(res, responseData, "Users data fetched successfully", 200);
 });
 
 export const getAllDoctors = tryCatchFn(async (req, res, next) => {
@@ -23,7 +23,7 @@ export const getAllDoctors = tryCatchFn(async (req, res, next) => {
     availability,
     next
   );
-  successResponse(res, responseData, "Doctors data fetched successfully", 200);
+  return successResponse(res, responseData, "Doctors data fetched successfully", 200);
 });
 
 export const updateDoctor = tryCatchFn(async (req, res, next) => {
@@ -33,11 +33,11 @@ export const updateDoctor = tryCatchFn(async (req, res, next) => {
     req.validatedData,
     next
   );
-  successResponse(res, responseData, "Doctor updated successfully", 200);
+  return successResponse(res, responseData, "Doctor updated successfully", 200);
 });
 
 export const deleteDoctor = tryCatchFn(async (req, res, next) => {
   const { id: doctorId } = req.params;
   const responseData = await doctorService.deleteDoctor(doctorId, next);
-  successResponse(res, responseData, "Doctor deleted successfully", 200);
+  return successResponse(res, responseData, "Doctor deleted successfully", 200);
 });

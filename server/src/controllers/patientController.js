@@ -10,7 +10,7 @@ export const register = tryCatchFn(async (req, res, next) => {
     userId,
     next
   );
-  successResponse(res, responseData, "Patient registered successfully", 201);
+  return successResponse(res, responseData, "Patient registered successfully", 201);
 });
 
 export const getAllPatients = tryCatchFn(async (req, res, next) => {
@@ -24,7 +24,7 @@ export const getAllPatients = tryCatchFn(async (req, res, next) => {
     sort,
     next
   );
-  successResponse(res, responseData, "Patients data fetched successfully", 200);
+  return successResponse(res, responseData, "Patients data fetched successfully", 200);
 });
 
 export const updatePatient = tryCatchFn(async (req, res, next) => {
@@ -34,17 +34,17 @@ export const updatePatient = tryCatchFn(async (req, res, next) => {
     req.validatedData,
     next
   );
-  successResponse(res, responseData, "Patient updated successfully", 200);
+  return successResponse(res, responseData, "Patient updated successfully", 200);
 });
 
 export const deletePatient = tryCatchFn(async (req, res, next) => {
   const { id: patientId } = req.params;
   const responseData = await patientService.deletePatient(patientId, next);
-  successResponse(res, responseData, "Patient deleted successfully", 200);
+  return successResponse(res, responseData, "Patient deleted successfully", 200);
 });
 
 export const getPatient = tryCatchFn(async (req, res, next) => {
   const { id: userId } = req.user;
   const responseData = await patientService.getPatient(userId, next);
-  successResponse(res, responseData, "Patient fetched successfully", 200);
+  return successResponse(res, responseData, "Patient fetched successfully", 200);
 });

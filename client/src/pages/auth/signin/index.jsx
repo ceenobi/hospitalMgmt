@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RiUser4Fill } from "@remixicon/react";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
-import { Link, useFetcher, useNavigate, useOutletContext } from "react-router";
+import { Link, useFetcher, useOutletContext } from "react-router";
 import useMetaArgs from "@/shared/hooks/useMeta";
 import { toast } from "sonner";
 import ErrorAlert from "@/shared/components/errorAlert";
@@ -26,7 +26,6 @@ export function Component() {
     resolver: zodResolver(validateSignInSchema),
   });
   const fetcher = useFetcher();
-  const navigate = useNavigate();
   const isSubmitting = fetcher.state === "submitting";
   const error = fetcher.data?.status === "fail" ? fetcher.data.message : null;
 
@@ -34,9 +33,8 @@ export function Component() {
     if (fetcher.data?.success) {
       toast.success(fetcher.data.message);
       setAccessToken(fetcher.data.data.accessToken);
-      navigate("/", { from: "/account/signin", replace: true });
     }
-  }, [fetcher.data, navigate, setAccessToken]);
+  }, [fetcher.data, setAccessToken]);
 
   const onSubmit = (data) => {
     fetcher.submit(data, {

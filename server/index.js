@@ -16,27 +16,29 @@ import userRoutes from "./src/routes/userRoutes.js";
 import patientRoutes from "./src/routes/patientRoutes.js";
 import roomRoutes from "./src/routes/roomRoutes.js";
 import appointmentRoutes from "./src/routes/appointment.js";
+import paymentRoutes from "./src/routes/paymentRoutes.js";
 
 // Initialize Express app
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:4400",
-  "https://hospital-mgmt-care.vercel.app",
-];
+// const allowedOrigins = [
+//   "http://localhost:4400",
+//   "https://hospital-mgmt-care.vercel.app",
+// ];
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps, curl, etc.)
-    if (!origin) return callback(null, true);
+  // origin: function (origin, callback) {
+  //   // Allow requests with no origin (like mobile apps, curl, etc.)
+  //   if (!origin) return callback(null, true);
 
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg =
-        "The CORS policy for this site does not allow access from the specified Origin.";
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
+  //   if (allowedOrigins.indexOf(origin) === -1) {
+  //     const msg =
+  //       "The CORS policy for this site does not allow access from the specified Origin.";
+  //     return callback(new Error(msg), false);
+  //   }
+  //   return callback(null, true);
+  // },
+  origin: ["http://localhost:4400", "https://hospital-mgmt-care.vercel.app"],
   credentials: true,
   methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -45,34 +47,34 @@ const corsOptions = {
 };
 
 // Handle preflight requests
-app.options("*", cors(corsOptions));
+// app.options("*", cors(corsOptions));
 
 // Middleware
 app.use(cors(corsOptions));
 
 // Add headers before the routes are defined
-app.use(function (req, res, next) {
-  // Set CORS headers
-  if (allowedOrigins.includes(req.headers.origin)) {
-    res.header("Access-Control-Allow-Origin", req.headers.origin);
-  }
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, DELETE, OPTIONS"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  res.header("Access-Control-Allow-Credentials", "true");
+// app.use(function (req, res, next) {
+//   // Set CORS headers
+//   if (allowedOrigins.includes(req.headers.origin)) {
+//     res.header("Access-Control-Allow-Origin", req.headers.origin);
+//   }
+//   res.header(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, PATCH, DELETE, OPTIONS"
+//   );
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+//   );
+//   res.header("Access-Control-Allow-Credentials", "true");
 
-  // Handle preflight
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
+//   // Handle preflight
+//   if (req.method === "OPTIONS") {
+//     return res.status(200).end();
+//   }
 
-  next();
-});
+//   next();
+// });
 app.use(compression());
 app.use(cookieParser());
 app.use(helmet());
@@ -109,6 +111,7 @@ app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/patient", patientRoutes);
 app.use("/api/v1/room", roomRoutes);
 app.use("/api/v1/appointment", appointmentRoutes);
+app.use("/api/v1/payment", paymentRoutes);
 
 // Handle 404 - Must be after all other routes
 app.use(catchNotFound);

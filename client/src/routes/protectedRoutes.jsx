@@ -1,38 +1,50 @@
+import { useAuthToken } from "@/context";
 import { useEffect } from "react";
-import { useLocation, useNavigate, useRouteLoaderData } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 export const PublicRoutes = ({ children }) => {
-  const user = useRouteLoaderData("auth_user");
+  const { accessToken } = useAuthToken();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from || "/";
   useEffect(() => {
-    if (user) {
+    if (accessToken) {
       navigate(from, { replace: true });
     }
-  }, [user, from, navigate]);
+  }, [accessToken, from, navigate, location.pathname]);
   return children;
 };
 
-export const PrivateRoutes = ({ children }) => {
-  const user = useRouteLoaderData("auth_user");
+export const PrivateRoutes = ({ children, user }) => {
+  const { accessToken } = useAuthToken();
   const navigate = useNavigate();
   const location = useLocation();
-
   const from = location.state?.from || "/";
+
   useEffect(() => {
-    if (!user) {
+    if (!accessToken) {
       navigate("/account/signin", { state: { from }, replace: true });
     }
-  }, [user, from, navigate]);
+  }, [accessToken, from, navigate]);
+
+  useEffect(() => {
+    if (user && !user.isVerified && location.pathname !== "/verify-account") {
+      navigate("/verify-account", {
+        state: { from: location },
+        replace: true,
+      });
+    }
+  }, [user, from, navigate, location]);
 
   useEffect(() => {
     if (
       user &&
-      !user.isVerified &&
-      location.pathname !== "/account/verify-account"
+      user.isVerified &&
+      user.role === "patient" &&
+      !user?.isCompletedOnboard &&
+      location.pathname !== "/patients-onboard"
     ) {
-      navigate("/account/verify-account", {
+      navigate("/patients-onboard", {
         state: { from: location },
         replace: true,
       });

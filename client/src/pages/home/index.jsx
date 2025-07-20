@@ -1,3 +1,4 @@
+import useMetaArgs from "@/shared/hooks/useMeta";
 import {
   clinicareStats,
   enterpriseFeatures,
@@ -6,6 +7,11 @@ import {
 import { Link } from "react-router";
 
 export function Component() {
+  useMetaArgs({
+    title: "Home - Clinicare",
+    description: "Welcome to Clinicare.",
+    keywords: "Clinicare, home, account",
+  });
   return (
     <>
       <div className="mt-20 py-5 px-4 max-w-[600px] mx-auto min-h-[450px] flex flex-col justify-end items-center">

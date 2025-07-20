@@ -1,11 +1,12 @@
+import { PublicRoutes } from "@/routes/protectedRoutes";
 import Logo from "@/shared/components/logo";
 import { usePublicRoutes } from "@/shared/hooks/useProtected";
 import { RiCopyrightFill } from "@remixicon/react";
 import { Outlet, useOutletContext } from "react-router";
 
 export function Component() {
-  const { accessToken, setAccessToken, user } = useOutletContext();
-  usePublicRoutes(accessToken, user);
+  const { accessToken, setAccessToken } = useOutletContext();
+  usePublicRoutes(accessToken);
   return (
     <>
       <div className="min-h-screen bg-slate-100 p-4">

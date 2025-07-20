@@ -196,3 +196,48 @@ export const appointmentStatusTemplate = (name, status) => `
   </body>
   </html>
   `;
+
+export const createPaymentTemplate = (name, amount) => `
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background-color:rgb(48, 44, 183); color: white; padding: 20px; text-align: center; }
+          .content { padding: 20px; }
+          .button {
+              display: inline-block;
+              padding: 10px 20px;
+              background-color:rgb(41, 48, 171);
+              color: white;
+              text-decoration: none;
+              border-radius: 4px;
+              margin: 15px 0;
+          }
+          .footer { 
+              margin-top: 20px;
+              font-size: 12px;
+              color: #777;
+              text-align: center;
+          }
+      </style>
+  </head>
+  <body>
+      <div class="container">
+          <div class="header">
+              <h1>Payment Information</h1>
+          </div>
+          <div class="content">
+              <p>Hello ${name},</p>
+              <p>Your payment has been created successfully. Please log into your account to view your payment details.</p>
+              <p>After successfully making payment, kindly upload the receipt to your account. You will receive a confirmation email.</p>
+              <p>Thank you for using our service.</p>
+          </div>
+          <div class="footer">
+              <p>© ${new Date().getFullYear()} Clinicare - Booking Center Clinic. All rights reserved.</p>
+          </div>
+      </div>
+  </body>
+  </html>
+  `;

@@ -1,24 +1,17 @@
 import { Outlet, ScrollRestoration } from "react-router";
-import { Toaster } from "sonner";
-import { useEffect, useState } from "react";
 import { useAuthToken } from "@/context";
-import { authUser } from "@/features/auth/services/api";
+import LazyLoader from "@/shared/components/lazyLoader";
 
 export function Component() {
-  const { accessToken, setAccessToken } = useAuthToken();
-  const [user, setUser] = useState(null);
+  const { accessToken, setAccessToken, user, isAuthenticating } =
+    useAuthToken();
 
-  useEffect(() => {
-    async function fetchUser() {
-      const response = await authUser(accessToken);
-      setUser(response?.data);
-    }
-    fetchUser();
-  }, [accessToken]);
+  if (isAuthenticating) {
+    return <LazyLoader />;
+  }
 
   return (
     <main>
-      <Toaster richColors position="top-center" />
       <Outlet context={{ accessToken, setAccessToken, user }} />
       <ScrollRestoration />
     </main>

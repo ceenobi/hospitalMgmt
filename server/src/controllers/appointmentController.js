@@ -5,7 +5,7 @@ const { successResponse } = responseHandler;
 
 export const getAppointmentMeta = tryCatchFn(async (req, res, next) => {
   const appointmentMeta = await appointmentService.getAppointmentMeta();
-  successResponse(
+  return successResponse(
     res,
     appointmentMeta,
     "Appointment meta data fetched successfully",
@@ -19,7 +19,7 @@ export const bookAppointment = tryCatchFn(async (req, res, next) => {
     ...req.validatedData,
     userId,
   });
-  successResponse(
+  return successResponse(
     res,
     appointment,
     "Appointment booked! You will receive a confirmation email",
@@ -32,7 +32,7 @@ export const createAppointment = tryCatchFn(async (req, res, next) => {
     req.validatedData,
     next
   );
-  successResponse(res, appointment, "Appointment created successfully", 201);
+  return successResponse(res, appointment, "Appointment created successfully", 201);
 });
 
 export const getAllAppointments = tryCatchFn(async (req, res, next) => {
@@ -47,7 +47,7 @@ export const getAllAppointments = tryCatchFn(async (req, res, next) => {
     endDate,
     next
   );
-  successResponse(
+  return successResponse(
     res,
     responseData,
     "Appointments data fetched successfully",
@@ -69,7 +69,7 @@ export const getPatientAppointments = tryCatchFn(async (req, res, next) => {
     userId,
     next
   );
-  successResponse(
+  return successResponse(
     res,
     responseData,
     "Patient appointments data fetched successfully",
@@ -84,7 +84,7 @@ export const updateAppointment = tryCatchFn(async (req, res, next) => {
     req.validatedData,
     next
   );
-  successResponse(res, responseData, "Appointment updated successfully", 200);
+  return successResponse(res, responseData, "Appointment updated successfully", 200);
 });
 
 export const deleteAppointment = tryCatchFn(async (req, res, next) => {
@@ -93,5 +93,5 @@ export const deleteAppointment = tryCatchFn(async (req, res, next) => {
     appointmentId,
     next
   );
-  successResponse(res, responseData, "Appointment deleted successfully", 200);
+  return successResponse(res, responseData, "Appointment deleted successfully", 200);
 });

@@ -303,3 +303,28 @@ export const validateBookAppointmentSchema = z.object({
       message: "Notes cannot be more than 255 characters",
     }),
 });
+
+export const validateCreatePaymentSchema = z.object({
+  patientId: z.string().min(3, {
+    message: "Patient ID is required",
+  }),
+  doctorId: z.string().min(3, {
+    message: "Doctor ID is required",
+  }),
+  amount: z.coerce.number().min(1, {
+    message: "Amount must be at least 1",
+  }),
+  notes: z
+    .string()
+    .min(3, {
+      message: "Notes must be at least 3 characters long",
+    })
+    .max(255, {
+      message: "Notes cannot be more than 255 characters",
+    }),
+  status: z
+    .enum(["pending", "paid", "cancelled"])
+    .refine((value) => value !== "", {
+      message: "Status is required",
+    }),
+});

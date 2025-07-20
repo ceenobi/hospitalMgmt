@@ -1,8 +1,6 @@
 import axiosInstance from "@/shared/utils/axiosInstance";
 import { tryCatchFn } from "@/shared/utils/constants";
 
-let userCache = null;
-
 const getHeaders = (accessToken) => {
   return {
     headers: {
@@ -29,18 +27,17 @@ export const logout = tryCatchFn(async () => {
       withCredentials: true,
     }
   );
-  userCache = null;
   return response.data;
 });
 
-export const refreshToken = tryCatchFn(async (setAccessToken) => {
+export const refreshToken = async (setAccessToken) => {
   const response = await axiosInstance.post("/api/v1/auth/refresh-token", {
     withCredentials: true,
   });
   const newAccessToken = response.data.data.accessToken;
   setAccessToken(newAccessToken);
   return newAccessToken;
-});
+};
 
 export const getPasswordResetToken = tryCatchFn(
   async (userData, accessToken) => {
@@ -68,7 +65,6 @@ export const verifyAccount = tryCatchFn(async (userData, accessToken) => {
     userData,
     getHeaders(accessToken)
   );
-  userCache = null;
   return response.data;
 });
 
@@ -83,20 +79,13 @@ export const resendVerifyToken = async (accessToken) => {
 
 export const authUser = tryCatchFn(async (accesstoken) => {
   if (!accesstoken) return null;
-  if (userCache) {
-    return userCache;
-  }
-  try {
-    const response = await axiosInstance.get(
-      "/api/v1/auth/user",
-      getHeaders(accesstoken)
-    );
-    userCache = response.data;
-    return response.data;
-  } catch (error) {
-    userCache = null;
-    import.meta.env.DEV && console.error(error);
-  }
+  // if (usercache) return usercache;
+  const response = await axiosInstance.get(
+    "/api/v1/auth/user",
+    getHeaders(accesstoken)
+  );
+  // usercache = response.data;
+  return response.data;
 });
 
 export const uploadAvatar = tryCatchFn(async (avatar, accessToken) => {
@@ -105,7 +94,6 @@ export const uploadAvatar = tryCatchFn(async (avatar, accessToken) => {
     avatar,
     getHeaders(accessToken)
   );
-  userCache = null;
   return response.data;
 });
 
@@ -115,7 +103,6 @@ export const updateUser = tryCatchFn(async (userData, accessToken) => {
     userData,
     getHeaders(accessToken)
   );
-  userCache = null;
   return response.data;
 });
 
@@ -125,7 +112,6 @@ export const updateUserPassword = tryCatchFn(async (userData, accessToken) => {
     userData,
     getHeaders(accessToken)
   );
-  userCache = null;
   return response.data;
 });
 
@@ -134,6 +120,5 @@ export const deleteAccount = async (accessToken) => {
     "/api/v1/auth/delete-account",
     getHeaders(accessToken)
   );
-  userCache = null;
   return response.data;
 };
