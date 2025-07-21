@@ -79,12 +79,10 @@ export const resendVerifyToken = async (accessToken) => {
 
 export const authUser = tryCatchFn(async (accesstoken) => {
   if (!accesstoken) return null;
-  // if (usercache) return usercache;
   const response = await axiosInstance.get(
     "/api/v1/auth/user",
     getHeaders(accesstoken)
   );
-  // usercache = response.data;
   return response.data;
 });
 

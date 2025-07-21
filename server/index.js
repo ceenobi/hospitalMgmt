@@ -40,30 +40,6 @@ const corsOptions = {
 
 // Middleware
 app.use(cors(corsOptions));
-
-// Add headers before the routes are defined
-// app.use(function (req, res, next) {
-//   // Set CORS headers
-//   if (allowedOrigins.includes(req.headers.origin)) {
-//     res.header("Access-Control-Allow-Origin", req.headers.origin);
-//   }
-//   res.header(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, PATCH, DELETE, OPTIONS"
-//   );
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-//   );
-//   res.header("Access-Control-Allow-Credentials", "true");
-
-//   // Handle preflight
-//   if (req.method === "OPTIONS") {
-//     return res.status(200).end();
-//   }
-
-//   next();
-// });
 app.use(compression());
 app.use(cookieParser());
 app.use(helmet());
@@ -75,14 +51,11 @@ app.disable("x-powered-by");
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
-
 // Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
-  // console.log(`Request at ${req.requestTime}`);
   next();
 });
-
 // Mount routes
 app.get("/", (req, res) => {
   res.status(200).json({

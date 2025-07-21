@@ -20,10 +20,10 @@ export const createSendToken = (user) => {
       secure: process.env.NODE_ENV === "production",
       path: "/api/v1/auth/refresh-token",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      // domain:
-      //   process.env.NODE_ENV === "production"
-      //     ? "hospital-mgmt-care.vercel.app"
-      //     : undefined,
+      domain:
+        process.env.NODE_ENV === "production"
+          ? "hospital-mgmt-care.vercel.app"
+          : undefined,
     };
     return {
       accessToken: token.accessToken,
