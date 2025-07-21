@@ -100,10 +100,16 @@ export const refreshTokenAction = async ({ accessToken, setAccessToken }) => {
     const timeUntilRefresh = timeUntilExpiry - refreshBuffer;
     if (timeUntilRefresh <= 0) {
       const res = await refreshToken(setAccessToken);
+      if (!res) {
+        return await logoutAction({ setAccessToken });
+      }
       return res;
     } else {
       const refreshTimer = setTimeout(async () => {
         const res = await refreshToken(setAccessToken);
+        if (!res) {
+          return await logoutAction({ setAccessToken });
+        }
         return res;
       }, timeUntilRefresh);
 
@@ -113,6 +119,6 @@ export const refreshTokenAction = async ({ accessToken, setAccessToken }) => {
     if (import.meta.env.DEV) {
       console.error("Error refreshing token:", error);
     }
-    await logoutAction({ setAccessToken });
+    return await logoutAction({ setAccessToken });
   }
 };

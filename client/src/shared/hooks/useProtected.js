@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 
-export const usePublicRoutes = (accessToken) => {
+export const usePublicRoutes = (accessToken, user) => {
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from || "/dashboard";
   useEffect(() => {
-    if (accessToken) {
+    if (accessToken && user) {
       navigate(from, { replace: true });
     }
-  }, [accessToken, from, navigate, location.pathname]);
+  }, [accessToken, user, from, navigate, location.pathname]);
   return true;
 };
 
@@ -19,13 +19,13 @@ export const usePrivateRoutes = (accessToken, user) => {
   const from = location.state?.from || "/dashboard";
 
   useEffect(() => {
-    if (!accessToken) {
+    if (!accessToken || !user) {
       navigate(`/account/signin`, {
         state: { from },
         replace: true,
       });
     }
-  }, [accessToken, from, navigate]);
+  }, [accessToken, user, from, navigate]);
 
   useEffect(() => {
     if (user && !user.isVerified && location.pathname !== "/verify-account") {

@@ -5,8 +5,8 @@ import { RiCopyrightFill } from "@remixicon/react";
 import { Outlet, useOutletContext } from "react-router";
 
 export function Component() {
-  const { accessToken, setAccessToken } = useOutletContext();
-  usePublicRoutes(accessToken);
+  const { accessToken, setAccessToken, user } = useOutletContext();
+  usePublicRoutes(accessToken, user);
   return (
     <>
       <div className="min-h-screen bg-slate-100 p-4">
