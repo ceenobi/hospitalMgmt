@@ -22,13 +22,19 @@ import paymentRoutes from "./src/routes/paymentRoutes.js";
 const app = express();
 
 // Trust first proxy (important for rate limiting behind proxies)
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 
 const corsOptions = {
   origin: ["http://localhost:4400", "https://hospital-mgmt-care.vercel.app"],
   credentials: true,
   methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "x-xsrf-token",
+    "Access-Control-Allow-Origin",
+    "Access-Control-Allow-Credentials",
+  ],
   exposedHeaders: ["Content-Range", "X-Content-Range"],
   optionsSuccessStatus: 200,
 };
