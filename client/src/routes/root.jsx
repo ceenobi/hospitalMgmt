@@ -1,14 +1,8 @@
 import { Outlet, ScrollRestoration } from "react-router";
 import { useAuthToken } from "@/context";
-import LazyLoader from "@/shared/components/lazyLoader";
 
 export function Component() {
-  const { accessToken, setAccessToken, user, isAuthenticating } =
-    useAuthToken();
-
-  if (isAuthenticating) {
-    return <LazyLoader />;
-  }
+  const { accessToken, setAccessToken, user } = useAuthToken();
 
   return (
     <main>

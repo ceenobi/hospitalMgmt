@@ -34,9 +34,12 @@ export function Component() {
           </Search>
         </div>
         <Suspense fallback={<SkeletonTable />}>
-          <Await resolve={appointmentsData}>
-            <Table appointments={appointments} meta={meta} />
-          </Await>
+          <Await
+            resolve={appointments}
+            children={(appointments) => (
+              <Table appointments={appointments} meta={meta} />
+            )}
+          />
         </Suspense>
       </div>
     </Container>

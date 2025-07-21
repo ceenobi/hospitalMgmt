@@ -35,7 +35,7 @@ export default function ErrorBoundary() {
   const redirect = () => {
     msgs.includes(details)
       ? submit({}, { action: "/logout", method: "post" })
-      : navigate("/");
+      : navigate("/dashboard");
   };
 
   return (
@@ -57,7 +57,7 @@ export default function ErrorBoundary() {
         type="button"
         className="my-4 btn bg-blue-500 hover:bg-blue-700 text-white"
       >
-        Go back to home
+        Go back to dashboard
       </button>
     </div>
   );

@@ -2,16 +2,16 @@ import { useAuthToken } from "@/context";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 
-export const PublicRoutes = ({ children }) => {
+export const PublicRoutes = ({ children, user }) => {
   const { accessToken } = useAuthToken();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from || "/";
   useEffect(() => {
-    if (accessToken) {
+    if (accessToken && user) {
       navigate(from, { replace: true });
     }
-  }, [accessToken, from, navigate, location.pathname]);
+  }, [accessToken, from, navigate, location.pathname, user]);
   return children;
 };
 
@@ -22,10 +22,10 @@ export const PrivateRoutes = ({ children, user }) => {
   const from = location.state?.from || "/";
 
   useEffect(() => {
-    if (!accessToken) {
+    if (!accessToken || !user) {
       navigate("/account/signin", { state: { from }, replace: true });
     }
-  }, [accessToken, from, navigate]);
+  }, [accessToken, from, navigate, user]);
 
   useEffect(() => {
     if (user && !user.isVerified && location.pathname !== "/verify-account") {

@@ -1,4 +1,3 @@
-import { PublicRoutes } from "@/routes/protectedRoutes";
 import Logo from "@/shared/components/logo";
 import { usePublicRoutes } from "@/shared/hooks/useProtected";
 import { RiCopyrightFill } from "@remixicon/react";

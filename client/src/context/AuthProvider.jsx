@@ -7,7 +7,6 @@ import { authUser } from "@/features/auth/services/api";
 export default function AuthProvider({ children }) {
   const { accessToken, setAccessToken } = useToken();
   const [user, setUser] = useState(null);
-  const [isAuthenticating, setIsAuthenticating] = useState(true);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -23,16 +22,14 @@ export default function AuthProvider({ children }) {
 
   useEffect(() => {
     async function fetchUser() {
-      setIsAuthenticating(true);
       const response = await authUser(accessToken);
       setUser(response?.data);
-      setIsAuthenticating(false);
     }
     fetchUser();
   }, [accessToken]);
 
   return (
-    <AuthContext.Provider value={{ accessToken, setAccessToken, user, isAuthenticating }}>
+    <AuthContext.Provider value={{ accessToken, setAccessToken, user }}>
       {children}
     </AuthContext.Provider>
   );
