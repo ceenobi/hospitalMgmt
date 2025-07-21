@@ -90,29 +90,29 @@ export const updatePasswordAction = async ({ request }) => {
 };
 
 export const refreshTokenAction = async ({ accessToken, setAccessToken }) => {
-  if (!accessToken) return;
-  const decodedToken = jwtDecode(accessToken);
-  const expirationTime = decodedToken?.exp ?? 0;
-  const currentTime = Date.now();
-  const timeUntilExpiry = expirationTime * 1000 - currentTime;
-  const refreshBuffer = 2 * 60 * 1000;
-  const timeUntilRefresh = timeUntilExpiry - refreshBuffer;
-  if (timeUntilRefresh <= 0) {
-    const res = await refreshToken(setAccessToken);
-    return res;
-  } else {
-    const refreshTimer = setTimeout(async () => {
+  try {
+    if (!accessToken) return;
+    const decodedToken = jwtDecode(accessToken);
+    const expirationTime = decodedToken?.exp ?? 0;
+    const currentTime = Date.now();
+    const timeUntilExpiry = expirationTime * 1000 - currentTime;
+    const refreshBuffer = 2 * 60 * 1000;
+    const timeUntilRefresh = timeUntilExpiry - refreshBuffer;
+    if (timeUntilRefresh <= 0) {
       const res = await refreshToken(setAccessToken);
       return res;
-    }, timeUntilRefresh);
+    } else {
+      const refreshTimer = setTimeout(async () => {
+        const res = await refreshToken(setAccessToken);
+        return res;
+      }, timeUntilRefresh);
 
-    return () => clearTimeout(refreshTimer);
+      return () => clearTimeout(refreshTimer);
+    }
+  } catch (error) {
+    if (import.meta.env.DEV) {
+      console.error("Error refreshing token:", error);
+    }
+    await logoutAction({ setAccessToken });
   }
 };
-
-// } catch (error) {
-//   if (import.meta.env.DEV) {
-//     console.error("Error refreshing token:", error);
-//   }
-//   await logoutAction({ setAccessToken });
-// }

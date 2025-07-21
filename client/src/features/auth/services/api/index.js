@@ -30,14 +30,14 @@ export const logout = tryCatchFn(async () => {
   return response.data;
 });
 
-export const refreshToken = async (setAccessToken) => {
+export const refreshToken = tryCatchFn(async (setAccessToken) => {
   const response = await axiosInstance.post("/api/v1/auth/refresh-token", {
     withCredentials: true,
   });
   const newAccessToken = response.data.data.accessToken;
   setAccessToken(newAccessToken);
   return newAccessToken;
-};
+});
 
 export const getPasswordResetToken = tryCatchFn(
   async (userData, accessToken) => {
