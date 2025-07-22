@@ -55,7 +55,7 @@ export function Component() {
   };
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-lg w-full max-w-[400px]">
+    <div className="bg-white p-4 rounded-xl shadow w-full max-w-[400px]">
       <fetcher.Form
         className="flex flex-col items-center gap-2 w-full"
         onSubmit={handleSubmit(onSubmit)}

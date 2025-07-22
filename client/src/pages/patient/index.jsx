@@ -25,17 +25,18 @@ export function Component() {
         </div>
         <AddPatient />
       </div>
-      <div className="mt-8 space-y-4 rounded-lg border-[0.2px] border-gray-500">
-        <div className="flex justify-between items-center p-4">
-          <h2 className="hidden md:block font-semibold">Patients</h2>
+      <div className="mt-8 space-y-4 rounded-lg border-[0.2px] border-gray-300">
+        <div className="flex justify-end items-center p-4">
+          {/* <h2 className="hidden md:block font-semibold">Patients</h2> */}
           <Search id="search-patients">
             <Filter />
           </Search>
         </div>
         <Suspense fallback={<SkeletonTable />}>
-          <Await resolve={data}>
-            <Table patients={patients} meta={meta} />
-          </Await>
+          <Await
+            resolve={patients}
+            children={(patients) => <Table patients={patients} meta={meta} />}
+          />
         </Suspense>
       </div>
     </Container>

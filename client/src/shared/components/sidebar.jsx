@@ -20,8 +20,8 @@ export default function Sidebar({ user }) {
     (userRole === "nurse" && roleBasedPathPermissions.nurse.allowedSubpaths);
 
   return (
-    <aside className="hidden bg-white lg:block min-h-screen fixed z-50 shadow-xl border-r-[0.2px] border-gray-500 w-[200px] xl:w-[240px]">
-      <div className="p-4 border-b-[0.2px] border-gray-500">
+    <aside className="hidden bg-white lg:block min-h-screen fixed z-50 shadow border-r-[0.2px] border-gray-300 w-[200px] xl:w-[240px]">
+      <div className="p-4 border-b-[0.2px] border-gray-300">
         <Logo />
       </div>
       <div className="h-[calc(100vh-150px)] overflow-y-auto">

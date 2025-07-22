@@ -1,6 +1,6 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import usePaginate from "@/shared/hooks/usePaginate";
-import { useRouteLoaderData } from "react-router";
+import { useOutletContext } from "react-router";
 import {
   appointmentsStatusColors,
   appointmentsTableColumns,
@@ -8,13 +8,9 @@ import {
 } from "@/shared/utils/constants";
 import TableData from "@/shared/components/tableData";
 import Paginate from "@/shared/components/paginate";
-import { RiMoreLine } from "@remixicon/react";
 
 export default function PatientTable({ appointments, meta }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [appointmentId, setAppointmentId] = useState(null);
-  const loggedInUser = useRouteLoaderData("auth_user");
+  const { user: loggedInUser } = useOutletContext();
   const { handlePageChange, totalPages, hasMore, currentPage, limit } =
     usePaginate({
       totalPages: meta?.totalPages || 1,
@@ -56,59 +52,6 @@ export default function PatientTable({ appointments, meta }) {
           >
             {appointment.status}
           </div>
-        );
-      case "action":
-        return (
-          <>
-            <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-sm btn-ghost m-1"
-              >
-                <RiMoreLine />
-              </div>
-              <ul
-                tabIndex={0}
-                className="dropdown-content menu bg-base-100 rounded-box z-30 w-52 p-2 shadow-sm"
-              >
-                <li>
-                  <a
-                    onClick={() => {
-                      setIsOpen(true);
-                      setAppointmentId(appointment._id);
-                    }}
-                  >
-                    Edit
-                  </a>
-                </li>
-                <li>
-                  <a
-                    onClick={() => {
-                      setDeleteModalOpen(true);
-                      setAppointmentId(appointment._id);
-                    }}
-                  >
-                    Delete
-                  </a>
-                </li>
-              </ul>
-            </div>
-            {/* {isOpen && appointment._id === appointmentId && (
-                <UpdateAppointment
-                  appointment={appointment}
-                  onClose={() => setIsOpen(false)}
-                  isOpen={isOpen}
-                />
-              )}
-              {deleteModalOpen && appointment._id === appointmentId && (
-                <DeleteAppointment
-                  appointment={appointment}
-                  onClose={() => setDeleteModalOpen(false)}
-                  isOpen={deleteModalOpen}
-                />
-              )} */}
-          </>
         );
       default:
         return cellValue;

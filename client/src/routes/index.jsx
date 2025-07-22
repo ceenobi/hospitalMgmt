@@ -271,11 +271,11 @@ export default function Routes() {
                     Component: async () =>
                       (await import("@/pages/appointment/patientAppointments"))
                         .Component,
-                    action: async ({ request }) =>
-                      (
-                        await import("@/features/appointment/services/actions")
-                      ).appointmentAction({ request, accessToken }),
                   },
+                  action: async ({ request }) =>
+                    (
+                      await import("@/features/appointment/services/actions")
+                    ).appointmentAction({ request, accessToken }),
                 },
                 {
                   path: "payments",

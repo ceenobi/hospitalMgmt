@@ -28,17 +28,20 @@ export function Component() {
         </div>
         <BookAppointment appointmentMeta={meta} />
       </div>
-      <div className="mt-8 space-y-4 rounded-lg border-[0.2px] border-gray-500">
-        <div className="flex justify-between items-center p-4">
-          <h2 className="hidden md:block font-semibold">Appointments</h2>
+      <div className="mt-8 space-y-4 rounded-lg border-[0.2px] border-gray-300 shadow">
+        <div className="flex justify-end items-center p-4">
+          {/* <h2 className="hidden md:block font-semibold">Appointments</h2> */}
           <Search id="search-appointments">
             <Filter />
           </Search>
         </div>
         <Suspense fallback={<SkeletonTable />}>
-          <Await resolve={data}>
-            <Table appointments={appointments} meta={meta} />
-          </Await>
+          <Await
+            resolve={appointments}
+            children={(appointments) => (
+              <Table appointments={appointments} meta={meta} />
+            )}
+          />
         </Suspense>
       </div>
     </Container>

@@ -70,7 +70,7 @@ export function Component() {
 
   return (
     <div className="space-y-6">
-      <h1 className="font-bold text-2xl border-b-[0.2px] border-gray-500 pb-2">
+      <h1 className="font-bold text-2xl border-b-[0.2px] border-gray-300 pb-2">
         Account
       </h1>
       <>
@@ -97,7 +97,7 @@ export function Component() {
           <fetcher.Form
             onSubmit={handleSubmit(onSubmit)}
             id="/dashboard/settings/account"
-            className="border-b-[0.2px] border-gray-500 pb-6 md:pb-2"
+            className="border-b-[0.2px] border-gray-300 pb-6 md:pb-2"
           >
             {error && <ErrorAlert error={error} />}
             <div className="my-4 md:grid grid-cols-12 gap-4">
@@ -171,7 +171,7 @@ export function Component() {
         <div className="md:flex justify-between items-center">
           <div className="mb-6 md:mb-0 md:w-[50%]">
             <h1 className="font-bold text-xl">Delete account</h1>
-            <p className="text-gray-500 text-sm">
+            <p className="text-sm text-muted-foreground">
               When you delete your account, you lose access to medical history
               and appointments. We permanently delete your account and all
               associated data.

@@ -26,9 +26,9 @@ export function Component() {
         </div>
         <CreateAppointment appointmentMeta={appointmentMeta} />
       </div>
-      <div className="mt-8 space-y-4 rounded-lg border-[0.2px] border-gray-500">
-        <div className="flex justify-between items-center p-4">
-          <h2 className="hidden md:block font-semibold">Appointments</h2>
+      <div className="mt-8 space-y-4 rounded-lg border-[0.2px] border-gray-300 shadow">
+        <div className="flex justify-end items-center p-4">
+          {/* <h2 className="hidden md:block font-semibold">Appointments</h2> */}
           <Search id="search-appointments">
             <Filter />
           </Search>

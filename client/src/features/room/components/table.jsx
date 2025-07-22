@@ -4,7 +4,7 @@ import usePaginate from "@/shared/hooks/usePaginate";
 import { roomsStatusColors, roomsTableColumns } from "@/shared/utils/constants";
 import { RiMoreLine } from "@remixicon/react";
 import { useCallback, useState } from "react";
-import { useRouteLoaderData } from "react-router";
+import { useOutletContext } from "react-router";
 import UpdateRoom from "./updateRoom";
 import DeleteRoom from "./deleteRoom";
 
@@ -12,7 +12,7 @@ export default function Table({ rooms, meta }) {
   const [isOpen, setIsOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [roomId, setRoomId] = useState(null);
-  const loggedInUser = useRouteLoaderData("auth_user");
+  const { user: loggedInUser } = useOutletContext();
   const { handlePageChange, totalPages, hasMore, currentPage, limit } =
     usePaginate({
       totalPages: meta?.totalPages || 1,

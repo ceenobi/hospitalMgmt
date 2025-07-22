@@ -36,7 +36,9 @@ export function Component() {
         <img
           src="/hospitalHero.jpg"
           alt="hospital-hero"
+          fetchPriority="high"
           className="h-full w-full shadow-lg rounded-xl"
+          loading="eager"
         />
       </div>
       <div className="my-10 container mx-auto py-5 px-4">
@@ -89,6 +91,8 @@ export function Component() {
         <img
           src="/clinicare-dashboard.png"
           alt="clinicare"
+          fetchPriority="high"
+          loading="eager"
           className="h-full w-full shadow-lg rounded-xl border-[0.2px] border-gray-500"
         />
       </div>

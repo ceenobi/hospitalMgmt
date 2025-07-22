@@ -53,8 +53,8 @@ export function Component() {
           </button>
         </div>
       </div>
-      <div className="mt-4 rounded-lg border-[0.2px] border-gray-500 md:grid grid-cols-12">
-        <div className="col-span-2 border-r-[0.2px] border-gray-500 p-4">
+      <div className="mt-4 rounded-lg border-[0.2px] border-gray-300 md:grid grid-cols-12">
+        <div className="col-span-2 border-r-[0.2px] border-gray-300 p-4">
           <div className="flex flex-col">
             {settingsLink
               .filter((child) =>

@@ -1,9 +1,9 @@
 import { RiSearchLine } from "@remixicon/react";
 
-export default function DashboardNav({user}) {
+export default function DashboardNav({ user }) {
   return (
     <div className="mx-4 hidden bg-white lg:block lg:fixed top-0 right-0 z-30 left-[200px] xl:left-[240px]">
-      <div className="container mx-auto py-[12px] border-b-[0.2px] border-gray-500 ">
+      <div className="container mx-auto py-[12px] border-b-[0.2px] border-gray-300">
         <div className="flex justify-between items-center">
           <label className="input">
             <RiSearchLine />

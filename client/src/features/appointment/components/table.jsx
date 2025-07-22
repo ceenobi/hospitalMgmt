@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import usePaginate from "@/shared/hooks/usePaginate";
-import { useRouteLoaderData } from "react-router";
+import { useOutletContext } from "react-router";
 import {
   appointmentsStatusColors,
   appointmentsTableColumns,
@@ -16,7 +16,7 @@ export default function Table({ appointments, meta }) {
   const [isOpen, setIsOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [appointmentId, setAppointmentId] = useState(null);
-  const loggedInUser = useRouteLoaderData("auth_user");
+  const { user: loggedInUser } = useOutletContext();
   const { handlePageChange, totalPages, hasMore, currentPage, limit } =
     usePaginate({
       totalPages: meta?.totalPages || 1,

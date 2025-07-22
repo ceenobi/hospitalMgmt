@@ -40,7 +40,7 @@ export function Component() {
   };
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-lg w-full max-w-[400px]">
+    <div className="bg-white p-4 rounded-xl shadow w-full max-w-[400px]">
       <fetcher.Form
         className="flex flex-col items-center gap-2 w-full"
         onSubmit={handleSubmit(onSubmit)}
@@ -50,7 +50,7 @@ export function Component() {
           className="text-blue-500 p-2 border-[0.2px] border-blue-500 rounded-full shadow-lg"
         />
         <h1 className="text-2xl font-bold">Forgot Password</h1>
-        <p className="text-gray-600 text-center">
+        <p className="text-muted-foreground text-center">
           Enter your email address and we'll send you a code to reset your
           password.
         </p>

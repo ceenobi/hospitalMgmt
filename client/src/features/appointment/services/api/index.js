@@ -8,11 +8,13 @@ const getHeaders = (accessToken) => {
     },
   };
 };
+
 export const getAppointmentMeta = tryCatchFn(async (accessToken) => {
   const headers = getHeaders(accessToken);
   const response = await axiosInstance.get("/api/v1/appointment/meta", headers);
   return response.data;
 });
+
 export const bookAppointment = tryCatchFn(
   async (appointmentData, accessToken) => {
     const response = await axiosInstance.post(
@@ -23,6 +25,7 @@ export const bookAppointment = tryCatchFn(
     return response?.data;
   }
 );
+
 export const createAppointment = tryCatchFn(
   async (appointmentData, accessToken) => {
     const response = await axiosInstance.post(
@@ -33,6 +36,7 @@ export const createAppointment = tryCatchFn(
     return response.data;
   }
 );
+
 export const getAllAppointments = async ({ request, accessToken }) => {
   const searchParams = new URL(request.url).searchParams;
   const page = Number(searchParams.get("page")) || 1;
@@ -48,6 +52,7 @@ export const getAllAppointments = async ({ request, accessToken }) => {
   );
   return response.data;
 };
+
 export const getPatientAppointments = async ({ request, accessToken }) => {
   const searchParams = new URL(request.url).searchParams;
   const page = Number(searchParams.get("page")) || 1;
@@ -63,6 +68,7 @@ export const getPatientAppointments = async ({ request, accessToken }) => {
   );
   return response.data;
 };
+
 export const updateAppointment = tryCatchFn(
   async (appointmentId, appointmentData, accessToken) => {
     const response = await axiosInstance.patch(
@@ -73,6 +79,7 @@ export const updateAppointment = tryCatchFn(
     return response.data;
   }
 );
+
 export const deleteAppointment = tryCatchFn(
   async (appointmentId, accessToken) => {
     const response = await axiosInstance.delete(
