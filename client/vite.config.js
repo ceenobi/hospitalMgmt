@@ -26,6 +26,7 @@ export default defineConfig({
     allowedHosts: [
       "localhost",
       "salmon-daring-partially.ngrok-free.app",
+      "https://hospital-mgmt-server.vercel.app",
       "127.0.0.1",
       "0.0.0.0",
       "::1",
