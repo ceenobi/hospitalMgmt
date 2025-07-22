@@ -32,7 +32,7 @@ export function Component() {
           </button>
         </div>
       </div>
-      <div className="py-5 px-4 mt-10 md:h-[500px] w-[90%] mx-auto">
+      <div className="py-5 px-4 mt-10 md:h-[700px] w-[90%] mx-auto">
         <img
           src="/hospitalHero.jpg"
           alt="hospital-hero"
@@ -85,7 +85,7 @@ export function Component() {
           ))}
         </div>
       </div>
-      <div className="py-5 px-4 mt-10 md:h-[600px] w-[90%] mx-auto">
+      <div className="py-5 px-4 mt-10 md:h-[700px] w-[90%] mx-auto">
         <img
           src="/clinicare-dashboard.png"
           alt="clinicare"
