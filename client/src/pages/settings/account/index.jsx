@@ -70,7 +70,7 @@ export function Component() {
 
   return (
     <div className="space-y-6">
-      <h1 className="font-bold text-2xl border-b-[0.2px] border-gray-300 pb-2">
+      <h1 className="font-bold text-2xl border-b border-gray-300 pb-2">
         Account
       </h1>
       <>

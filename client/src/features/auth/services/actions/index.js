@@ -113,6 +113,5 @@ export const refreshTokenAction = async ({ accessToken, setAccessToken }) => {
     if (import.meta.env.DEV) {
       console.error("Error refreshing token:", error);
     }
-    // return await logoutAction({ setAccessToken });
   }
 };
