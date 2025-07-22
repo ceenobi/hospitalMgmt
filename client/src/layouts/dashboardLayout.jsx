@@ -1,8 +1,8 @@
-import Sidebar from "@/shared/components/sidebar";
+import Sidebar from "@/components/sidebar";
 import { Outlet, useOutletContext } from "react-router";
-import { usePrivateRoutes } from "@/shared/hooks/useProtected";
-import DashboardNav from "@/shared/components/dashboardNav";
-import MobileNav from "@/shared/components/mobileNav";
+import { usePrivateRoutes } from "@/hooks/useProtected";
+import DashboardNav from "@/components/dashboardNav";
+import MobileNav from "@/components/mobileNav";
 // import LazyLoader from "@/shared/components/lazyLoader";
 
 export function Component() {

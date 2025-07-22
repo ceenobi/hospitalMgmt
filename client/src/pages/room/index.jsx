@@ -1,11 +1,11 @@
-import Container from "@/shared/components/container";
-import useMetaArgs from "@/shared/hooks/useMeta";
+import { PageWrapper } from "@/components/pageWrapper";
+import useMetaArgs from "@/hooks/useMeta";
 import AddRoom from "@/features/room/components/addRoom";
 import { Await, useRouteLoaderData } from "react-router";
-import Search from "@/shared/components/search";
+import Search from "@/components/search";
 import { Suspense, lazy } from "react";
 import Filter from "@/features/room/components/filter";
-import { SkeletonTable } from "@/shared/components/skeleton";
+import { SkeletonTable } from "@/components/skeleton";
 const Table = lazy(() => import("@/features/room/components/table"));
 
 export function Component() {
@@ -19,7 +19,7 @@ export function Component() {
   const { rooms, meta } = roomsData?.data || {};
 
   return (
-    <Container>
+    <PageWrapper>
       <div className="flex justify-between items-center">
         <div>
           <h1 className="font-bold text-2xl">Rooms</h1>
@@ -44,7 +44,7 @@ export function Component() {
           </Await> */}
         </Suspense>
       </div>
-    </Container>
+    </PageWrapper>
   );
 }
 

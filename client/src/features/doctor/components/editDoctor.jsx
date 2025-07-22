@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import Modal from "@/shared/components/modal";
+import Modal from "@/components/modal";
 import { useFetcher } from "react-router";
-import { validateDoctorSchema } from "@/shared/utils/dataSchema";
+import { validateDoctorSchema } from "@/utils/dataSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import SelectField from "@/shared/components/selectField";
-import FormField from "@/shared/components/formField";
-import ErrorAlert from "@/shared/components/errorAlert";
+import SelectField from "@/components/selectField";
+import FormField from "@/components/formField";
+import ErrorAlert from "@/components/errorAlert";
 import { useRouteLoaderData } from "react-router";
 
 export default function EditDoctor({ doctor, onClose, isOpen }) {

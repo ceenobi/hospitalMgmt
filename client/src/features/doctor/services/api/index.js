@@ -1,5 +1,5 @@
-import axiosInstance from "@/shared/utils/axiosInstance";
-import { tryCatchFn } from "@/shared/utils/constants";
+import axiosInstance from "@/utils/axiosInstance";
+import { tryCatchFn } from "@/utils/constants";
 
 const getHeaders = (accessToken) => {
   return {

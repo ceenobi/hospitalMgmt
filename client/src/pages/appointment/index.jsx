@@ -1,11 +1,11 @@
 import CreateAppointment from "@/features/appointment/components/createAppointment";
 import Filter from "@/features/appointment/components/filter";
-import Container from "@/shared/components/container";
-import Search from "@/shared/components/search";
-import { SkeletonTable } from "@/shared/components/skeleton";
+import { PageWrapper } from "@/components/pageWrapper";
+import Search from "@/components/search";
+import { SkeletonTable } from "@/components/skeleton";
 import { lazy, Suspense } from "react";
 import { Await, useLoaderData } from "react-router";
-import useMetaArgs from "@/shared/hooks/useMeta";
+import useMetaArgs from "@/hooks/useMeta";
 const Table = lazy(() => import("@/features/appointment/components/table"));
 
 export function Component() {
@@ -18,7 +18,7 @@ export function Component() {
   const { appointments, meta } = appointmentsData?.data || {};
 
   return (
-    <Container>
+    <PageWrapper>
       <div className="flex justify-between items-center">
         <div>
           <h1 className="font-bold text-2xl">Appointments</h1>
@@ -42,7 +42,7 @@ export function Component() {
           />
         </Suspense>
       </div>
-    </Container>
+    </PageWrapper>
   );
 }
 

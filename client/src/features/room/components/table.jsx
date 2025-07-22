@@ -1,7 +1,7 @@
-import Paginate from "@/shared/components/paginate";
-import TableData from "@/shared/components/tableData";
-import usePaginate from "@/shared/hooks/usePaginate";
-import { roomsStatusColors, roomsTableColumns } from "@/shared/utils/constants";
+import Paginate from "@/components/paginate";
+import TableData from "@/components/tableData";
+import usePaginate from "@/hooks/usePaginate";
+import { roomsStatusColors, roomsTableColumns } from "@/utils/constants";
 import { RiMoreLine } from "@remixicon/react";
 import { useCallback, useState } from "react";
 import { useOutletContext } from "react-router";

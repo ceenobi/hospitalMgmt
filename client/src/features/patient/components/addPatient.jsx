@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import Modal from "@/shared/components/modal";
+import Modal from "@/components/modal";
 import { useFetcher } from "react-router";
-import { validatePatientSchema } from "@/shared/utils/dataSchema";
+import { validatePatientSchema } from "@/utils/dataSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import SelectField from "@/shared/components/selectField";
-import FormField from "@/shared/components/formField";
-import ErrorAlert from "@/shared/components/errorAlert";
-import { bloodGroup } from "@/shared/utils/constants";
+import SelectField from "@/components/selectField";
+import FormField from "@/components/formField";
+import ErrorAlert from "@/components/errorAlert";
+import { bloodGroup } from "@/utils/constants";
 
 export default function AddPatient() {
   const [isOpen, setIsOpen] = useState(false);

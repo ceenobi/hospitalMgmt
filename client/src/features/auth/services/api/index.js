@@ -1,5 +1,5 @@
-import axiosInstance from "@/shared/utils/axiosInstance";
-import { tryCatchFn } from "@/shared/utils/constants";
+import axiosInstance from "@/utils/axiosInstance";
+import { tryCatchFn } from "@/utils/constants";
 
 const getHeaders = (accessToken) => {
   return {
@@ -83,6 +83,9 @@ export const authUser = tryCatchFn(async (accesstoken) => {
     "/api/v1/auth/user",
     getHeaders(accesstoken)
   );
+  if (response.data.status === "error") {
+    return await refreshToken();
+  }
   return response.data;
 });
 

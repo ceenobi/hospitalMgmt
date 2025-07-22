@@ -1,10 +1,10 @@
-import useMetaArgs from "@/shared/hooks/useMeta";
+import useMetaArgs from "@/hooks/useMeta";
 import { RiMailFill } from "@remixicon/react";
 import { useEffect, useState } from "react";
 import { useFetcher, Link, useRouteLoaderData } from "react-router";
 import PinField from "react-pin-field";
-import { usePrivateRoutes } from "@/shared/hooks/useProtected";
-import ErrorAlert from "@/shared/components/errorAlert";
+import { usePrivateRoutes } from "@/hooks/useProtected";
+import ErrorAlert from "@/components/errorAlert";
 
 export function Component() {
   usePrivateRoutes();

@@ -1,5 +1,5 @@
-import Logo from "@/shared/components/logo";
-import { usePublicRoutes } from "@/shared/hooks/useProtected";
+import Logo from "@/components/logo";
+import { usePublicRoutes } from "@/hooks/useProtected";
 import { RiCopyrightFill } from "@remixicon/react";
 import { Outlet, useOutletContext } from "react-router";
 

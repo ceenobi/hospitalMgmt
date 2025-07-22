@@ -1,13 +1,13 @@
 import { useCallback, useState } from "react";
-import usePaginate from "@/shared/hooks/usePaginate";
+import usePaginate from "@/hooks/usePaginate";
 import { useOutletContext } from "react-router";
 import {
   appointmentsStatusColors,
   appointmentsTableColumns,
   formatTextDate,
-} from "@/shared/utils/constants";
-import TableData from "@/shared/components/tableData";
-import Paginate from "@/shared/components/paginate";
+} from "@/utils/constants";
+import TableData from "@/components/tableData";
+import Paginate from "@/components/paginate";
 import { RiMoreLine } from "@remixicon/react";
 import UpdateAppointment from "./updateAppointment";
 import DeleteAppointment from "./deleteAppointment";

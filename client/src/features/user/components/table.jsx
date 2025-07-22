@@ -1,12 +1,12 @@
-import Paginate from "@/shared/components/paginate";
-import TableData from "@/shared/components/tableData";
+import Paginate from "@/components/paginate";
+import TableData from "@/components/tableData";
 import {
   formatDate,
   usersRoleColors,
   usersTableColumns,
-} from "@/shared/utils/constants";
+} from "@/utils/constants";
 import { useCallback, useState } from "react";
-import usePaginate from "@/shared/hooks/usePaginate";
+import usePaginate from "@/hooks/usePaginate";
 import { RiMoreLine } from "@remixicon/react";
 import UpdateUser from "./updateUser";
 import DeleteUser from "./deleteUser";

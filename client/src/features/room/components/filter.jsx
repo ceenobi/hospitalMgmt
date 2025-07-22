@@ -1,4 +1,4 @@
-import { sortRoomMethods } from "@/shared/utils/sortMethods";
+import { sortRoomMethods } from "@/utils/sortMethods";
 import { RiFilterLine } from "@remixicon/react";
 import { useState } from "react";
 import { useSearchParams, useRouteLoaderData } from "react-router";

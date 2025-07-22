@@ -1,13 +1,13 @@
-import Modal from "@/shared/components/modal";
+import Modal from "@/components/modal";
 import { useEffect, useState } from "react";
 import { useFetcher, useRouteLoaderData } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { validateAppointmentSchema } from "@/shared/utils/dataSchema";
-import ErrorAlert from "@/shared/components/errorAlert";
-import SelectField from "@/shared/components/selectField";
-import FormField from "@/shared/components/formField";
-import { formatDate } from "@/shared/utils/constants";
+import { validateAppointmentSchema } from "@/utils/dataSchema";
+import ErrorAlert from "@/components/errorAlert";
+import SelectField from "@/components/selectField";
+import FormField from "@/components/formField";
+import { formatDate } from "@/utils/constants";
 
 export default function UpdateAppointment({ appointment, isOpen, onClose }) {
   const { appointmentMeta } = useRouteLoaderData("appointment_data");

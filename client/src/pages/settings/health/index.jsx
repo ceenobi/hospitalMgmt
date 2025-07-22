@@ -6,13 +6,13 @@ import {
   useNavigate,
   useOutletContext,
 } from "react-router";
-import { validatePatientSchema } from "@/shared/utils/dataSchema";
+import { validatePatientSchema } from "@/utils/dataSchema";
 import { useEffect, useState } from "react";
-import useMetaArgs from "@/shared/hooks/useMeta";
-import FormField from "@/shared/components/formField";
-import SelectField from "@/shared/components/selectField";
-import { bloodGroup, formatDate } from "@/shared/utils/constants";
-import ErrorAlert from "@/shared/components/errorAlert";
+import useMetaArgs from "@/hooks/useMeta";
+import FormField from "@/components/formField";
+import SelectField from "@/components/selectField";
+import { bloodGroup, formatDate } from "@/utils/constants";
+import ErrorAlert from "@/components/errorAlert";
 
 export function Component() {
   useMetaArgs({

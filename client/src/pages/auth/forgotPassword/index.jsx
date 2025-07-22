@@ -1,13 +1,13 @@
-import useMetaArgs from "@/shared/hooks/useMeta";
+import useMetaArgs from "@/hooks/useMeta";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useFetcher } from "react-router";
 import { toast } from "sonner";
-import { validateResendPasswordTokenSchema } from "@/shared/utils/dataSchema";
+import { validateResendPasswordTokenSchema } from "@/utils/dataSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FormField from "@/shared/components/formField";
+import FormField from "@/components/formField";
 import { RiLockFill } from "@remixicon/react";
-import ErrorAlert from "@/shared/components/errorAlert";
+import ErrorAlert from "@/components/errorAlert";
 
 export function Component() {
   useMetaArgs({

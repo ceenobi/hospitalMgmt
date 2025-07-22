@@ -1,6 +1,6 @@
-import ErrorAlert from "@/shared/components/errorAlert";
-import Modal from "@/shared/components/modal";
-import { formatTextDate } from "@/shared/utils/constants";
+import ErrorAlert from "@/components/errorAlert";
+import Modal from "@/components/modal";
+import { formatTextDate } from "@/utils/constants";
 import { RiDeleteBinLine } from "@remixicon/react";
 import { useState, useEffect } from "react";
 import { useFetcher } from "react-router";

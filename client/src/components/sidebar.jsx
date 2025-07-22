@@ -1,7 +1,7 @@
 import {
   dashBoardLinks,
   roleBasedPathPermissions,
-} from "@/shared/utils/constants";
+} from "@/utils/constants";
 import Logo from "./logo";
 import { NavLink, useLocation } from "react-router";
 import Logout from "./logout";

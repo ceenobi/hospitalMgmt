@@ -1,5 +1,5 @@
-import Container from "@/shared/components/container";
-import useMetaArgs from "@/shared/hooks/useMeta";
+import { PageWrapper } from "@/components/pageWrapper";
+import useMetaArgs from "@/hooks/useMeta";
 import { useLoaderData } from "react-router";
 import CreatePayment from "@/features/payments/components/createPayment";
 
@@ -12,7 +12,7 @@ export function Component() {
   const { paymentMeta } = useLoaderData();
   console.log(paymentMeta);
   return (
-    <Container>
+    <PageWrapper>
       <div className="flex justify-between items-center">
         <div>
           <h1 className="font-bold text-2xl">Payments</h1>
@@ -20,7 +20,7 @@ export function Component() {
         </div>
           <CreatePayment paymentMeta={paymentMeta} />
       </div>
-    </Container>
+    </PageWrapper>
   );
 }
 

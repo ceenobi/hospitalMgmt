@@ -1,6 +1,6 @@
-import Container from "@/shared/components/container";
-import useMetaArgs from "@/shared/hooks/useMeta";
-import { settingsLink } from "@/shared/utils/constants";
+import { PageWrapper } from "@/components/pageWrapper";
+import useMetaArgs from "@/hooks/useMeta";
+import { settingsLink } from "@/utils/constants";
 import { useEffect } from "react";
 import {
   NavLink,
@@ -29,7 +29,7 @@ export function Component() {
   }, [location.pathname, navigate]);
 
   return (
-    <Container>
+    <PageWrapper>
       <div className="md:flex justify-between items-center">
         <div>
           <h1 className="font-bold text-2xl">Settings</h1>
@@ -68,7 +68,7 @@ export function Component() {
                     `hover:text-blue-500 transition-all duration-300 px-4 py-2 flex items-center gap-2 ${
                       isActive
                         ? "text-blue-500 border-blue-500 bg-blue-50"
-                        : "text-[var(--paint-white)]"
+                        : "text-muted-foreground"
                     }`
                   }
                 >
@@ -81,7 +81,7 @@ export function Component() {
           <Outlet context={{ user }} />
         </div>
       </div>
-    </Container>
+    </PageWrapper>
   );
 }
 

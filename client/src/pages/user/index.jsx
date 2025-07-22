@@ -1,10 +1,10 @@
-import Container from "@/shared/components/container";
+import { PageWrapper } from "@/components/pageWrapper";
 import AddUser from "@/features/user/components/addUser";
-import useMetaArgs from "@/shared/hooks/useMeta";
+import useMetaArgs from "@/hooks/useMeta";
 import { Await, useLoaderData } from "react-router";
-import Search from "@/shared/components/search";
+import Search from "@/components/search";
 import { lazy, Suspense } from "react";
-import { SkeletonTable } from "@/shared/components/skeleton";
+import { SkeletonTable } from "@/components/skeleton";
 import Filter from "@/features/user/components/filter";
 const Table = lazy(() => import("@/features/user/components/table"));
 
@@ -17,7 +17,7 @@ export function Component() {
   const data = useLoaderData();
   const { meta, users } = data?.data || {};
   return (
-    <Container>
+    <PageWrapper>
       <div className="flex justify-between items-center">
         <div>
           <h1 className="font-bold text-2xl">User Data</h1>
@@ -39,7 +39,7 @@ export function Component() {
           />
         </Suspense>
       </div>
-    </Container>
+    </PageWrapper>
   );
 }
 

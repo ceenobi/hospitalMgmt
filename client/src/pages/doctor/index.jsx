@@ -1,10 +1,10 @@
-import Container from "@/shared/components/container";
+import { PageWrapper } from "@/components/pageWrapper";
 import { Await, useRouteLoaderData } from "react-router";
 import AddDoctor from "@/features/doctor/components/addDoctor";
-import useMetaArgs from "@/shared/hooks/useMeta";
+import useMetaArgs from "@/hooks/useMeta";
 import { lazy, Suspense } from "react";
-import { SkeletonTable } from "@/shared/components/skeleton";
-import Search from "@/shared/components/search";
+import { SkeletonTable } from "@/components/skeleton";
+import Search from "@/components/search";
 import Filter from "@/features/doctor/components/filter";
 const Table = lazy(() => import("@/features/doctor/components/table"));
 
@@ -17,7 +17,7 @@ export function Component() {
   const { meta, doctors } = useRouteLoaderData("doctor_users");
 
   return (
-    <Container>
+    <PageWrapper>
       <div className="flex justify-between items-center">
         <div>
           <h1 className="font-bold text-2xl">Doctors</h1>
@@ -41,7 +41,7 @@ export function Component() {
           />
         </Suspense>
       </div>
-    </Container>
+    </PageWrapper>
   );
 }
 

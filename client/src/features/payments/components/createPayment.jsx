@@ -1,12 +1,12 @@
-import Modal from "@/shared/components/modal";
+import Modal from "@/components/modal";
 import { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { validateCreatePaymentSchema } from "@/shared/utils/dataSchema";
-import ErrorAlert from "@/shared/components/errorAlert";
-import SelectField from "@/shared/components/selectField";
-import FormField from "@/shared/components/formField";
+import { validateCreatePaymentSchema } from "@/utils/dataSchema";
+import ErrorAlert from "@/components/errorAlert";
+import SelectField from "@/components/selectField";
+import FormField from "@/components/formField";
 
 export default function CreatePayment({ paymentMeta }) {
   const [isOpen, setIsOpen] = useState(false);

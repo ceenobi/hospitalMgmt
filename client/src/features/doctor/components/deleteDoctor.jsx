@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Modal from "@/shared/components/modal";
+import Modal from "@/components/modal";
 import { useFetcher } from "react-router";
-import ErrorAlert from "@/shared/components/errorAlert";
+import ErrorAlert from "@/components/errorAlert";
 import { RiDeleteBinLine } from "@remixicon/react";
 
 export default function DeleteDoctor({ doctor, onClose, isOpen }) {

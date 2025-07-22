@@ -1,9 +1,9 @@
-import useMetaArgs from "@/shared/hooks/useMeta";
-import Container from "@/shared/components/container";
+import useMetaArgs from "@/hooks/useMeta";
+import { PageWrapper } from "@/components/pageWrapper";
 import { Suspense, lazy } from "react";
-import { SkeletonTable } from "@/shared/components/skeleton";
+import { SkeletonTable } from "@/components/skeleton";
 import { Await, useLoaderData } from "react-router";
-import Search from "@/shared/components/search";
+import Search from "@/components/search";
 import Filter from "@/features/patient/components/filter";
 import AddPatient from "@/features/patient/components/addPatient";
 const Table = lazy(() => import("@/features/patient/components/table"));
@@ -17,7 +17,7 @@ export function Component() {
   const data = useLoaderData();
   const { meta, patients } = data?.data || {};
   return (
-    <Container>
+    <PageWrapper>
       <div className="flex justify-between items-center">
         <div>
           <h1 className="font-bold text-2xl">Patients</h1>
@@ -39,7 +39,7 @@ export function Component() {
           />
         </Suspense>
       </div>
-    </Container>
+    </PageWrapper>
   );
 }
 

@@ -1,11 +1,11 @@
-import Paginate from "@/shared/components/paginate";
-import TableData from "@/shared/components/tableData";
+import Paginate from "@/components/paginate";
+import TableData from "@/components/tableData";
 import {
   doctorsAvailabilityColors,
   doctorsTableColumns,
-} from "@/shared/utils/constants";
+} from "@/utils/constants";
 import { useCallback, useState } from "react";
-import usePaginate from "@/shared/hooks/usePaginate";
+import usePaginate from "@/hooks/usePaginate";
 import { RiMoreLine } from "@remixicon/react";
 import EditDoctor from "./editDoctor";
 import DeleteDoctor from "./deleteDoctor";

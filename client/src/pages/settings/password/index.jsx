@@ -1,12 +1,12 @@
-import useMetaArgs from "@/shared/hooks/useMeta";
+import useMetaArgs from "@/hooks/useMeta";
 import { useForm } from "react-hook-form";
 import { useFetcher, useNavigate, useSubmit } from "react-router";
-import { updatePasswordSchema } from "@/shared/utils/dataSchema";
+import { updatePasswordSchema } from "@/utils/dataSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import FormField from "@/shared/components/formField";
-import ErrorAlert from "@/shared/components/errorAlert";
+import FormField from "@/components/formField";
+import ErrorAlert from "@/components/errorAlert";
 
 export function Component() {
   useMetaArgs({

@@ -1,6 +1,6 @@
-import Logo from "@/shared/components/logo";
+import Logo from "@/components/logo";
 import { Form } from "react-router";
-import { usePrivateRoutes } from "@/shared/hooks/useProtected";
+import { usePrivateRoutes } from "@/hooks/useProtected";
 import { Outlet, useOutletContext } from "react-router";
 import { RiCopyrightFill } from "@remixicon/react";
 

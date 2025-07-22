@@ -57,9 +57,9 @@ export const verifyAccountAction = async ({ request }) => {
   }
 };
 
-export const logoutAction = async ({setAccessToken}) => {
+export const logoutAction = async ({ setAccessToken }) => {
   const res = await logout({});
-  toast.success(res.message);
+  toast.success(res.message || "Logout successfull");
   setAccessToken("");
   return res;
 };
@@ -90,26 +90,20 @@ export const updatePasswordAction = async ({ request }) => {
 };
 
 export const refreshTokenAction = async ({ accessToken, setAccessToken }) => {
+  if (!accessToken) return;
   try {
-    if (!accessToken) return;
     const decodedToken = jwtDecode(accessToken);
     const expirationTime = decodedToken?.exp ?? 0;
     const currentTime = Date.now();
     const timeUntilExpiry = expirationTime * 1000 - currentTime;
-    const refreshBuffer = 2 * 60 * 1000;
+    const refreshBuffer = 5 * 60 * 1000;
     const timeUntilRefresh = timeUntilExpiry - refreshBuffer;
     if (timeUntilRefresh <= 0) {
-      const res = await refreshToken({setAccessToken});
-      // if (!res) {
-      //   return await logoutAction({setAccessToken});
-      // }
+      const res = await refreshToken(setAccessToken);
       return res;
     } else {
       const refreshTimer = setTimeout(async () => {
-        const res = await refreshToken({setAccessToken});
-        // if (!res) {
-        //   return await logoutAction({setAccessToken});
-        // }
+        const res = await refreshToken(setAccessToken);
         return res;
       }, timeUntilRefresh);
 
@@ -119,6 +113,6 @@ export const refreshTokenAction = async ({ accessToken, setAccessToken }) => {
     if (import.meta.env.DEV) {
       console.error("Error refreshing token:", error);
     }
-    return await logoutAction({setAccessToken});
+    // return await logoutAction({ setAccessToken });
   }
 };

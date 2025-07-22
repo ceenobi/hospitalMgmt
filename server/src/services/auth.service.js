@@ -12,7 +12,6 @@ import {
   deleteFromCloudinary,
   uploadToCloudinary,
 } from "../utils/cloudinary.js";
-// import Patient from "../models/patient.js";
 import responseHandler from "../utils/responseHandler.js";
 const { errorResponse, notFoundResponse } = responseHandler;
 
@@ -65,9 +64,6 @@ const authService = {
       return next(errorResponse("Refresh token required", 401));
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    if (decoded.exp < Date.now()) {
-      return next(errorResponse("Refresh token expired", 401));
-    }
     const user = await User.findById(decoded.id);
     if (!user) {
       return next(errorResponse("Invalid refresh token", 401));

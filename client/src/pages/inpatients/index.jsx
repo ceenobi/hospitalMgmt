@@ -1,8 +1,11 @@
+import { PageWrapper } from "@/components/pageWrapper";
 
 
 export function Component() {
   return (
-    <div>index</div>
+    <PageWrapper>
+      <div>index</div>
+    </PageWrapper>
   )
 }
 

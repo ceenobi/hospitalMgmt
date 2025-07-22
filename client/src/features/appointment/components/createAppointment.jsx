@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { validateAppointmentSchema } from "@/shared/utils/dataSchema";
-import Modal from "@/shared/components/modal";
-import SelectField from "@/shared/components/selectField";
-import FormField from "@/shared/components/formField";
-import ErrorAlert from "@/shared/components/errorAlert";
+import { validateAppointmentSchema } from "@/utils/dataSchema";
+import Modal from "@/components/modal";
+import SelectField from "@/components/selectField";
+import FormField from "@/components/formField";
+import ErrorAlert from "@/components/errorAlert";
 
 export default function CreateAppointment({ appointmentMeta }) {
   const [isOpen, setIsOpen] = useState(false);

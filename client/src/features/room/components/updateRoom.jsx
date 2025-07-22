@@ -1,8 +1,8 @@
-import ErrorAlert from "@/shared/components/errorAlert";
-import FormField from "@/shared/components/formField";
-import Modal from "@/shared/components/modal";
-import SelectField from "@/shared/components/selectField";
-import { validateRoomSchema } from "@/shared/utils/dataSchema";
+import ErrorAlert from "@/components/errorAlert";
+import FormField from "@/components/formField";
+import Modal from "@/components/modal";
+import SelectField from "@/components/selectField";
+import { validateRoomSchema } from "@/utils/dataSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";

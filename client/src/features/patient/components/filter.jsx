@@ -1,8 +1,8 @@
 import { RiFilterLine } from "@remixicon/react";
 import { useState } from "react";
 import { useSearchParams } from "react-router";
-import { bloodGroup } from "@/shared/utils/constants";
-import { sortUserMethods } from "@/shared/utils/sortMethods";
+import { bloodGroup } from "@/utils/constants";
+import { sortUserMethods } from "@/utils/sortMethods";
 
 export default function Filter() {
   const [openOptions, setOpenOptions] = useState(false);

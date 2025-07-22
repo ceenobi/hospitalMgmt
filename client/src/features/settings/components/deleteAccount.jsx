@@ -1,4 +1,4 @@
-import Modal from "@/shared/components/modal";
+import Modal from "@/components/modal";
 import { RiDeleteBinLine } from "@remixicon/react";
 import { useEffect, useState } from "react";
 import { useFetcher, useSubmit } from "react-router";

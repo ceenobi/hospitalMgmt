@@ -1,15 +1,15 @@
-import useMetaArgs from "@/shared/hooks/useMeta";
+import useMetaArgs from "@/hooks/useMeta";
 import { useFetcher, useNavigate, useOutletContext } from "react-router";
 import UploadImage from "@/features/settings/components/uploadImage";
-import { validateUserSchema } from "@/shared/utils/dataSchema";
+import { validateUserSchema } from "@/utils/dataSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import FormField from "@/shared/components/formField";
+import FormField from "@/components/formField";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { formatDate } from "@/shared/utils/constants";
+import { formatDate } from "@/utils/constants";
 import DeleteAccount from "@/features/settings/components/deleteAccount";
-import ErrorAlert from "@/shared/components/errorAlert";
+import ErrorAlert from "@/components/errorAlert";
 
 export function Component() {
   useMetaArgs({

@@ -1,12 +1,12 @@
-import Paginate from "@/shared/components/paginate";
-import TableData from "@/shared/components/tableData";
+import Paginate from "@/components/paginate";
+import TableData from "@/components/tableData";
 import {
   bloodGroupDisplay,
   formatTextDate,
   patientsTableColumns,
-} from "@/shared/utils/constants";
+} from "@/utils/constants";
 import { useCallback, useState } from "react";
-import usePaginate from "@/shared/hooks/usePaginate";
+import usePaginate from "@/hooks/usePaginate";
 import { RiMoreLine } from "@remixicon/react";
 import { useRouteLoaderData } from "react-router";
 import ViewPatient from "./viewPatient";

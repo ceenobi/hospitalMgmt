@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { validatePatientSchema } from "@/shared/utils/dataSchema";
-import { bloodGroup, formatDate } from "@/shared/utils/constants";
-import Modal from "@/shared/components/modal";
-import ErrorAlert from "@/shared/components/errorAlert";
-import FormField from "@/shared/components/formField";
-import SelectField from "@/shared/components/selectField";
+import { validatePatientSchema } from "@/utils/dataSchema";
+import { bloodGroup, formatDate } from "@/utils/constants";
+import Modal from "@/components/modal";
+import ErrorAlert from "@/components/errorAlert";
+import FormField from "@/components/formField";
+import SelectField from "@/components/selectField";
 
 export default function UpdatePatient({ patient, onClose, isOpen }) {
   const [showSuccess, setShowSuccess] = useState(false);

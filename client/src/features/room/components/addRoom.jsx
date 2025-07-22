@@ -1,12 +1,12 @@
-import Modal from "@/shared/components/modal";
+import Modal from "@/components/modal";
 import { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { validateRoomSchema } from "@/shared/utils/dataSchema";
-import FormField from "@/shared/components/formField";
-import SelectField from "@/shared/components/selectField";
-import ErrorAlert from "@/shared/components/errorAlert";
+import { validateRoomSchema } from "@/utils/dataSchema";
+import FormField from "@/components/formField";
+import SelectField from "@/components/selectField";
+import ErrorAlert from "@/components/errorAlert";
 
 export default function AddRoom({ roomMeta }) {
   const [isOpen, setIsOpen] = useState(false);

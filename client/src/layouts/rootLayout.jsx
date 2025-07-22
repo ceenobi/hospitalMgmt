@@ -1,7 +1,7 @@
-import Logo from "@/shared/components/logo";
+import Logo from "@/components/logo";
 import { RiCopyrightFill } from "@remixicon/react";
 import { NavLink, Outlet, useOutletContext } from "react-router";
-import { usePublicRoutes } from "@/shared/hooks/useProtected";
+import { usePublicRoutes } from "@/hooks/useProtected";
 
 export function Component() {
   const { accessToken, user } = useOutletContext();

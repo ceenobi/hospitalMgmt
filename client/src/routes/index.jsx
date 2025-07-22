@@ -10,8 +10,8 @@ import {
 import { getAllPatients, getPatient } from "@/features/patient/services/api";
 import { getAllRooms, getRoomMeta } from "@/features/room/services/api";
 import { getAllUsers } from "@/features/user/services/api";
-import ErrorBoundary from "@/shared/components/errorBoundary";
-import LazyLoader from "@/shared/components/lazyLoader";
+import ErrorBoundary from "@/components/errorBoundary";
+import LazyLoader from "@/components/lazyLoader";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { useAuthToken } from "@/context";
 

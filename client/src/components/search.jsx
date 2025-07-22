@@ -7,7 +7,7 @@ import {
   Form,
 } from "react-router";
 import { useRef } from "react";
-import useSearch from "@/shared/hooks/useSearch";
+import useSearch from "@/hooks/useSearch";
 import { useDebouncedCallback } from "use-debounce";
 
 export default function Search({ id, children }) {

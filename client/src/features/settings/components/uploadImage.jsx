@@ -1,4 +1,4 @@
-import { useFile } from "@/shared/hooks/useFile";
+import { useFile } from "@/hooks/useFile";
 import { RiCloseFill } from "@remixicon/react";
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useFetcher } from "react-router";

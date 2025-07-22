@@ -1,4 +1,4 @@
-import useMetaArgs from "@/shared/hooks/useMeta";
+import useMetaArgs from "@/hooks/useMeta";
 
 export function Component() {
   useMetaArgs({

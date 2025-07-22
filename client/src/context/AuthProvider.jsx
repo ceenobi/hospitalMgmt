@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AuthContext } from "./index";
 import { refreshTokenAction } from "@/features/auth/services/actions";
-import { useToken } from "@/shared/hooks/useToken";
+import { useToken } from "@/hooks/useToken";
 import { authUser } from "@/features/auth/services/api";
 
 export default function AuthProvider({ children }) {
@@ -9,7 +9,6 @@ export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    if (!accessToken) return;
     let cleanupFunc;
     const setup = async () => {
       cleanupFunc = await refreshTokenAction({ accessToken, setAccessToken });
@@ -18,7 +17,8 @@ export default function AuthProvider({ children }) {
     return () => {
       if (cleanupFunc && typeof cleanupFunc === "function") cleanupFunc();
     };
-  }, [accessToken, setAccessToken]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessToken]);
 
   useEffect(() => {
     async function fetchUser() {

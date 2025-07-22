@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { validateBookAppointmentSchema } from "@/shared/utils/dataSchema";
-import Modal from "@/shared/components/modal";
-import SelectField from "@/shared/components/selectField";
-import FormField from "@/shared/components/formField";
-import ErrorAlert from "@/shared/components/errorAlert";
+import { validateBookAppointmentSchema } from "@/utils/dataSchema";
+import Modal from "@/components/modal";
+import SelectField from "@/components/selectField";
+import FormField from "@/components/formField";
+import ErrorAlert from "@/components/errorAlert";
 import { useFetcher } from "react-router";
 
 export default function BookAppointment() {

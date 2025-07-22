@@ -1,9 +1,9 @@
-import useMetaArgs from "@/shared/hooks/useMeta";
+import useMetaArgs from "@/hooks/useMeta";
 import {
   clinicareStats,
   enterpriseFeatures,
   portalLogin,
-} from "@/shared/utils/constants";
+} from "@/utils/constants";
 import { Link } from "react-router";
 
 export function Component() {

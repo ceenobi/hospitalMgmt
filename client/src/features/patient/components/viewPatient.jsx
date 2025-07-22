@@ -1,5 +1,5 @@
-import Modal from "@/shared/components/modal";
-import { formatDate } from "@/shared/utils/constants";
+import Modal from "@/components/modal";
+import { formatDate } from "@/utils/constants";
 
 export default function ViewPatient({ patient, onClose, isOpen }) {
   return (
