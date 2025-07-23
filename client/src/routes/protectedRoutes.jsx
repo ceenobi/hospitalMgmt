@@ -1,12 +1,10 @@
-import { useAuthToken } from "@/context";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 
-export const PublicRoutes = ({ children, user }) => {
-  const { accessToken } = useAuthToken();
+export const PublicRoutes = ({ children, accessToken, user }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const from = location.state?.from || "/";
+  const from = location.state?.from || "/dashboard";
   useEffect(() => {
     if (accessToken && user) {
       navigate(from, { replace: true });
@@ -15,11 +13,10 @@ export const PublicRoutes = ({ children, user }) => {
   return children;
 };
 
-export const PrivateRoutes = ({ children, user }) => {
-  const { accessToken } = useAuthToken();
+export const PrivateRoutes = ({ children, accessToken, user }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from || "/";
+  const from = location.state?.from || "/dashboard";
 
   useEffect(() => {
     if (!accessToken || !user) {

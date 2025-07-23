@@ -3,33 +3,32 @@ import { AuthContext } from "./index";
 import { refreshTokenAction } from "@/features/auth/services/actions";
 import { useToken } from "@/hooks/useToken";
 import { authUser } from "@/features/auth/services/api";
+import LazyLoader from "@/components/lazyLoader";
 
 export default function AuthProvider({ children }) {
   const { accessToken, setAccessToken } = useToken();
   const [user, setUser] = useState(null);
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   useEffect(() => {
-    let cleanupFunc;
-    const setup = async () => {
-      cleanupFunc = await refreshTokenAction({ accessToken, setAccessToken });
-    };
-    setup();
-    return () => {
-      if (cleanupFunc && typeof cleanupFunc === "function") cleanupFunc();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accessToken]);
+    setIsAuthenticating(true);
+    refreshTokenAction({ accessToken, setAccessToken });
+    setIsAuthenticating(false);
+  }, [accessToken, setAccessToken]);
 
   useEffect(() => {
     async function fetchUser() {
+      setIsAuthenticating(true);
       const response = await authUser(accessToken);
       setUser(response?.data);
-      if (!response?.data?.success) {
-        await refreshTokenAction({ accessToken, setAccessToken });
-      }
+      setIsAuthenticating(false);
     }
     fetchUser();
-  }, [accessToken, setAccessToken]);
+  }, [accessToken]);
+
+  if (isAuthenticating) {
+    return <LazyLoader />;
+  }
 
   return (
     <AuthContext.Provider value={{ accessToken, setAccessToken, user }}>
