@@ -100,17 +100,21 @@ export const refreshTokenAction = async ({ accessToken, setAccessToken }) => {
     const timeUntilRefresh = timeUntilExpiry - refreshBuffer;
     if (timeUntilRefresh <= 0) {
       const res = await refreshToken(setAccessToken);
-      if (!res?.data?.success) {
+      if (!res.data.success) {
         return await logoutAction({ setAccessToken });
       }
-      return res;
+      const newAccessToken = res.data.data.accessToken;
+      setAccessToken(newAccessToken);
+      return newAccessToken;
     } else {
       const refreshTimer = setTimeout(async () => {
         const res = await refreshToken(setAccessToken);
-        if (!res?.data?.success) {
+        if (!res.data.success) {
           return await logoutAction({ setAccessToken });
         }
-        return res;
+        const newAccessToken = res.data.data.accessToken;
+        setAccessToken(newAccessToken);
+        return newAccessToken;
       }, timeUntilRefresh);
 
       return () => clearTimeout(refreshTimer);
