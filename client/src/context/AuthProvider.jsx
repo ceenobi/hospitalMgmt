@@ -17,16 +17,19 @@ export default function AuthProvider({ children }) {
     return () => {
       if (cleanupFunc && typeof cleanupFunc === "function") cleanupFunc();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
   useEffect(() => {
     async function fetchUser() {
       const response = await authUser(accessToken);
       setUser(response?.data);
+      if (!response?.data?.success) {
+        await refreshTokenAction({ accessToken, setAccessToken });
+      }
     }
     fetchUser();
-  }, [accessToken]);
+  }, [accessToken, setAccessToken]);
 
   return (
     <AuthContext.Provider value={{ accessToken, setAccessToken, user }}>
