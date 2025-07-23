@@ -35,7 +35,7 @@ export default function ErrorBoundary() {
   const redirect = () => {
     msgs.includes(details)
       ? submit({}, { action: "/logout", method: "post" })
-      : navigate(0);
+      : navigate("/dashboard");
   };
 
   return (

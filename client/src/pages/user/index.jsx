@@ -27,7 +27,7 @@ export function Component() {
         <AddUser />
       </div>
       <div className="mt-8 space-y-4 ">
-        <div className="flex justify-end items-center p-4">
+        <div className="flex justify-end items-center md:p-4">
           {/* <h2 className="hidden md:block font-semibold">Users</h2> */}
           <Search id="search-users">
             <Filter />
