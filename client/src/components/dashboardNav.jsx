@@ -5,44 +5,47 @@ export default function DashboardNav({ user }) {
   const greeting = getTimeBasedGreeting();
   return (
     <div className="hidden lg:block sticky top-0 right-0 z-30 left-[200px] xl:left-[240px] bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto py-[12px] border-b border-gray-300 px-4">
+      <div className="container mx-auto py-[14px] border-b border-gray-300 px-4">
         <div className="flex justify-between items-center">
           <h1 className="text-lg font-bold text-foreground">
             {greeting}, {user?.fullname}! 👋
           </h1>
-          <label className="input">
-            <RiSearchLine />
-            <input type="search" className="grow" placeholder="Search" />
-            <kbd className="kbd kbd-sm">⌘</kbd>
-            <kbd className="kbd kbd-sm">K</kbd>
-          </label>
-          <div className="flex gap-2 items-center">
-            <div className="avatar avatar-placeholder">
-              <div className="w-10 rounded-full bg-gray-300 text-gray-600">
-                {user?.avatar ? (
-                  <img
-                    src={user?.avatar}
-                    alt={user?.fullname.split(" ")[0].charAt(0)}
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                    priority="high"
-                  />
-                ) : (
-                  <span className="text-m">
-                    {user?.fullname
-                      ?.split(" ")
-                      .map((name) => name[0])
-                      .join("")
-                      .toUpperCase()}
-                  </span>
-                )}
+          <div className="flex gap-4 items-center">
+            <label className="input">
+              <RiSearchLine className="text-gray-500" size={28}/>
+              <input type="search" className="grow" placeholder="Search..." />
+              <kbd className="kbd kbd-sm">⌘</kbd>
+              <kbd className="kbd kbd-sm">K</kbd>
+            </label>
+            <div className="flex gap-2 items-center">
+              <div className="avatar avatar-placeholder">
+                <div className="w-10 rounded-full bg-gray-300 text-gray-600">
+                  {user?.avatar ? (
+                    <img
+                      src={user?.avatar}
+                      alt={user?.fullname.split(" ")[0].charAt(0)}
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                      priority="high"
+                      className="border-2 border-gray-300"
+                    />
+                  ) : (
+                    <span className="text-m">
+                      {user?.fullname
+                        ?.split(" ")
+                        .map((name) => name[0])
+                        .join("")
+                        .toUpperCase()}
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
-            <div>
+              {/* <div>
               <h1 className="font-bold text-base">{user?.fullname}</h1>
               <p className="capitalize text-gray-500 text-sm font-medium">
                 {user?.role}
               </p>
+            </div> */}
             </div>
           </div>
         </div>

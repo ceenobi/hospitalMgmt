@@ -54,13 +54,13 @@ export default function Filter() {
         <div
           tabIndex={0}
           role="button"
-          className="btn m-1 border-[0.1px] border-gray-400"
+          className="btn m-1 border border-gray-300"
         >
           <RiFilterLine className="text-gray-500" />
         </div>
         <div
           tabIndex={0}
-          className="dropdown-content menu bg-base-100 border-[0.2px] border-gray-400 rounded-box z-1 w-[250px] md:w-[300px] p-4 shadow-sm"
+          className="dropdown-content menu bg-base-100 border border-gray-300 rounded-box z-1 w-[250px] md:w-[300px] p-4 shadow-sm"
         >
           <div className="flex flex-col">
             <h1 className="text-lg font-bold mb-4">Apply filters</h1>

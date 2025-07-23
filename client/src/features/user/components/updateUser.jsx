@@ -40,7 +40,7 @@ export default function UpdateUser({ user, onClose, isOpen }) {
     ? fetcher.data.message
     : null;
   const isSubmitting = fetcher.state === "submitting";
-  const roles = ["admin", "staff", "doctor", "nurse"];
+  const roles = ["admin", "staff", "doctor", "nurse", "patient"];
 
   const resetModal = () => {
     onClose();

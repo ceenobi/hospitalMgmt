@@ -6,7 +6,8 @@ import Search from "@/components/search";
 import { lazy, Suspense } from "react";
 import { SkeletonTable } from "@/components/skeleton";
 import Filter from "@/features/user/components/filter";
-const Table = lazy(() => import("@/features/user/components/table"));
+// const Table = lazy(() => import("@/features/user/components/table"));
+const Card = lazy(() => import("@/features/user/components/card"));
 
 export function Component() {
   useMetaArgs({
@@ -25,7 +26,7 @@ export function Component() {
         </div>
         <AddUser />
       </div>
-      <div className="mt-8 space-y-4 rounded-lg border-[0.2px] border-gray-300">
+      <div className="mt-8 space-y-4 rounded-lg border border-gray-300">
         <div className="flex justify-end items-center p-4">
           {/* <h2 className="hidden md:block font-semibold">Users</h2> */}
           <Search id="search-users">
@@ -33,9 +34,13 @@ export function Component() {
           </Search>
         </div>
         <Suspense fallback={<SkeletonTable />}>
-          <Await
+          {/* <Await
             resolve={users}
             children={(users) => <Table users={users} meta={meta} />}
+          /> */}
+          <Await
+            resolve={users}
+            children={(users) => <Card users={users} meta={meta} />}
           />
         </Suspense>
       </div>

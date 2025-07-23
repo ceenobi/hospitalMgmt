@@ -10,13 +10,13 @@ import usePaginate from "@/hooks/usePaginate";
 import { RiMoreLine } from "@remixicon/react";
 import UpdateUser from "./updateUser";
 import DeleteUser from "./deleteUser";
-import { useRouteLoaderData } from "react-router";
+import { useOutletContext } from "react-router";
 
 export default function Table({ users, meta }) {
   const [isOpen, setIsOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [userId, setUserId] = useState(null);
-  const loggedInUser = useRouteLoaderData("auth_user");
+  const { user: loggedInUser } = useOutletContext();
   const { handlePageChange, totalPages, hasMore, currentPage, limit } =
     usePaginate({
       totalPages: meta?.totalPages || 1,
@@ -71,7 +71,11 @@ export default function Table({ users, meta }) {
           );
         case "role":
           return (
-            <div className={`capitalize badge font-semibold ${usersRoleColors[user.role]}`}>
+            <div
+              className={`capitalize badge font-semibold ${
+                usersRoleColors[user.role]
+              }`}
+            >
               {user.role}
             </div>
           );
