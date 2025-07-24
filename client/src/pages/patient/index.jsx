@@ -25,7 +25,7 @@ export function Component() {
         </div>
         <AddPatient />
       </div>
-      <div className="mt-8 space-y-4 rounded-lg border-[0.2px] border-gray-300">
+      <div className="mt-8 space-y-4 rounded-lg border border-gray-300">
         <div className="flex justify-end items-center p-4">
           {/* <h2 className="hidden md:block font-semibold">Patients</h2> */}
           <Search id="search-patients">

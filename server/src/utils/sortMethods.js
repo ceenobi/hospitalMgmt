@@ -53,3 +53,35 @@ export const sortRoomMethods = {
         : 0,
   },
 };
+
+export const sortPaymentMethods = {
+  none: { method: () => null },
+  "paymentDate(Asc)": {
+    method: (a, b) =>
+      a.paymentDate < b.paymentDate
+        ? -1
+        : a.paymentDate > b.paymentDate
+        ? 1
+        : 0,
+  },
+  "paymentDate(Desc)": {
+    method: (a, b) =>
+      a.paymentDate > b.paymentDate
+        ? -1
+        : a.paymentDate < b.paymentDate
+        ? 1
+        : 0,
+  },
+  "amount(L-H)": {
+    method: (a, b) => (a.amount < b.amount ? -1 : a.amount > b.amount ? 1 : 0),
+  },
+  "amount(H-L)": {
+    method: (a, b) => (a.amount > b.amount ? -1 : a.amount < b.amount ? 1 : 0),
+  },
+  "status(A-Z)": {
+    method: (a, b) => (a.status < b.status ? -1 : a.status > b.status ? 1 : 0),
+  },
+  "status(Z-A)": {
+    method: (a, b) => (a.status > b.status ? -1 : a.status < b.status ? 1 : 0),
+  },
+};

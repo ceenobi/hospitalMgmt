@@ -89,7 +89,7 @@ export function Component() {
 
   return (
     <div className="space-y-6">
-      <h1 className="font-bold text-2xl border-b border-gray-500 pb-2">
+      <h1 className="font-bold text-2xl border-b border-gray-300 pb-2">
         Health Information
       </h1>
       {showSuccess ? (
@@ -228,14 +228,14 @@ export function Component() {
           <div className="mt-6 flex md:hidden gap-4 justify-center">
             <button
               type="button"
-              className="btn btn-outline w-[140px] border-[0.2px] border-gray-500"
+              className="btn btn-outline w-[140px] border border-gray-300"
               onClick={() => navigate(-1)}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-blue-500 text-white font-bold border-[0.2px] border-gray-500 p-2 rounded-md cursor-pointer w-[140px]"
+              className="bg-blue-500 text-white font-bold border border-gray-300 p-2 rounded-md cursor-pointer w-[140px]"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Saving..." : "Save"}

@@ -14,6 +14,7 @@ import ErrorBoundary from "@/components/errorBoundary";
 import LazyLoader from "@/components/lazyLoader";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { useAuthToken } from "@/context";
+import { getAllPayments } from "@/features/payments/services/api";
 
 export default function Routes() {
   const { accessToken, setAccessToken } = useAuthToken();
@@ -283,12 +284,17 @@ export default function Routes() {
                     Component: async () =>
                       (await import("@/pages/payments")).Component,
                   },
-                  loader: async () => {
-                    const [paymentMeta] = await Promise.all([
+                  loader: async ({ request }) => {
+                    const [paymentMeta, paymentData] = await Promise.all([
                       getAppointmentMeta(accessToken),
+                      getAllPayments({
+                        request,
+                        accessToken,
+                      }),
                     ]);
                     return {
                       paymentMeta,
+                      paymentData,
                     };
                   },
                   action: async ({ request }) =>

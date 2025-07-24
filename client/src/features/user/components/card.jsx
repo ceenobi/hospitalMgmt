@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useOutletContext } from "react-router";
 import UpdateUser from "./updateUser";
 import DeleteUser from "./deleteUser";
+import { RiPhoneLine } from "@remixicon/react";
 
 export default function Card({ users, meta }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,15 +63,28 @@ export default function Card({ users, meta }) {
                   </a>
                   <div>
                     <div
-                      className={`capitalize badge badge-sm font-semibold ${
+                      className={`capitalize badge badge-sm font-semibold my-2 ${
                         usersRoleColors[user.role]
                       }`}
                     >
                       {user.role}
                     </div>
-                    <p className="mt-2 text-gray-500 font-medium">
-                      Joined: {formatDate(user.createdAt)}
-                    </p>
+                    {user.phone && (
+                      <div className="flex items-center gap-1 text-gray-500 ">
+                        <RiPhoneLine size={16} />
+                        <a
+                          href={`tel:${user?.phone}`}
+                          className="font-medium text-sm"
+                        >
+                          {user.phone}
+                        </a>
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-gray-500 font-medium">
+                        Joined: {formatDate(user.createdAt)}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

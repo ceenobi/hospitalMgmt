@@ -208,6 +208,15 @@ export const appointmentsStatusColors = {
   cancelled: "bg-red-200 text-red-700",
 };
 
+export const paymentsTableColumns = [
+  { name: "PATIENT NAME", uid: "patientName" },
+  { name: "DOCTOR", uid: "doctor" },
+  { name: "NOTES", uid: "notes" },
+  { name: "DATE", uid: "paymentDate" },
+  { name: "STATUS", uid: "status" },
+  { name: "ACTION", uid: "action" },
+];
+
 export const sortMethods = {
   none: { method: () => null },
   "fullname(A-Z)": {

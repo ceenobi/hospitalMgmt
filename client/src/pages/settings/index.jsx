@@ -38,7 +38,7 @@ export function Component() {
         <div className="hidden md:flex gap-4 justify-end">
           <button
             type="button"
-            className="btn btn-outline w-[140px] border-[0.2px] border-gray-500"
+            className="btn btn-outline w-[140px] border border-gray-300"
             onClick={() => navigate("/")}
           >
             Cancel
@@ -46,15 +46,15 @@ export function Component() {
           <button
             type="submit"
             form={location.pathname}
-            className="bg-blue-500 text-white font-bold border-[0.2px] border-gray-500 p-2 rounded-md cursor-pointer w-[140px]"
+            className="bg-blue-500 text-white font-bold border border-gray-300 p-2 rounded-md cursor-pointer w-[140px]"
             disabled={isSubmitting}
           >
             {isSubmitting ? "Saving..." : "Save"}
           </button>
         </div>
       </div>
-      <div className="mt-4 rounded-lg border-[0.2px] border-gray-300 md:grid grid-cols-12">
-        <div className="col-span-2 border-r-[0.2px] border-gray-300 p-4">
+      <div className="mt-4 rounded-lg border border-gray-300 md:grid grid-cols-12">
+        <div className="col-span-2 border-r border-gray-300 p-4">
           <div className="flex flex-col">
             {settingsLink
               .filter((child) =>
