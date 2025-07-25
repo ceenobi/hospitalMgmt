@@ -3,7 +3,6 @@ import { useAuthToken } from "@/context";
 
 export function Component() {
   const { accessToken, setAccessToken, user } = useAuthToken();
-
   return (
     <main>
       <Outlet context={{ accessToken, setAccessToken, user }} />

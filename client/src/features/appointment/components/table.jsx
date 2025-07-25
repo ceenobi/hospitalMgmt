@@ -23,7 +23,6 @@ export default function Table({ appointments, meta }) {
       hasMore: meta?.hasMore || false,
       currentPage: meta?.currentPage || 1,
     });
-
   const tableColumns = appointmentsTableColumns.filter((column) => {
     if (column.uid === "action") {
       return loggedInUser?.role === "admin";
@@ -35,7 +34,7 @@ export default function Table({ appointments, meta }) {
       const cellValue = appointment[columnKey];
       switch (columnKey) {
         case "patientName":
-          return <div className="">{appointment?.patientId?.fullname}</div>;
+          return <div>{appointment?.patientId?.fullname}</div>;
         case "notes":
           return <div className="capitalize">{appointment?.notes}</div>;
         case "doctor":

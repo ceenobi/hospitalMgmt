@@ -27,3 +27,40 @@ export const getAllPayments = tryCatchFn(async (req, res, next) => {
     200
   );
 });
+
+export const getPatientPayments = tryCatchFn(async (req, res, next) => {
+  const { id: userId } = req.user;
+  const { page, limit, query, status, time, startDate, endDate } = req.query;
+  const responseData = await paymentService.getPatientPayments(
+    parseInt(page),
+    parseInt(limit),
+    query,
+    status,
+    time,
+    startDate,
+    endDate,
+    userId,
+    next
+  );
+  return successResponse(
+    res,
+    responseData,
+    "Patient payments data fetched successfully",
+    200
+  );
+});
+
+export const uploadReceipt = tryCatchFn(async (req, res, next) => {
+  const { id: paymentId } = req.params;
+  const responseData = await paymentService.uploadReceipt(
+    paymentId,
+    req.body.receipt,
+    next
+  );
+  return successResponse(
+    res,
+    responseData,
+    "Receipt uploaded successfully, Kindly check back for payment confirmation.",
+    200
+  );
+});

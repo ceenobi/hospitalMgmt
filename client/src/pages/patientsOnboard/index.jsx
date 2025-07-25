@@ -9,16 +9,14 @@ import ErrorAlert from "@/components/errorAlert";
 import FormField from "@/components/formField";
 import SelectField from "@/components/selectField";
 import useMetaArgs from "@/hooks/useMeta";
-import { usePrivateRoutes } from "@/hooks/useProtected";
 
 export function Component() {
-  usePrivateRoutes();
+  const { user } = useOutletContext();
   useMetaArgs({
     title: "Patients Onboard - Clinicare",
     description: "Complete your patient profile.",
     keywords: "Clinicare, patients, account",
   });
-  const { user } = useOutletContext();
   const [showSuccess, setShowSuccess] = useState(false);
   const {
     register,
@@ -81,9 +79,9 @@ export function Component() {
       ) : (
         <fetcher.Form
           onSubmit={handleSubmit(onSubmit)}
-          className="my-4 w-full max-w-[600px] mx-auto bg-white p-4 rounded-xl shadow-lg"
+          className="my-4 w-full max-w-[600px] mx-auto bg-white py-6 px-4 rounded-xl shadow-lg"
         >
-          <p className="text-gray-800 md:text-center">
+          <p className="text-muted-foreground text-center font-medium">
             Hello <b>{user?.fullname}</b>, Please complete your patient profile
           </p>
           {error && <ErrorAlert error={error} />}
@@ -202,7 +200,7 @@ export function Component() {
           <div className="mt-6 flex gap-4 justify-end">
             <button
               type="submit"
-              className="bg-blue-500 text-white font-bold border-[0.2px] border-gray-500 p-2 rounded-md cursor-pointer w-[140px]"
+              className="bg-blue-500 text-white font-bold border-[0.2px] border-gray-500 p-2 rounded-md cursor-pointer w-full md:w-[140px]"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Saving..." : "Save"}

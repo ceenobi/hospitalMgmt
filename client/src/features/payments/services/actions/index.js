@@ -1,4 +1,4 @@
-import { createPayment } from "../api";
+import { createPayment, uploadReceipt } from "../api";
 
 export const paymentAction = async ({ request, accessToken }) => {
   const formData = await request.formData();
@@ -18,5 +18,15 @@ export const paymentAction = async ({ request, accessToken }) => {
   //     const res = await deleteAppointment(data.appointmentId, accessToken);
   //     return res;
   //   }
+  return null;
+};
+
+export const paymentReceiptAction = async ({ request, accessToken }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  if (request.method === "PATCH") {
+    const res = await uploadReceipt(data, accessToken);
+    return res;
+  }
   return null;
 };

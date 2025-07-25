@@ -5,8 +5,13 @@ import { clearCache, cacheMiddleware } from "../middelwares/cache.js";
 import {
   createPayment,
   getAllPayments,
+  getPatientPayments,
+  uploadReceipt,
 } from "../controllers/paymentController.js";
-import { validateCreatePaymentSchema } from "../utils/dataSchema.js";
+import {
+  validateCreatePaymentSchema,
+  validatePaymentReceiptSchema,
+} from "../utils/dataSchema.js";
 
 const router = express.Router();
 
@@ -25,6 +30,24 @@ router.get(
   authorizedRoles("admin"),
   cacheMiddleware("payments", 3600),
   getAllPayments
+);
+
+router.get(
+  "/patient",
+  protect,
+  authorizedRoles("admin", "doctor", "patient"),
+  cacheMiddleware("patient_payments", 3600),
+  getPatientPayments
+);
+
+router.patch(
+  "/upload-receipt/:id",
+  protect,
+  authorizedRoles("patient"),
+  validateFormData(validatePaymentReceiptSchema),
+  clearCache("payments"),
+  clearCache("patient_payments"),
+  uploadReceipt
 );
 
 export default router;

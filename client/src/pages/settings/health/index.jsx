@@ -23,6 +23,7 @@ export function Component() {
   const [showSuccess, setShowSuccess] = useState(false);
   const { user } = useOutletContext();
   const patient = useLoaderData();
+  console.log(patient);
   const {
     register,
     handleSubmit,

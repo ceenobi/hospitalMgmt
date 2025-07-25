@@ -1,3 +1,6 @@
+import { useAuthToken } from "@/context";
+import { refreshTokenAction } from "@/features/auth/services/actions";
+import { useEffect, useMemo } from "react";
 import {
   isRouteErrorResponse,
   useRouteError,
@@ -6,6 +9,7 @@ import {
 } from "react-router";
 
 export default function ErrorBoundary() {
+  const { accessToken, setAccessToken, setIsAuthenticating } = useAuthToken();
   const submit = useSubmit();
   const error = useRouteError();
   const navigate = useNavigate();
@@ -30,13 +34,24 @@ export default function ErrorBoundary() {
     stack = error.stack;
     console.log(stack);
   }
-  const msgs = ["You are not logged in!", "jwt expired", "jwt malformed"];
+  const msgs = useMemo(
+    () => ["You are not logged in!", "jwt expired", "jwt malformed"],
+    []
+  );
 
   const redirect = () => {
-    msgs.includes(details)
+    details === "Invalid refresh token"
       ? submit({}, { action: "/logout", method: "post" })
       : navigate("/dashboard");
   };
+
+  useEffect(() => {
+    if (msgs.includes(details)) {
+      setIsAuthenticating(true);
+      refreshTokenAction({ accessToken, setAccessToken });
+      setIsAuthenticating(false);
+    }
+  }, [accessToken, details, msgs, setAccessToken, setIsAuthenticating]);
 
   return (
     <div className="container mx-auto p-4 flex flex-col items-center justify-center min-h-screen gap-2">

@@ -10,7 +10,7 @@ export function useFile() {
       setError("File with maximum size of 5MB is allowed");
       return false;
     }
-    const validFile = file?.type.startsWith("image/");
+    const validFile = file?.type.startsWith("image/") ;
     if (!validFile) {
       setError("Please upload only image file");
       return false;

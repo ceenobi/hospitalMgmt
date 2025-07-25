@@ -64,6 +64,9 @@ const authService = {
       return next(errorResponse("Refresh token required", 401));
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (!decoded) {
+      return next(errorResponse("Invalid refresh token", 401));
+    }
     const user = await User.findById(decoded.id);
     if (!user) {
       return next(errorResponse("Invalid refresh token", 401));

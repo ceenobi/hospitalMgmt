@@ -33,3 +33,29 @@ export const getAllPayments = async ({ request, accessToken }) => {
   );
   return response.data;
 };
+
+export const getPatientPayments = async ({ request, accessToken }) => {
+  const searchParams = new URL(request.url).searchParams;
+  const page = Number(searchParams.get("page")) || 1;
+  const limit = Number(searchParams.get("limit")) || 20;
+  const query = searchParams.get("query") || "";
+  const time = searchParams.get("time") || "";
+  const status = searchParams.get("status") || "";
+  const startDate = searchParams.get("startDate") || "";
+  const endDate = searchParams.get("endDate") || "";
+  const response = await axiosInstance.get(
+    `/api/v1/payment/patient?page=${page}&limit=${limit}&query=${query}&status=${status}&time=${time}&startDate=${startDate}&endDate=${endDate}`,
+    getHeaders(accessToken)
+  );
+  return response.data;
+};
+
+export const uploadReceipt = tryCatchFn(async (receipt, accessToken) => {
+  const response = await axiosInstance.patch(
+    `/api/v1/payment/upload-receipt/${receipt.paymentId}`,
+    receipt,
+    getHeaders(accessToken)
+  );
+  return response.data;
+});
+

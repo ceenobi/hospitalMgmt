@@ -24,8 +24,8 @@ export default function Card({ users, meta }) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:px-4">
         {users?.map((user) => (
           <div
-            key={user._id}
             className="card border border-gray-300 rounded-lg shadow"
+            key={user._id}
           >
             <div className="card-body">
               <div className="flex gap-2">

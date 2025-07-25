@@ -328,3 +328,7 @@ export const validateCreatePaymentSchema = z.object({
       message: "Status is required",
     }),
 });
+
+export const validatePaymentReceiptSchema = z.object({
+  receipt: z.string(),
+});

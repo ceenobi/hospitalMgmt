@@ -1,19 +1,17 @@
 import useMetaArgs from "@/hooks/useMeta";
 import { RiMailFill } from "@remixicon/react";
 import { useEffect, useState } from "react";
-import { useFetcher, Link, useRouteLoaderData } from "react-router";
+import { useFetcher, Link, useOutletContext } from "react-router";
 import PinField from "react-pin-field";
-import { usePrivateRoutes } from "@/hooks/useProtected";
 import ErrorAlert from "@/components/errorAlert";
 
 export function Component() {
-  usePrivateRoutes();
+  const { user } = useOutletContext();
   useMetaArgs({
     title: "Verify Account - Clinicare",
     description: "Verify your Clinicare account.",
     keywords: "Clinicare, verify account, account",
   });
-  const user = useRouteLoaderData("auth_user");
   const [verificationToken, setVerificationToken] = useState("");
   const [timer, setTimer] = useState(0);
   const [isResendDisabled, setIsResendDisabled] = useState(false);

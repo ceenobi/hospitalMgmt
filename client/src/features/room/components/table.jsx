@@ -1,7 +1,7 @@
 import Paginate from "@/components/paginate";
 import TableData from "@/components/tableData";
 import usePaginate from "@/hooks/usePaginate";
-import { roomsStatusColors, roomsTableColumns } from "@/utils/constants";
+import { formatCurrency, roomsStatusColors, roomsTableColumns } from "@/utils/constants";
 import { RiMoreLine } from "@remixicon/react";
 import { useCallback, useState } from "react";
 import { useOutletContext } from "react-router";
@@ -42,7 +42,7 @@ export default function Table({ rooms, meta }) {
         case "roomCapacity":
           return <div>{room.roomCapacity}</div>;
         case "roomPrice":
-          return <div>{room.roomPrice}</div>;
+          return <div>{formatCurrency(room.roomPrice)}</div>;
         case "roomStatus":
           return (
             <div

@@ -14,7 +14,10 @@ import ErrorBoundary from "@/components/errorBoundary";
 import LazyLoader from "@/components/lazyLoader";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { useAuthToken } from "@/context";
-import { getAllPayments } from "@/features/payments/services/api";
+import {
+  getAllPayments,
+  getPatientPayments,
+} from "@/features/payments/services/api";
 
 export default function Routes() {
   const { accessToken, setAccessToken } = useAuthToken();
@@ -161,8 +164,7 @@ export default function Routes() {
                     },
                     {
                       path: "health",
-                      loader: async ({ request }) =>
-                        await getPatient({ request }),
+                      loader: async () => await getPatient(accessToken),
                       lazy: {
                         Component: async () =>
                           (await import("@/pages/settings/health")).Component,
@@ -301,6 +303,20 @@ export default function Routes() {
                     (
                       await import("@/features/payments/services/actions")
                     ).paymentAction({ request, accessToken }),
+                },
+                {
+                  path: "patient-payments",
+                  loader: async ({ request }) =>
+                    await getPatientPayments({ request, accessToken }),
+                  lazy: {
+                    Component: async () =>
+                      (await import("@/pages/payments/patientPayments"))
+                        .Component,
+                  },
+                  action: async ({ request }) =>
+                    (
+                      await import("@/features/payments/services/actions")
+                    ).paymentReceiptAction({ request, accessToken }),
                 },
               ],
             },

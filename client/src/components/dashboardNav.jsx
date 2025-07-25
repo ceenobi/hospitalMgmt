@@ -12,14 +12,14 @@ export default function DashboardNav({ user }) {
           </h1>
           <div className="flex gap-4 items-center">
             <label className="input">
-              <RiSearchLine className="text-gray-500" size={28}/>
+              <RiSearchLine className="text-gray-500" size={28} />
               <input type="search" className="grow" placeholder="Search..." />
               <kbd className="kbd kbd-sm">⌘</kbd>
               <kbd className="kbd kbd-sm">K</kbd>
             </label>
             <div className="flex gap-2 items-center">
               <div className="avatar avatar-placeholder">
-                <div className="w-10 rounded-full bg-gray-300 text-gray-600">
+                <div className="w-10 rounded-full bg-gray-300 text-gray-600 border-2 border-gray-300">
                   {user?.avatar ? (
                     <img
                       src={user?.avatar}
@@ -27,7 +27,6 @@ export default function DashboardNav({ user }) {
                       referrerPolicy="no-referrer"
                       loading="lazy"
                       priority="high"
-                      className="border-2 border-gray-300"
                     />
                   ) : (
                     <span className="text-m">

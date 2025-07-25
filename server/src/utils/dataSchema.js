@@ -326,5 +326,8 @@ export const validateCreatePaymentSchema = z.object({
     .refine((value) => value !== "", {
       message: "Status is required",
     }),
-  // receipt: z.string(),
+});
+
+export const validatePaymentReceiptSchema = z.object({
+  receipt: z.string(),
 });

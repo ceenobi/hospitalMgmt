@@ -6,7 +6,7 @@ export default function TableData({ tableColumns, tableData, renderCell }) {
           <tr>
             <th>#</th>
             {tableColumns.map((header) => (
-              <th key={header.uid} className="text-md">
+              <th key={header.uid} className="text-md font-bold">
                 {header.name}
               </th>
             ))}

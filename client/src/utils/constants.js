@@ -50,6 +50,12 @@ export const dashBoardLinks = [
         href: "/dashboard/payments",
         Icon: RiBankCardLine,
       },
+      {
+        id: "patient-payments",
+        name: "Payments",
+        href: "/dashboard/patient-payments",
+        Icon: RiBankCardLine,
+      },
     ],
   },
   {
@@ -135,6 +141,13 @@ export const formatTime = (time) => {
   return `${formattedHours}:${minutes < 10 ? "0" : ""}${minutes} ${ampm}`;
 };
 
+export const formatCurrency = (amount, currency = "NGN") => {
+  return new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: currency || "NGN",
+  }).format(amount);
+};
+
 export const doctorsTableColumns = [
   { name: "DOCTOR NAME", uid: "name" },
   { name: "EMAIL", uid: "email" },
@@ -209,13 +222,20 @@ export const appointmentsStatusColors = {
 };
 
 export const paymentsTableColumns = [
-  { name: "PATIENT NAME", uid: "patientName" },
+  { name: "PATIENT", uid: "patient" },
   { name: "DOCTOR", uid: "doctor" },
   { name: "NOTES", uid: "notes" },
+  { name: "AMOUNT", uid: "amount" },
   { name: "DATE", uid: "paymentDate" },
   { name: "STATUS", uid: "status" },
   { name: "ACTION", uid: "action" },
 ];
+
+export const paymentsStatusColors = {
+  pending: "bg-yellow-200 text-yellow-700",
+  paid: "bg-green-200 text-green-700",
+  cancelled: "bg-red-200 text-red-700",
+};
 
 export const sortMethods = {
   none: { method: () => null },
@@ -371,6 +391,7 @@ export const roleBasedPathPermissions = {
     allowedSubpaths: [
       "/dashboard",
       "/dashboard/patient-appointments",
+      "/dashboard/patient-payments",
       "/dashboard/settings",
       "/dashboard/settings/account",
       "/dashboard/settings/password",
@@ -399,7 +420,6 @@ export const isRoleVisible = (sessionUser, role) => {
   if (sessionUser.role === "admin") {
     return true;
   }
-
   // Doctors can see all roles except admin
   if (sessionUser.role === "doctor") {
     return ["patient", "doctor", "nurse", "staff"].includes(role);

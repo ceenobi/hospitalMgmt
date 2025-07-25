@@ -31,7 +31,15 @@ export default function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ accessToken, setAccessToken, user }}>
+    <AuthContext.Provider
+      value={{
+        accessToken,
+        setAccessToken,
+        user,
+        isAuthenticating,
+        setIsAuthenticating,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
