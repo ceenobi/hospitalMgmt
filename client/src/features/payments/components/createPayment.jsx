@@ -42,7 +42,7 @@ export default function CreatePayment({ paymentMeta }) {
     id: doctor.userId._id,
     name: doctor.userId.fullname,
   }));
-  const status = ["pending", "paid", "cancelled"];
+  const status = ["pending", "confirmed", "cancelled"];
   const resetModal = () => {
     setIsOpen(false);
     setShowSuccess(false);

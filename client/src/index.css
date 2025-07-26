@@ -26,30 +26,32 @@ body {
 
 /* Smooth fade transitions */
 ::view-transition-old(root) {
-  animation: zoom-out 300ms ease-in-out forwards;
-  z-index: 1;
+  animation: fade-out 300ms ease forwards;
 }
 
 ::view-transition-new(root) {
-  animation: zoom-in 500ms ease-in-out forwards;
-  z-index: 2;
+  animation: fade-in 500ms ease forwards;
 }
 
-@keyframes zoom-in {
+@keyframes fade-in {
   from {
     opacity: 0;
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@keyframes zoom-out {
+@keyframes fade-out {
   from {
     opacity: 1;
+    transform: translateY(0);
   }
   to {
     opacity: 0;
+    transform: translateY(-10px);
   }
 }
 

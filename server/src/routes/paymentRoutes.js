@@ -6,6 +6,7 @@ import {
   createPayment,
   getAllPayments,
   getPatientPayments,
+  updatePayment,
   uploadReceipt,
 } from "../controllers/paymentController.js";
 import {
@@ -48,6 +49,15 @@ router.patch(
   clearCache("payments"),
   clearCache("patient_payments"),
   uploadReceipt
+);
+
+router.patch(
+  "/:id/update",
+  protect,
+  authorizedRoles("admin"),
+  validateFormData(validateCreatePaymentSchema),
+  clearCache("payments"),
+  updatePayment
 );
 
 export default router;

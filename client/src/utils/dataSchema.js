@@ -323,7 +323,7 @@ export const validateCreatePaymentSchema = z.object({
       message: "Notes cannot be more than 255 characters",
     }),
   status: z
-    .enum(["pending", "paid", "cancelled"])
+    .enum(["pending", "confirmed", "cancelled"])
     .refine((value) => value !== "", {
       message: "Status is required",
     }),

@@ -1,6 +1,6 @@
 import { PageWrapper } from "@/components/pageWrapper";
 import useMetaArgs from "@/hooks/useMeta";
-import { Await, useLoaderData } from "react-router";
+import { Await, useRouteLoaderData } from "react-router";
 import CreatePayment from "@/features/payments/components/createPayment";
 import { lazy, Suspense } from "react";
 import { SkeletonTable } from "@/components/skeleton";
@@ -14,7 +14,7 @@ export function Component() {
     description: "Manage your payments.",
     keywords: "Clinicare, payments, account",
   });
-  const { paymentMeta, paymentData } = useLoaderData();
+  const { paymentMeta, paymentData } = useRouteLoaderData("payment_data");
   return (
     <PageWrapper>
       <div className="flex justify-between items-center">

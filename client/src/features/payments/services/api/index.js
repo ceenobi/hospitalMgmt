@@ -59,3 +59,21 @@ export const uploadReceipt = tryCatchFn(async (receipt, accessToken) => {
   return response.data;
 });
 
+export const updatePayment = tryCatchFn(
+  async (paymentId, paymentData, accessToken) => {
+    const response = await axiosInstance.patch(
+      `/api/v1/payment/${paymentId}/update`,
+      paymentData,
+      getHeaders(accessToken)
+    );
+    return response.data;
+  }
+);
+
+export const deletePayment = tryCatchFn(async (paymentId, accessToken) => {
+  const response = await axiosInstance.delete(
+    `/api/v1/payment/${paymentId}/delete`,
+    getHeaders(accessToken)
+  );
+  return response.data;
+});

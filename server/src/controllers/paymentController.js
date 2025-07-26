@@ -64,3 +64,18 @@ export const uploadReceipt = tryCatchFn(async (req, res, next) => {
     200
   );
 });
+
+export const updatePayment = tryCatchFn(async (req, res, next) => {
+  const { id: paymentId } = req.params;
+  const responseData = await paymentService.updatePayment(
+    paymentId,
+    req.validatedData,
+    next
+  );
+  return successResponse(
+    res,
+    responseData,
+    "Payment updated successfully",
+    200
+  );
+});

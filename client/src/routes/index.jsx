@@ -282,6 +282,7 @@ export default function Routes() {
                 },
                 {
                   path: "payments",
+                  id: "payment_data",
                   lazy: {
                     Component: async () =>
                       (await import("@/pages/payments")).Component,

@@ -227,13 +227,14 @@ export const paymentsTableColumns = [
   { name: "NOTES", uid: "notes" },
   { name: "AMOUNT", uid: "amount" },
   { name: "DATE", uid: "paymentDate" },
+  { name: "RECEIPT", uid: "receipt" },
   { name: "STATUS", uid: "status" },
   { name: "ACTION", uid: "action" },
 ];
 
 export const paymentsStatusColors = {
   pending: "bg-yellow-200 text-yellow-700",
-  paid: "bg-green-200 text-green-700",
+  confirmed: "bg-green-200 text-green-700",
   cancelled: "bg-red-200 text-red-700",
 };
 

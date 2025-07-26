@@ -4,7 +4,11 @@ import {
   deleteFromCloudinary,
   uploadToCloudinary,
 } from "../utils/cloudinary.js";
-import { createPaymentTemplate } from "../utils/emailTemplates.js";
+import {
+  createPaymentTemplate,
+  paymentReceiptTemplate,
+  paymentStatusTemplate,
+} from "../utils/emailTemplates.js";
 import { sendMail } from "../utils/mail.js";
 import responseHandler from "../utils/responseHandler.js";
 import { sortPaymentMethods } from "../utils/sortMethods.js";
@@ -232,8 +236,56 @@ const paymentService = {
     });
     payment.receipt = url || payment.receipt;
     payment.receiptId = public_id || payment.receiptId;
+    payment.paymentDate = new Date();
     await payment.save();
+    const html = paymentReceiptTemplate(
+      payment.patientId.fullname,
+      payment.amount,
+      payment.paymentDate,
+      payment.receipt
+    );
+    await sendMail({
+      to: process.env.EMAIL_USER,
+      subject: "Payment Receipt Update",
+      html,
+    });
     return payment;
+  },
+  updatePayment: async (paymentId, paymentData, next) => {
+    const payment = await Payment.findById(paymentId)
+      .populate("doctorId", "fullname")
+      .populate("patientId", "fullname email");
+    if (!payment) {
+      return next(notFoundResponse("No payment found"));
+    }
+    const patient = await Patient.findOne({
+      userId: payment.patientId,
+    }).lean();
+    if (!patient) {
+      return next(notFoundResponse("No patient found"));
+    }
+    for (const [key, value] of Object.entries(paymentData)) {
+      if (value) {
+        payment[key] = value;
+      }
+    }
+    const updatedPayment = await payment.save();
+    if (
+      updatedPayment.status === "confirmed" ||
+      updatedPayment.status === "cancelled"
+    ) {
+      const html = paymentStatusTemplate(
+        patient.fullname,
+        updatedPayment.amount,
+        updatedPayment.status
+      );
+      await sendMail({
+        to: patient.email,
+        subject: "Payment Update",
+        html,
+      });
+    }
+    return updatedPayment;
   },
 };
 

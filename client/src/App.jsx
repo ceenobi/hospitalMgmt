@@ -4,10 +4,12 @@ import { Toaster } from "sonner";
 
 function App() {
   return (
-    <AuthProvider>
+    <>
       <Toaster richColors position="top-center" />
-      <Routes />
-    </AuthProvider>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
+    </>
   );
 }
 

@@ -304,6 +304,12 @@ const appointmentService = {
     if (!appointment) {
       return next(notFoundResponse("No appointment found"));
     }
+    const patient = await Patient.findOne({
+      userId: appointment.patientId,
+    }).lean();
+    if (!patient) {
+      return next(notFoundResponse("No patient found"));
+    }
     for (const [key, value] of Object.entries(appointmentData)) {
       if (value) {
         appointment[key] = value;
@@ -315,11 +321,11 @@ const appointmentService = {
       updatedAppointment.status === "cancelled"
     ) {
       const html = appointmentStatusTemplate(
-        appointment.patientId.fullname,
-        appointment.status
+        patient.fullname,
+        updatedAppointment.status
       );
       await sendMail({
-        to: appointment.patientId.email,
+        to: patient.email,
         subject: "Appointment Booking Update",
         html,
       });
