@@ -48,8 +48,11 @@ export default function ErrorBoundary() {
   useEffect(() => {
     if (msgs.includes(details)) {
       setIsAuthenticating(true);
-      refreshTokenAction({ accessToken, setAccessToken });
-      setIsAuthenticating(false);
+      async function refresh() {
+        await refreshTokenAction({ accessToken, setAccessToken });
+        setIsAuthenticating(false);
+      }
+      refresh();
     }
   }, [accessToken, details, msgs, setAccessToken, setIsAuthenticating]);
 
@@ -64,7 +67,7 @@ export default function ErrorBoundary() {
       <p className="text-red-600 font-bold text-xl">{message}</p>
       <p className="text-gray-600">
         {details === "jwt expired" || details === "jwt malformed"
-          ? "Session expired"
+          ? "Checking authentication..."
           : details}
       </p>
       <button

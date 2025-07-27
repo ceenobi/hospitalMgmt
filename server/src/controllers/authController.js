@@ -2,7 +2,7 @@ import authService from "../services/auth.service.js";
 import { createSendToken } from "../utils/token.js";
 import tryCatchFn from "../utils/tryCatchFn.js";
 import responseHandler from "../utils/responseHandler.js";
-const { successResponse } = responseHandler;
+const { successResponse, errorResponse } = responseHandler;
 
 export const signup = tryCatchFn(async (req, res, next) => {
   const user = await authService.register(req.validatedData, next);
@@ -26,12 +26,23 @@ export const signin = tryCatchFn(async (req, res, next) => {
 export const refreshToken = tryCatchFn(async (req, res, next) => {
   const { clinicareRfToken: token } = req.cookies;
   const user = await authService.refreshToken(token, next);
-  const { accessToken, refreshToken, cookieOptions } = createSendToken(user);
+  
+  if (!user) {
+    return errorResponse(res, 'Invalid or expired refresh token', 401);
+  }
+  
+  const tokenData = createSendToken(user);
+  if (!tokenData) {
+    return errorResponse(res, 'Failed to generate new tokens', 500);
+  }
+  
+  const { accessToken, refreshToken, cookieOptions } = tokenData;
   res.cookie("clinicareRfToken", refreshToken, cookieOptions);
+  
   return successResponse(
     res,
     { accessToken },
-    "Refresh token successfull",
+    "Token refreshed successfully",
     200
   );
 });

@@ -90,7 +90,6 @@ export const updatePasswordAction = async ({ request }) => {
 };
 
 export const refreshTokenAction = async ({ accessToken, setAccessToken }) => {
-  if (!accessToken) return;
   try {
     const decodedToken = jwtDecode(accessToken);
     const expirationTime = decodedToken?.exp ?? 0;

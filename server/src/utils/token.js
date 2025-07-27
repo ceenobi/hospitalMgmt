@@ -11,6 +11,7 @@ export const signToken = (id) => {
 };
 
 export const createSendToken = (user) => {
+  console.log("user", user);
   if (user) {
     const token = signToken(user._id);
     const cookieOptions = {

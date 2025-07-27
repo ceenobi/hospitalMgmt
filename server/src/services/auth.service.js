@@ -13,6 +13,8 @@ import {
   uploadToCloudinary,
 } from "../utils/cloudinary.js";
 import responseHandler from "../utils/responseHandler.js";
+import Patient from "../models/patient.js";
+import Doctor from "../models/doctor.js";
 const { errorResponse, notFoundResponse } = responseHandler;
 
 const hashedPassword = async (password) => {
@@ -64,6 +66,7 @@ const authService = {
       return next(errorResponse("Refresh token required", 401));
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("decoded", decoded);
     if (!decoded) {
       return next(errorResponse("Invalid refresh token", 401));
     }
@@ -296,8 +299,18 @@ const authService = {
     if (user.avatarId) {
       await deleteFromCloudinary(user.avatarId);
     }
-    // const patient = await Patient.findOneAndDelete({ userId });
-    // const doctor = await Doctor.findOneAndDelete({ userId });
+    if (user.role === "patient") {
+      const patient = await Patient.findOneAndDelete({ userId });
+      if (!patient) {
+        return next(notFoundResponse("No patient found with that email"));
+      }
+    }
+    if (user.role === "doctor") {
+      const doctor = await Doctor.findOneAndDelete({ userId });
+      if (!doctor) {
+        return next(notFoundResponse("No doctor found with that email"));
+      }
+    }
     await user.deleteOne();
     return true;
   },

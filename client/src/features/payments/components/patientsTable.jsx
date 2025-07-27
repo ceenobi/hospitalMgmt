@@ -44,6 +44,17 @@ export default function PatientsTable({ payments, meta }) {
           return (
             <p>{formatTextDate(payment?.paymentDate) || "Not available"}</p>
           );
+        case "receipt":
+          return (
+            <a
+              href={payment?.receipt}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:text-blue-600 hover:underline"
+            >
+              {payment?.receipt ? "View" : "Not available"}
+            </a>
+          );
         case "status":
           return (
             <p

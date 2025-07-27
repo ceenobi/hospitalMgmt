@@ -29,19 +29,20 @@ export function Component() {
         <AddUser />
       </div>
       <div className="mt-8 space-y-4 ">
-        <div
-          className={`flex justify-between items-center ${
-            tableView ? "" : "p-4"
-          }`}
-        >
+        <div className={`flex justify-between items-center`}>
           <button
             onClick={() => setTableView(!tableView)}
             className="flex gap-1 items-center font-semibold cursor-pointer hover:text-blue-600 transition-colors"
             type="button"
           >
             {tableView ? <RiLayoutColumnLine /> : <RiLayoutRowLine />}
-            {tableView ? "Table View" : "Card View"}
+            {tableView ? (
+              <span className="hidden md:inline">Table View</span>
+            ) : (
+              <span className="hidden md:inline">Card View</span>
+            )}
           </button>
+          <div></div>
           <Search id="search-users">
             <Filter />
           </Search>

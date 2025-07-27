@@ -43,7 +43,7 @@ export default function Table({ payments, meta }) {
             <p className="capitalize">{formatCurrency(payment?.amount)}</p>
           );
         case "paymentDate":
-          return <p>{formatTextDate(payment?.paymentDate) || "Not available"}</p>;
+          return <p>{formatTextDate(payment?.paymentDate) || "N/A"}</p>;
         case "receipt":
           return (
             <a
@@ -52,7 +52,7 @@ export default function Table({ payments, meta }) {
               rel="noopener noreferrer"
               className="text-blue-500 hover:text-blue-600 hover:underline"
             >
-              {payment?.receipt ? "View" : "Not available"}
+              {payment?.receipt ? "View" : "N/A"}
             </a>
           );
         case "status":
