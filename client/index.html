@@ -3,9 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/clinicarefavi.svg" />
-    <link rel="preconnect" href="https://fonts.cdnfonts.com" />
+    
+    <!-- Preconnect to external domains -->
+    <link rel="dns-prefetch" href="https://fonts.cdnfonts.com" />
+    <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+    
+    <!-- Preconnect with crossorigin -->
+    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin="anonymous" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" as="style" href="https://fonts.cdnfonts.com/css/inter" />
+    
+    <!-- Load fonts with font-display: swap -->
+    <link 
+      href="https://fonts.cdnfonts.com/css/inter" 
+      rel="stylesheet" 
+      media="print" 
+      onload="this.media='all'"
+    />
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Clinicare</title>
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="description" content="Clinicare - Modern Hospital Management System" />
+    
+    <!-- iOS specific -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    
+    <title>Clinicare - Hospital Management System</title>
+    
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="/src/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="/src/index.css" /></noscript>
   </head>
   <body>
     <div id="root"></div>

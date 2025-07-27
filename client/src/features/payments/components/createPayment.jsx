@@ -61,8 +61,6 @@ export default function CreatePayment({ paymentMeta }) {
     );
   };
 
-  console.log(fetcher.data);
-
   return (
     <>
       <button

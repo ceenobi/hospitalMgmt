@@ -32,14 +32,50 @@ export function Component() {
           </button>
         </div>
       </div>
-      <div className="py-5 px-4 mt-10 md:h-[700px] w-[90%] mx-auto">
-        <img
-          src="/hospitalHero.jpg"
-          alt="hospital-hero"
-          fetchPriority="high"
-          className="h-full w-full shadow-lg rounded-xl"
-          loading="eager"
-        />
+      <div className="py-5 px-4 mt-10 w-full max-w-7xl mx-auto">
+        <div className="relative aspect-video w-full md:rounded-xl overflow-hidden shadow-lg">
+          <picture>
+            {/* WebP format with responsive sizes */}
+            <source
+              srcSet={`
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_640/Clinicare/public/hospitalHero_nm5w6b.webp 640w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1024/Clinicare/public/hospitalHero_nm5w6b.webp 1024w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1280/Clinicare/public/hospitalHero_nm5w6b.webp 1280w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1920/Clinicare/public/hospitalHero_nm5w6b.webp 1920w
+              `}
+              type="image/webp"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px"
+            />
+            {/* Fallback to JPEG */}
+            <source
+              srcSet={`
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_640/Clinicare/public/hospitalHero_nm5w6b.jpg 640w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1024/Clinicare/public/hospitalHero_nm5w6b.jpg 1024w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1280/Clinicare/public/hospitalHero_nm5w6b.jpg 1280w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1920/Clinicare/public/hospitalHero_nm5w6b.jpg 1920w
+              `}
+              type="image/jpeg"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px"
+            />
+            <img
+              src="https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1920/Clinicare/public/hospitalHero_nm5w6b.jpg"
+              srcSet="
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_640/Clinicare/public/hospitalHero_nm5w6b.jpg 640w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1024/Clinicare/public/hospitalHero_nm5w6b.jpg 1024w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1280/Clinicare/public/hospitalHero_nm5w6b.jpg 1280w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1920/Clinicare/public/hospitalHero_nm5w6b.jpg 1920w
+              "
+              alt="Modern hospital facility with clean interiors and medical professionals"
+              className="w-full h-full object-cover object-center"
+              width={1920}
+              height={1080}
+              loading="eager"
+              fetchPriority="high"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px"
+            />
+          </picture>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+        </div>
       </div>
       <div className="my-10 container mx-auto py-5 px-4">
         <h1 className="text-2xl md:text-3xl font-bold text-center">
@@ -87,14 +123,49 @@ export function Component() {
           ))}
         </div>
       </div>
-      <div className="py-5 px-4 mt-10 md:h-[700px] w-[90%] mx-auto">
-        <img
-          src="/clinicare-dashboard.png"
-          alt="clinicare"
-          fetchPriority="high"
-          loading="eager"
-          className="h-full w-full shadow-lg rounded-xl border-[0.2px] border-gray-500"
-        />
+      <div className="py-5 px-4 mt-10 w-full max-w-7xl mx-auto">
+        <div className="relative aspect-video w-full md:rounded-xl overflow-hidden shadow-lg">
+          <picture>
+            <source
+              srcSet={`
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_640/Clinicare/public/clinicare-dashboard_siybbu.webp 640w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1024/Clinicare/public/clinicare-dashboard_siybbu.webp 1024w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1280/Clinicare/public/clinicare-dashboard_siybbu.webp 1280w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1920/Clinicare/public/clinicare-dashboard_siybbu.webp 1920w
+              `}
+              type="image/webp"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px"
+            />
+            {/* Fallback to JPEG */}
+            <source
+              srcSet={`
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_640/Clinicare/public/clinicare-dashboard_siybbu.jpg 640w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1024/Clinicare/public/clinicare-dashboard_siybbu.jpg 1024w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1280/Clinicare/public/clinicare-dashboard_siybbu.jpg 1280w,
+                https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1920/Clinicare/public/clinicare-dashboard_siybbu.jpg 1920w
+              `}
+              type="image/jpeg"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px"
+            />
+            <img
+              src="https://res.cloudinary.com/ceenobi/image/upload/v1753611666/Clinicare/public/clinicare-dashboard_siybbu.png"
+              alt="clinicare"
+              srcSet="
+              https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_640/Clinicare/public/clinicare-dashboard_siybbu.png 640w,
+              https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1024/Clinicare/public/clinicare-dashboard_siybbu.png 1024w,
+              https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1280/Clinicare/public/clinicare-dashboard_siybbu.png 1280w,
+              https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto,w_1920/Clinicare/public/clinicare-dashboard_siybbu.png 1920w
+            "
+              className="w-full h-full object-cover object-center"
+              width={1920}
+              height={1080}
+              loading="eager"
+              fetchPriority="high"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px"
+            />
+          </picture>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+        </div>
       </div>
       <div className="my-20 py-5 px-4 bg-blue-500">
         <div className="container mx-auto grid grid-cols-12 gap-4 lg:gap-8">
@@ -118,9 +189,12 @@ export function Component() {
             Take advantage of our awesome services and enjoy rich healthcare
             experience at the comfort of your home.
           </p>
-          <button className="btn bg-blue-500 hover:bg-blue-600 text-white">
-            <Link to="account/signin">Get Started</Link>
-          </button>
+
+          <Link to="account/signin">
+            <button className="btn bg-blue-500 hover:bg-blue-600 text-white">
+              Get Started
+            </button>
+          </Link>
         </div>
       </div>
     </>
