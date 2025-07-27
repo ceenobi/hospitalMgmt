@@ -11,9 +11,13 @@ export default function AuthProvider({ children }) {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   useEffect(() => {
-    setIsAuthenticating(true);
-    refreshTokenAction({ accessToken, setAccessToken });
-    setIsAuthenticating(false);
+    if (!accessToken) return;
+    async function refresh() {
+      setIsAuthenticating(true);
+      await refreshTokenAction({ accessToken, setAccessToken });
+      setIsAuthenticating(false);
+    }
+    refresh();
   }, [accessToken, setAccessToken]);
 
   useEffect(() => {
@@ -21,8 +25,10 @@ export default function AuthProvider({ children }) {
     async function fetchUser() {
       setIsAuthenticating(true);
       const response = await authUser(accessToken);
-      setUser(response?.data);
-      setIsAuthenticating(false);
+      if (response?.success) {
+        setUser(response?.data);
+        setIsAuthenticating(false);
+      }
     }
     fetchUser();
   }, [accessToken]);
