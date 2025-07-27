@@ -18,6 +18,7 @@ export default function AuthProvider({ children }) {
 
   useEffect(() => {
     async function fetchUser() {
+      if (!accessToken) return;
       setIsAuthenticating(true);
       const response = await authUser(accessToken);
       setUser(response?.data);

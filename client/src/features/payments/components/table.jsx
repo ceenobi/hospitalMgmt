@@ -43,9 +43,7 @@ export default function Table({ payments, meta }) {
             <p className="capitalize">{formatCurrency(payment?.amount)}</p>
           );
         case "paymentDate":
-          return (
-            <p>{formatTextDate(payment?.paymentDate) || "Not available"}</p>
-          );
+          return <p>{formatTextDate(payment?.paymentDate) || "Not available"}</p>;
         case "receipt":
           return (
             <a
