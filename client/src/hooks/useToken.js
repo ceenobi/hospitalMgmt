@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export function useToken() {
   const [accessToken, setAccessToken] = useState(() => {
     const persistedState = localStorage.getItem("clinicareAccessToken");
-    return persistedState ? persistedState : "";
+    return persistedState ? persistedState : null;
   });
 
   useEffect(() => {
@@ -12,4 +12,3 @@ export function useToken() {
 
   return { accessToken, setAccessToken };
 }
-
