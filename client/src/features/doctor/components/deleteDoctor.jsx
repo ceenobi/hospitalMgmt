@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Modal from "@/components/modal";
 import { useFetcher } from "react-router";
 import ErrorAlert from "@/components/errorAlert";
 import { RiDeleteBinLine } from "@remixicon/react";
+import { toast } from "sonner";
 
 export default function DeleteDoctor({ doctor, onClose, isOpen }) {
-  const [showSuccess, setShowSuccess] = useState(false);
   const fetcher = useFetcher();
 
   useEffect(() => {
     if (fetcher.data?.success) {
-      setShowSuccess(true);
+      toast.success(fetcher.data?.message);
     }
-  }, [fetcher.data, setShowSuccess]);
+  }, [fetcher.data]);
 
   const error = ["fail", "error"].includes(fetcher.data?.status)
     ? fetcher.data.message
@@ -40,53 +40,35 @@ export default function DeleteDoctor({ doctor, onClose, isOpen }) {
         showClose
         onClose={onClose}
       >
-        {!showSuccess ? (
-          <div className="flex flex-col items-center gap-2 w-full">
-            <RiDeleteBinLine
-              size={40}
-              className="text-red-500 p-2 border-[0.2px] border-red-500 rounded-full shadow-lg"
-            />
-            <h1 className="text-2xl font-bold">Confirm Delete</h1>
-            <p>
-              Are you sure you want to delete <b>{doctor?.userId?.fullname}</b>?
-            </p>
-            <div className="mt-4 mb-2 flex gap-2">
-              <button
-                type="button"
-                className="btn btn-outline w-[150px] border-[0.2px] border-gray-500"
-                onClick={() => onClose()}
-              >
-                Cancel
-              </button>
-              <fetcher.Form onSubmit={submit}>
-                <button
-                  type="submit"
-                  className="btn bg-red-500 hover:bg-red-600 text-white w-[150px]"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Deleting..." : "Yes, Delete"}
-                </button>
-              </fetcher.Form>
-            </div>
-          </div>
-        ) : (
-          <div className="p-4 text-center max-w-[300px] mx-auto">
-            <img
-              src="/Success.svg"
-              alt="success"
-              className="w-full h-[250px]"
-            />
-            <h1 className="text-2xl font-bold">Success!</h1>
-            <p className="text-gray-600">Doctor deleted successfully.</p>
-            <button
-              onClick={onClose}
-              className="my-4 btn bg-blue-500 hover:bg-blue-600 text-white"
-            >
-              Go back to Doctors
-            </button>
-          </div>
-        )}
         {error && <ErrorAlert error={error} />}
+        <div className="flex flex-col items-center gap-2 w-full">
+          <RiDeleteBinLine
+            size={40}
+            className="text-red-500 p-2 border-[0.2px] border-red-500 rounded-full shadow-lg"
+          />
+          <h1 className="text-2xl font-bold">Confirm Delete</h1>
+          <p>
+            Are you sure you want to delete <b>{doctor?.userId?.fullname}</b>?
+          </p>
+          <div className="mt-4 mb-2 flex gap-2">
+            <button
+              type="button"
+              className="btn btn-outline w-[150px] border-[0.2px] border-gray-500"
+              onClick={() => onClose()}
+            >
+              Cancel
+            </button>
+            <fetcher.Form onSubmit={submit}>
+              <button
+                type="submit"
+                className="btn bg-red-500 hover:bg-red-600 text-white w-[150px]"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Deleting..." : "Yes, Delete"}
+              </button>
+            </fetcher.Form>
+          </div>
+        </div>
       </Modal>
     </>
   );

@@ -140,6 +140,16 @@ export default function UpdateAppointment({ appointment, isOpen, onClose }) {
                 />
               </div>
               <div className="md:col-span-6">
+                <fieldset className="fieldset relative">
+                  <legend className="fieldset-legend">Notes</legend>
+                  <textarea
+                    className="textarea w-full"
+                    placeholder="Notes"
+                    {...register("notes")}
+                  ></textarea>
+                </fieldset>
+              </div>
+              <div className="md:col-span-6">
                 <SelectField
                   label="Status"
                   id="status"
@@ -149,13 +159,6 @@ export default function UpdateAppointment({ appointment, isOpen, onClose }) {
                   data={status}
                   errors={errors}
                 />
-              </div>
-              <div className="md:col-span-6">
-                <textarea
-                  className="textarea w-full my-4"
-                  placeholder="Notes"
-                  {...register("notes")}
-                ></textarea>
               </div>
             </div>
             <div className="mt-6 mb-2 flex w-full justify-end gap-2">

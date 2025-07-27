@@ -42,7 +42,9 @@ export default function CreatePayment({ paymentMeta }) {
     id: doctor.userId._id,
     name: doctor.userId.fullname,
   }));
+
   const status = ["pending", "confirmed", "cancelled"];
+
   const resetModal = () => {
     setIsOpen(false);
     setShowSuccess(false);
@@ -58,6 +60,8 @@ export default function CreatePayment({ paymentMeta }) {
       }
     );
   };
+
+  console.log(fetcher.data);
 
   return (
     <>
@@ -102,11 +106,14 @@ export default function CreatePayment({ paymentMeta }) {
                 />
               </div>
               <div className="md:col-span-12">
-                <textarea
-                  className="textarea w-full"
-                  placeholder="Notes"
-                  {...register("notes")}
-                ></textarea>
+                <fieldset className="fieldset relative">
+                  <legend className="fieldset-legend">Notes</legend>
+                  <textarea
+                    className="textarea w-full"
+                    placeholder="Notes"
+                    {...register("notes")}
+                  ></textarea>
+                </fieldset>
                 {errors?.notes?.message && (
                   <p className="text-red-500 text-xs mt-1">
                     {errors?.notes?.message}

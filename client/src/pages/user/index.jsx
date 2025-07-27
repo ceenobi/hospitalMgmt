@@ -36,7 +36,7 @@ export function Component() {
         >
           <button
             onClick={() => setTableView(!tableView)}
-            className="flex gap-1 items-center text-gray-500 cursor-pointer"
+            className="flex gap-1 items-center font-semibold cursor-pointer hover:text-blue-600 transition-colors"
             type="button"
           >
             {tableView ? <RiLayoutColumnLine /> : <RiLayoutRowLine />}

@@ -71,6 +71,7 @@ export function Component() {
                         : "text-muted-foreground"
                     }`
                   }
+                  viewTransition
                 >
                   {child.name}
                 </NavLink>

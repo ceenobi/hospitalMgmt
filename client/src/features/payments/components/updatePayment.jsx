@@ -112,11 +112,14 @@ export default function UpdatePayment({ payment, onClose, isOpen }) {
                 />
               </div>
               <div className="md:col-span-12">
-                <textarea
-                  className="textarea w-full"
-                  placeholder="Notes"
-                  {...register("notes")}
-                ></textarea>
+                <fieldset className="fieldset relative">
+                  <legend className="fieldset-legend">Notes</legend>
+                  <textarea
+                    className="textarea w-full"
+                    placeholder="Notes"
+                    {...register("notes")}
+                  ></textarea>
+                </fieldset>
                 {errors?.notes?.message && (
                   <p className="text-red-500 text-xs mt-1">
                     {errors?.notes?.message}

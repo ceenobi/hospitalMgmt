@@ -79,7 +79,8 @@ export const authUser = tryCatchFn(async (accesstoken) => {
   if (!accesstoken) return;
   const response = await axiosInstance.get(
     "/api/v1/auth/user",
-    getHeaders(accesstoken)
+    getHeaders(accesstoken),
+    { timeout: 5000 }
   );
   return response.data;
 });
