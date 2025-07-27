@@ -288,10 +288,14 @@ const paymentService = {
     return updatedPayment;
   },
   deletePayment: async (paymentId, next) => {
-    const payment = await Payment.findByIdAndDelete(paymentId);
+    const payment = await Payment.findById(paymentId);
     if (!payment) {
       return next(notFoundResponse("No payment found"));
     }
+    if (payment.receipt) {
+      await deleteFromCloudinary(payment.receiptId);
+    }
+    await payment.deleteOne({ _id: paymentId });
     return true;
   },
 };

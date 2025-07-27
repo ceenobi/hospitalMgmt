@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AuthContext } from "./index";
+import { AuthContext } from ".";
 import { refreshTokenAction } from "@/features/auth/services/actions";
 import { useToken } from "@/hooks/useToken";
 import { authUser } from "@/features/auth/services/api";
