@@ -287,6 +287,13 @@ const paymentService = {
     }
     return updatedPayment;
   },
+  deletePayment: async (paymentId, next) => {
+    const payment = await Payment.findByIdAndDelete(paymentId);
+    if (!payment) {
+      return next(notFoundResponse("No payment found"));
+    }
+    return true;
+  },
 };
 
 export default paymentService;

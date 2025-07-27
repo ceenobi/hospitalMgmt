@@ -79,3 +79,14 @@ export const updatePayment = tryCatchFn(async (req, res, next) => {
     200
   );
 });
+
+export const deletePayment = tryCatchFn(async (req, res, next) => {
+  const { id: paymentId } = req.params;
+  const responseData = await paymentService.deletePayment(paymentId, next);
+  return successResponse(
+    res,
+    responseData,
+    "Payment deleted successfully",
+    200
+  );
+});

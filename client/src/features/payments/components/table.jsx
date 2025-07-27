@@ -10,6 +10,7 @@ import {
 import { RiMoreLine } from "@remixicon/react";
 import { useCallback, useState } from "react";
 import UpdatePayment from "./updatePayment";
+import DeletePayment from "./deletePayment";
 
 export default function Table({ payments, meta }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -110,13 +111,20 @@ export default function Table({ payments, meta }) {
                   isOpen={isOpen}
                 />
               )}
+              {deleteModalOpen && payment._id === paymentId && (
+                <DeletePayment
+                  payment={payment}
+                  onClose={() => setDeleteModalOpen(false)}
+                  isOpen={deleteModalOpen}
+                />
+              )}
             </>
           );
         default:
           return cellValue;
       }
     },
-    [isOpen, paymentId]
+    [deleteModalOpen, isOpen, paymentId]
   );
 
   return (

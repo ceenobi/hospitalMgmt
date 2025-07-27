@@ -4,6 +4,7 @@ import { validateFormData } from "../middelwares/validateFormData.js";
 import { clearCache, cacheMiddleware } from "../middelwares/cache.js";
 import {
   createPayment,
+  deletePayment,
   getAllPayments,
   getPatientPayments,
   updatePayment,
@@ -58,6 +59,14 @@ router.patch(
   validateFormData(validateCreatePaymentSchema),
   clearCache("payments"),
   updatePayment
+);
+
+router.delete(
+  "/:id/delete",
+  protect,
+  authorizedRoles("admin"),
+  clearCache("payments"),
+  deletePayment
 );
 
 export default router;

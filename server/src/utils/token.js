@@ -14,8 +14,7 @@ export const createSendToken = (user) => {
   if (user) {
     const token = signToken(user._id);
     const cookieOptions = {
-      // maxAge: 7 * 24 * 60 * 60 * 1000,
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/api/v1/auth/refresh-token",
