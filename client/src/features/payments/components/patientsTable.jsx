@@ -42,7 +42,7 @@ export default function PatientsTable({ payments, meta }) {
           );
         case "paymentDate":
           return (
-            <p>{formatTextDate(payment?.paymentDate) || "Not available"}</p>
+            <p>{payment?.paymentDate ? formatTextDate(payment?.paymentDate) : "Not available"}</p>
           );
         case "receipt":
           return (

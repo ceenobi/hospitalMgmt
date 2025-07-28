@@ -209,6 +209,19 @@ export default function Routes() {
                     ).patientAction({ request, accessToken }),
                 },
                 {
+                  path: "inpatients",
+                  // loader: async ({ request }) =>
+                  //   await getAllPatients({ request, accessToken }),
+                  lazy: {
+                    Component: async () =>
+                      (await import("@/pages/inpatients")).Component,
+                  },
+                  // action: async ({ request }) =>
+                  //   (
+                  //     await import("@/features/inpatients/services/actions")
+                  //   ).inpatientAction({ request, accessToken }),
+                },
+                {
                   path: "rooms",
                   id: "room_data",
                   loader: async ({ request }) => {
