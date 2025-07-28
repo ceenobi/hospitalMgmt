@@ -66,7 +66,6 @@ const authService = {
       return next(errorResponse("Refresh token required", 401));
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("decoded", decoded);
     if (!decoded) {
       return next(errorResponse("Invalid refresh token", 401));
     }

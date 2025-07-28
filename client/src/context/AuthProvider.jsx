@@ -28,10 +28,13 @@ export default function AuthProvider({ children }) {
       if (response?.success) {
         setUser(response?.data);
         setIsAuthenticating(false);
+      } else {
+        await refreshTokenAction({ accessToken, setAccessToken });
+        setIsAuthenticating(false);
       }
     }
     fetchUser();
-  }, [accessToken]);
+  }, [accessToken, setAccessToken]);
 
   if (isAuthenticating) {
     return <LazyLoader />;
