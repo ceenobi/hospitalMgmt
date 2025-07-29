@@ -30,10 +30,7 @@ export const refreshToken = tryCatchFn(async (req, res, next) => {
   }
   const user = await authService.refreshToken(token, next);
   const { accessToken, refreshToken, cookieOptions } = createSendToken(user);
-  res.cookie("clinicareRfToken", refreshToken, {
-    ...cookieOptions,
-    httpOnly: false,
-  });
+  res.cookie("clinicareRfToken", refreshToken, cookieOptions);
   return successResponse(
     res,
     {
