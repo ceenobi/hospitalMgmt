@@ -2,7 +2,7 @@ import authService from "../services/auth.service.js";
 import { createSendToken } from "../utils/token.js";
 import tryCatchFn from "../utils/tryCatchFn.js";
 import responseHandler from "../utils/responseHandler.js";
-const { successResponse } = responseHandler;
+const { successResponse, errorResponse } = responseHandler;
 
 export const signup = tryCatchFn(async (req, res, next) => {
   const user = await authService.register(req.validatedData, next);
@@ -24,14 +24,24 @@ export const signin = tryCatchFn(async (req, res, next) => {
 });
 
 export const refreshToken = tryCatchFn(async (req, res, next) => {
-  const { clinicareRfToken: token } = req.cookies;
+  let token = req.cookies?.clinicareRfToken || req.headers["x-refresh-token"];
+  if (!token) {
+    return next(errorResponse("No refresh token provided", 401));
+  }
   const user = await authService.refreshToken(token, next);
   const { accessToken, refreshToken, cookieOptions } = createSendToken(user);
-  res.cookie("clinicareRfToken", refreshToken, cookieOptions);
+  res.cookie("clinicareRfToken", refreshToken, {
+    ...cookieOptions,
+    // Allow the client to read the cookie
+    httpOnly: false,
+  });
+  // Also send the refresh token in the response body for clients that can't use cookies
   return successResponse(
     res,
-    { accessToken },
-    "Refresh token successfull",
+    {
+      accessToken,
+    },
+    "Token refreshed successfully",
     200
   );
 });

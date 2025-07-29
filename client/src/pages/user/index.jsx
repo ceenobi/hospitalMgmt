@@ -3,11 +3,11 @@ import AddUser from "@/features/user/components/addUser";
 import useMetaArgs from "@/hooks/useMeta";
 import { Await, useLoaderData } from "react-router";
 import Search from "@/components/search";
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense } from "react";
 import { SkeletonTable } from "@/components/skeleton";
 import Filter from "@/features/user/components/filter";
-import { RiLayoutColumnLine, RiLayoutRowLine } from "@remixicon/react";
-const Table = lazy(() => import("@/features/user/components/table"));
+// import { RiLayoutColumnLine, RiLayoutRowLine } from "@remixicon/react";
+// const Table = lazy(() => import("@/features/user/components/table"));
 const Card = lazy(() => import("@/features/user/components/card"));
 
 export function Component() {
@@ -16,7 +16,6 @@ export function Component() {
     description: "User",
     keywords: "Clinicare, user, account",
   });
-  const [tableView, setTableView] = useState(false);
   const data = useLoaderData();
   const { meta, users } = data?.data || {};
   return (
@@ -29,8 +28,8 @@ export function Component() {
         <AddUser />
       </div>
       <div className="mt-8 space-y-4 ">
-        <div className={`flex justify-between items-center`}>
-          <button
+        <div className={`flex justify-end items-center`}>
+          {/* <button
             onClick={() => setTableView(!tableView)}
             className="flex gap-1 items-center font-semibold cursor-pointer hover:text-blue-600 transition-colors"
             type="button"
@@ -41,32 +40,28 @@ export function Component() {
             ) : (
               <span className="hidden md:inline">Card View</span>
             )}
-          </button>
-          <div></div>
+          </button> */}
           <Search id="search-users">
             <Filter />
           </Search>
         </div>
         <Suspense fallback={<SkeletonTable />}>
-          {tableView ? (
+          {/* {tableView ? (
             <Await
               resolve={users}
               children={(users) => <Table users={users} meta={meta} />}
             />
-          ) : (
-            <>
-              {users?.length > 0 ? (
-                <Await
-                  resolve={users}
-                  children={(users) => <Card users={users} meta={meta} />}
-                />
-              ) : (
-                <p className="my-10 text-center text-gray-500">
-                  No users found
-                </p>
-              )}
-            </>
-          )}
+          ) : ( */}
+          <>
+            {users?.length > 0 ? (
+              <Await
+                resolve={users}
+                children={(users) => <Card users={users} meta={meta} />}
+              />
+            ) : (
+              <p className="my-10 text-center text-gray-500">No users found</p>
+            )}
+          </>
         </Suspense>
       </div>
     </PageWrapper>

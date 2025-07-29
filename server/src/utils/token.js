@@ -11,23 +11,24 @@ export const signToken = (id) => {
 };
 
 export const createSendToken = (user) => {
-  if (user) {
-    const token = signToken(user._id);
-    const cookieOptions = {
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      path: "/api/v1/auth/refresh-token",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      domain:
-        process.env.NODE_ENV === "production"
-          ? "hospital-mgmt-care.vercel.app"
-          : undefined,
-    };
-    return {
-      accessToken: token.accessToken,
-      refreshToken: token.refreshToken,
-      cookieOptions,
-    };
-  }
+  if (!user) return null;
+  
+  const token = signToken(user._id);
+  const isProduction = process.env.NODE_ENV === "production";
+  
+  const cookieOptions = {
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    httpOnly: true,
+    secure: isProduction,
+    path: "/api/v1/auth/refresh-token",
+    sameSite: isProduction ? "none" : "lax",
+    // Remove domain or set it dynamically based on the request
+    // domain: isProduction ? ".yourdomain.com" : undefined,
+  };
+
+  return {
+    accessToken: token.accessToken,
+    refreshToken: token.refreshToken,
+    cookieOptions,
+  };
 };
