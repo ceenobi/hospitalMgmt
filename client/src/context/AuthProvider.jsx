@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import { AuthContext } from ".";
 import { refreshTokenAction } from "@/features/auth/services/actions";
-import { useToken } from "@/hooks/useToken";
 import { authUser } from "@/features/auth/services/api";
 import LazyLoader from "@/components/lazyLoader";
 
 export default function AuthProvider({ children }) {
-  const { accessToken, setAccessToken } = useToken();
+  const [accessToken, setAccessToken] = useState(() => {
+    const persistedState = localStorage.getItem("clinicareAccessToken");
+    return persistedState ? persistedState : "";
+  });
   const [user, setUser] = useState(null);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("clinicareAccessToken", accessToken);
+  }, [accessToken]);
 
   useEffect(() => {
     if (!accessToken) return;
