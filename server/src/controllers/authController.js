@@ -32,10 +32,8 @@ export const refreshToken = tryCatchFn(async (req, res, next) => {
   const { accessToken, refreshToken, cookieOptions } = createSendToken(user);
   res.cookie("clinicareRfToken", refreshToken, {
     ...cookieOptions,
-    // Allow the client to read the cookie
     httpOnly: false,
   });
-  // Also send the refresh token in the response body for clients that can't use cookies
   return successResponse(
     res,
     {

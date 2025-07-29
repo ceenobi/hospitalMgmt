@@ -12,18 +12,16 @@ export const signToken = (id) => {
 
 export const createSendToken = (user) => {
   if (!user) return null;
-  
+
   const token = signToken(user._id);
   const isProduction = process.env.NODE_ENV === "production";
-  
+
   const cookieOptions = {
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
     secure: isProduction,
     path: "/api/v1/auth/refresh-token",
     sameSite: isProduction ? "none" : "lax",
-    // Remove domain or set it dynamically based on the request
-    // domain: isProduction ? ".yourdomain.com" : undefined,
   };
 
   return {
