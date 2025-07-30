@@ -49,12 +49,16 @@ export default function ErrorBoundary() {
     if (msgs.includes(details)) {
       setIsAuthenticating(true);
       async function refresh() {
-        await refreshTokenAction({ accessToken, setAccessToken });
-        setIsAuthenticating(false);
+        const res = await refreshTokenAction({ accessToken, setAccessToken });
+        if (res?.success) {
+          setIsAuthenticating(false);
+        } else {
+          submit({}, { action: "/logout", method: "post" });
+        }
       }
       refresh();
     }
-  }, [accessToken, details, msgs, setAccessToken, setIsAuthenticating]);
+  }, [accessToken, details, msgs, setAccessToken, setIsAuthenticating, submit]);
 
   return (
     <div className="container mx-auto p-4 flex flex-col items-center justify-center min-h-screen gap-2">
@@ -67,16 +71,18 @@ export default function ErrorBoundary() {
       <p className="text-red-600 font-bold text-xl">{message}</p>
       <p className="text-gray-600">
         {details === "jwt expired" || details === "jwt malformed"
-          ? "Checking authentication..."
+          ? "Checking session..."
           : details}
       </p>
-      <button
-        onClick={redirect}
-        type="button"
-        className="my-4 btn bg-blue-500 hover:bg-blue-700 text-white"
-      >
-        Go back to dashboard
-      </button>
+      {!msgs.includes(details) && (
+        <button
+          onClick={redirect}
+          type="button"
+          className="my-4 btn bg-blue-500 hover:bg-blue-700 text-white"
+        >
+          Go back
+        </button>
+      )}
     </div>
   );
 }
