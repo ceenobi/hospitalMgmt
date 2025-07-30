@@ -1,4 +1,3 @@
-import Paginate from "@/components/paginate";
 import TableData from "@/components/tableData";
 import {
   bloodGroupDisplay,
@@ -6,26 +5,18 @@ import {
   patientsTableColumns,
 } from "@/utils/constants";
 import { useCallback, useState } from "react";
-import usePaginate from "@/hooks/usePaginate";
 import { RiMoreLine } from "@remixicon/react";
-import { useRouteLoaderData } from "react-router";
+import { useOutletContext } from "react-router";
 import ViewPatient from "./viewPatient";
 import UpdatePatient from "./updatePatient";
 import DeletePatient from "./deletePatient";
 
-export default function Table({ patients, meta }) {
+export default function Table({ patients }) {
   const [isViewOpen, setIsViewOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [patientId, setPatientId] = useState(null);
-  const loggedInUser = useRouteLoaderData("auth_user");
-  const { handlePageChange, totalPages, hasMore, currentPage, limit } =
-    usePaginate({
-      totalPages: meta?.totalPages || 1,
-      hasMore: meta?.hasMore || false,
-      currentPage: meta?.currentPage || 1,
-    });
-
+  const { user: loggedInUser } = useOutletContext();
   const tableColumns = patientsTableColumns.filter((column) => {
     if (column.uid === "action") {
       return loggedInUser?.role === "admin";
@@ -143,13 +134,6 @@ export default function Table({ patients, meta }) {
         tableColumns={tableColumns}
         tableData={patients}
         renderCell={renderCell}
-      />
-      <Paginate
-        totalPages={totalPages}
-        hasMore={hasMore}
-        handlePageChange={handlePageChange}
-        currentPage={currentPage}
-        limit={limit}
       />
     </>
   );

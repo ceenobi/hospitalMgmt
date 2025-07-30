@@ -17,8 +17,8 @@ export default function Sidebar({ user }) {
     (userRole === "nurse" && roleBasedPathPermissions.nurse.allowedSubpaths);
 
   return (
-    <aside className="hidden bg-white lg:block min-h-screen fixed z-50 shadow border-r border-gray-300 w-[200px] xl:w-[240px]">
-      <div className="p-4 border-b border-gray-300">
+    <aside className="hidden bg-zinc-100 lg:block min-h-screen fixed z-50 w-[200px]">
+      <div className="p-4">
         <Logo />
       </div>
       <div className="h-[calc(100vh-150px)] overflow-y-auto">
@@ -48,7 +48,7 @@ export default function Sidebar({ user }) {
                       `hover:text-blue-500 transition-all duration-300 px-4 py-2 flex items-center gap-2 ${
                         isActive ||
                         path.split("/")[2] === child.href.split("/")[2]
-                          ? "text-blue-500 border-blue-500 bg-blue-50 font-semibold"
+                          ? "text-blue-500 bg-blue-100 font-bold rounded-full"
                           : "text-[var(--paint-white)]"
                       }`
                     }

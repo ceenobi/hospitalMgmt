@@ -1,25 +1,17 @@
-import Paginate from "@/components/paginate";
 import TableData from "@/components/tableData";
 import {
   doctorsAvailabilityColors,
   doctorsTableColumns,
 } from "@/utils/constants";
 import { useCallback, useState } from "react";
-import usePaginate from "@/hooks/usePaginate";
 import { RiMoreLine } from "@remixicon/react";
 import EditDoctor from "./editDoctor";
 import DeleteDoctor from "./deleteDoctor";
 
-export default function Table({ doc, meta }) {
+export default function Table({ doc }) {
   const [isOpen, setIsOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [doctorId, setDoctorId] = useState(null);
-  const { handlePageChange, totalPages, hasMore, currentPage, limit } =
-    usePaginate({
-      totalPages: meta?.data?.meta?.totalPages || 1,
-      hasMore: meta?.data?.meta?.hasMore || false,
-      currentPage: meta?.data?.meta?.currentPage || 1,
-    });
   const renderCell = useCallback(
     (doctor, columnKey) => {
       const cellValue = doctor[columnKey];
@@ -140,13 +132,6 @@ export default function Table({ doc, meta }) {
         tableColumns={doctorsTableColumns}
         tableData={doc}
         renderCell={renderCell}
-      />
-      <Paginate
-        totalPages={totalPages}
-        hasMore={hasMore}
-        handlePageChange={handlePageChange}
-        currentPage={currentPage}
-        limit={limit}
       />
     </div>
   );

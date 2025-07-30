@@ -36,7 +36,6 @@ const authService = {
       password: hashedPass,
       verificationToken: verificationCode,
       verificationTokenExpiry: verificationCodeExpiry,
-      role: "patient",
     });
     const html = welcomeUserTemplate(userData.fullname, verificationCode);
     await sendMail({

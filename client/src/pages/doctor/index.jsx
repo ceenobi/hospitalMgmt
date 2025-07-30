@@ -6,6 +6,8 @@ import { lazy, Suspense } from "react";
 import { SkeletonTable } from "@/components/skeleton";
 import Search from "@/components/search";
 import Filter from "@/features/doctor/components/filter";
+import Paginate from "@/components/paginate";
+import usePaginate from "@/hooks/usePaginate";
 const Table = lazy(() => import("@/features/doctor/components/table"));
 
 export function Component() {
@@ -15,6 +17,12 @@ export function Component() {
     keywords: "Clinicare, doctors, account",
   });
   const { meta, doctors } = useRouteLoaderData("doctor_users");
+  const { handlePageChange, totalPages, hasMore, currentPage, limit } =
+    usePaginate({
+      totalPages: doctors?.data?.meta?.totalPages || 1,
+      hasMore: doctors?.data?.meta?.hasMore || false,
+      currentPage: doctors?.data?.meta?.currentPage || 1,
+    });
 
   return (
     <PageWrapper>
@@ -25,7 +33,7 @@ export function Component() {
         </div>
         <AddDoctor meta={meta?.data?.meta} users={meta?.data?.users} />
       </div>
-      <div className="mt-8 space-y-4 rounded-lg border border-gray-300 shadow">
+      <div className="mt-8 space-y-4 rounded-xl bg-white border border-slate-200 shadow">
         <div className="flex justify-end items-center p-4">
           {/* <h2 className="hidden md:block font-semibold">Doctors</h2> */}
           <Search id="search-doctors">
@@ -41,6 +49,13 @@ export function Component() {
           />
         </Suspense>
       </div>
+      <Paginate
+        totalPages={totalPages}
+        hasMore={hasMore}
+        handlePageChange={handlePageChange}
+        currentPage={currentPage}
+        limit={limit}
+      />
     </PageWrapper>
   );
 }

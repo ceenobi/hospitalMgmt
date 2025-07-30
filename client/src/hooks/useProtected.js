@@ -19,7 +19,7 @@ export const usePrivateRoutes = (accessToken, user) => {
   const from = location.state?.from || "/dashboard";
 
   useEffect(() => {
-    if (!accessToken || !user) {
+    if (!accessToken && !user) {
       navigate(`/account/signin`, {
         state: { from },
         replace: true,

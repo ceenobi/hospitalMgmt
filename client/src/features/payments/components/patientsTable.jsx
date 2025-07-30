@@ -1,6 +1,4 @@
-import Paginate from "@/components/paginate";
 import TableData from "@/components/tableData";
-import usePaginate from "@/hooks/usePaginate";
 import {
   formatCurrency,
   formatTextDate,
@@ -11,15 +9,9 @@ import { RiUploadCloudLine } from "@remixicon/react";
 import { useCallback, useState } from "react";
 import UploadPayment from "./uploadPayment";
 
-export default function PatientsTable({ payments, meta }) {
+export default function PatientsTable({ payments }) {
   const [isOpen, setIsOpen] = useState(false);
   const [paymentId, setPaymentId] = useState(null);
-  const { handlePageChange, totalPages, hasMore, currentPage, limit } =
-    usePaginate({
-      totalPages: meta?.totalPages || 1,
-      hasMore: meta?.hasMore || false,
-      currentPage: meta?.currentPage || 1,
-    });
   const renderCell = useCallback(
     (payment, columnKey) => {
       const cellValue = payment[columnKey];
@@ -42,7 +34,11 @@ export default function PatientsTable({ payments, meta }) {
           );
         case "paymentDate":
           return (
-            <p>{payment?.paymentDate ? formatTextDate(payment?.paymentDate) : "Not available"}</p>
+            <p>
+              {payment?.paymentDate
+                ? formatTextDate(payment?.paymentDate)
+                : "Not available"}
+            </p>
           );
         case "receipt":
           return (
@@ -103,13 +99,6 @@ export default function PatientsTable({ payments, meta }) {
         tableColumns={paymentsTableColumns}
         tableData={payments}
         renderCell={renderCell}
-      />
-      <Paginate
-        totalPages={totalPages}
-        hasMore={hasMore}
-        handlePageChange={handlePageChange}
-        currentPage={currentPage}
-        limit={limit}
       />
     </>
   );

@@ -6,11 +6,11 @@ export default function Paginate({
   limit,
 }) {
   return (
-    <div className="flex justify-center md:justify-between items-center p-4">
+    <div className="flex justify-center md:justify-between items-center py-4">
       <p className="hidden md:block">
-        Showing {currentPage}-{limit} of {totalPages}
+        Showing {currentPage}-{limit} of Page {totalPages}
       </p>
-      <div className="join border-[0.2px] border-gray-300 rounded-md">
+      <div className="join bg-white border border-slate-200 rounded-lg">
         <button
           onClick={() => handlePageChange("first")}
           className={`join-item btn ${
@@ -23,7 +23,7 @@ export default function Paginate({
         </button>
         <button
           onClick={() => handlePageChange("prev")}
-          className={`join-item btn ${
+          className={`join-item btn text-zinc-800 ${
             currentPage === 1
               ? "cursor-not-allowed opacity-50"
               : "cursor-pointer"
@@ -36,7 +36,7 @@ export default function Paginate({
         </button>
         <button
           onClick={() => handlePageChange("next")}
-          className={`join-item btn ${
+          className={`join-item btn text-zinc-800 ${
             !hasMore ? "cursor-not-allowed opacity-50" : "cursor-pointer"
           }`}
         >

@@ -52,8 +52,6 @@ export default function ErrorBoundary() {
         const res = await refreshTokenAction({ accessToken, setAccessToken });
         if (res?.success) {
           setIsAuthenticating(false);
-        } else {
-          submit({}, { action: "/logout", method: "post" });
         }
       }
       refresh();

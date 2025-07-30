@@ -5,6 +5,8 @@ import { lazy, Suspense } from "react";
 import { SkeletonTable } from "@/components/skeleton";
 import Search from "@/components/search";
 import Filter from "@/features/payments/components/filter";
+import Paginate from "@/components/paginate";
+import usePaginate from "@/hooks/usePaginate";
 const Table = lazy(() =>
   import("@/features/payments/components/patientsTable")
 );
@@ -17,6 +19,12 @@ export function Component() {
   });
   const data = useLoaderData();
   const { meta, payments } = data?.data || {};
+  const { handlePageChange, totalPages, hasMore, currentPage, limit } =
+    usePaginate({
+      totalPages: meta?.totalPages || 1,
+      hasMore: meta?.hasMore || false,
+      currentPage: meta?.currentPage || 1,
+    });
   return (
     <PageWrapper>
       <div className="flex justify-between items-center">
@@ -25,7 +33,7 @@ export function Component() {
           <p className="text-gray-500">Manage your payments</p>
         </div>
       </div>
-      <div className="mt-8 space-y-4 rounded-lg border border-gray-300 shadow">
+      <div className="mt-8 space-y-4 rounded-xl bg-white border border-slate-200 shadow">
         <div className="flex justify-end items-center p-4">
           {/* <h2 className="hidden md:block font-semibold">Appointments</h2> */}
           <Search id="search-appointments">
@@ -39,6 +47,13 @@ export function Component() {
           />
         </Suspense>
       </div>
+      <Paginate
+        totalPages={totalPages}
+        hasMore={hasMore}
+        handlePageChange={handlePageChange}
+        currentPage={currentPage}
+        limit={limit}
+      />
     </PageWrapper>
   );
 }

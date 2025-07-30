@@ -17,7 +17,7 @@ export default function TableData({ tableColumns, tableData, renderCell }) {
             tableData.map((item, index) => (
               <tr
                 key={item._id}
-                className="hover:bg-base-300 border-b border-gray-300"
+                className="hover:bg-base-300 border-gray-300"
               >
                 <td>{index + 1}</td>
                 {tableColumns.map((header) => (

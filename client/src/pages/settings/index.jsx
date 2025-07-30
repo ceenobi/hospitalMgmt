@@ -53,8 +53,8 @@ export function Component() {
           </button>
         </div>
       </div>
-      <div className="mt-4 rounded-lg border border-gray-300 md:grid grid-cols-12">
-        <div className="col-span-2 border-r border-gray-300 p-4">
+      <div className="my-4 bg-white rounded-xl border border-slate-200 md:grid grid-cols-12">
+        <div className="col-span-2 border-r border-slate-200 p-4">
           <div className="flex flex-col">
             {settingsLink
               .filter((child) =>
@@ -67,7 +67,7 @@ export function Component() {
                   className={({ isActive }) =>
                     `hover:text-blue-500 transition-all duration-300 px-4 py-2 flex items-center gap-2 ${
                       isActive
-                        ? "text-blue-500 border-blue-500 bg-blue-50"
+                        ? "text-blue-500 border-blue-500 bg-blue-50 rounded-full"
                         : "text-muted-foreground"
                     }`
                   }
@@ -78,7 +78,7 @@ export function Component() {
               ))}
           </div>
         </div>
-        <div className="col-span-10 p-4">
+        <div className="col-span-10 py-8 px-4">
           <Outlet context={{ user }} />
         </div>
       </div>

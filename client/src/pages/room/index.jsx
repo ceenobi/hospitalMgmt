@@ -6,6 +6,8 @@ import Search from "@/components/search";
 import { Suspense, lazy } from "react";
 import Filter from "@/features/room/components/filter";
 import { SkeletonTable } from "@/components/skeleton";
+import usePaginate from "@/hooks/usePaginate";
+import Paginate from "@/components/paginate";
 const Table = lazy(() => import("@/features/room/components/table"));
 
 export function Component() {
@@ -17,6 +19,12 @@ export function Component() {
   const data = useRouteLoaderData("room_data");
   const { roomMeta, roomsData } = data || {};
   const { rooms, meta } = roomsData?.data || {};
+  const { handlePageChange, totalPages, hasMore, currentPage, limit } =
+    usePaginate({
+      totalPages: meta?.totalPages || 1,
+      hasMore: meta?.hasMore || false,
+      currentPage: meta?.currentPage || 1,
+    });
 
   return (
     <PageWrapper>
@@ -27,7 +35,7 @@ export function Component() {
         </div>
         <AddRoom roomMeta={roomMeta} />
       </div>
-      <div className="mt-8 space-y-4 rounded-lg border border-gray-300">
+      <div className="mt-8 space-y-4 rounded-xl bg-white border border-slate-200 shadow">
         <div className="flex justify-end items-center p-4">
           {/* <h2 className="hidden md:block font-semibold">Rooms</h2> */}
           <Search id="search-rooms">
@@ -44,6 +52,13 @@ export function Component() {
           </Await> */}
         </Suspense>
       </div>
+      <Paginate
+        totalPages={totalPages}
+        hasMore={hasMore}
+        handlePageChange={handlePageChange}
+        currentPage={currentPage}
+        limit={limit}
+      />
     </PageWrapper>
   );
 }

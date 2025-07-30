@@ -1,5 +1,3 @@
-import Paginate from "@/components/paginate";
-import usePaginate from "@/hooks/usePaginate";
 import { formatDate, usersRoleColors } from "@/utils/constants";
 import { useState } from "react";
 import { useOutletContext } from "react-router";
@@ -7,24 +5,17 @@ import UpdateUser from "./updateUser";
 import DeleteUser from "./deleteUser";
 import { RiPhoneLine } from "@remixicon/react";
 
-export default function Card({ users, meta }) {
+export default function Card({ users }) {
   const [isOpen, setIsOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [userId, setUserId] = useState(null);
   const { user: loggedInUser } = useOutletContext();
-  const { handlePageChange, totalPages, hasMore, currentPage, limit } =
-    usePaginate({
-      totalPages: meta?.totalPages || 1,
-      hasMore: meta?.hasMore || false,
-      currentPage: meta?.currentPage || 1,
-    });
-
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {users?.map((user) => (
           <div
-            className="card border border-gray-300 rounded-lg shadow"
+            className="card border border-slate-200 rounded-lg shadow bg-white"
             key={user._id}
           >
             <div className="card-body">
@@ -69,17 +60,17 @@ export default function Card({ users, meta }) {
                     >
                       {user.role}
                     </div>
-                    {user.phone && (
-                      <div className="flex items-center gap-1 text-gray-500 ">
-                        <RiPhoneLine size={16} />
-                        <a
-                          href={`tel:${user?.phone}`}
-                          className="font-medium text-sm"
-                        >
-                          {user.phone}
-                        </a>
-                      </div>
-                    )}
+
+                    <div className="flex items-center gap-1 text-gray-500 ">
+                      <RiPhoneLine size={16} />
+                      <a
+                        href={`tel:${user?.phone || ""}`}
+                        className="font-medium text-sm"
+                      >
+                        {user.phone || "N/A"}
+                      </a>
+                    </div>
+
                     <div>
                       <p className="text-gray-500 font-medium">
                         Joined: {formatDate(user.createdAt)}
@@ -128,13 +119,6 @@ export default function Card({ users, meta }) {
           </div>
         ))}
       </div>
-      <Paginate
-        totalPages={totalPages}
-        hasMore={hasMore}
-        handlePageChange={handlePageChange}
-        currentPage={currentPage}
-        limit={limit}
-      />
     </>
   );
 }

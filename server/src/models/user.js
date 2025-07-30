@@ -25,6 +25,8 @@ const userSchema = new Schema(
     },
     phone: {
       type: String,
+      unique: true,
+      maxlength: [15, "Phone number cannot be more than 15 characters"],
     },
     avatar: {
       type: String,
@@ -66,6 +68,9 @@ const userSchema = new Schema(
     isCompletedOnboard: {
       type: Boolean,
       default: false,
+      select: function () {
+        return this.role === "patient";
+      },
     },
   },
   {

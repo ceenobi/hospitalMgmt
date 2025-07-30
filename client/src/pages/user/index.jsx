@@ -6,6 +6,8 @@ import Search from "@/components/search";
 import { lazy, Suspense } from "react";
 import { SkeletonTable } from "@/components/skeleton";
 import Filter from "@/features/user/components/filter";
+import Paginate from "@/components/paginate";
+import usePaginate from "@/hooks/usePaginate";
 // import { RiLayoutColumnLine, RiLayoutRowLine } from "@remixicon/react";
 // const Table = lazy(() => import("@/features/user/components/table"));
 const Card = lazy(() => import("@/features/user/components/card"));
@@ -18,6 +20,12 @@ export function Component() {
   });
   const data = useLoaderData();
   const { meta, users } = data?.data || {};
+  const { handlePageChange, totalPages, hasMore, currentPage, limit } =
+    usePaginate({
+      totalPages: meta?.totalPages || 1,
+      hasMore: meta?.hasMore || false,
+      currentPage: meta?.currentPage || 1,
+    });
   return (
     <PageWrapper>
       <div className="flex justify-between items-center">
@@ -64,6 +72,13 @@ export function Component() {
           </>
         </Suspense>
       </div>
+      <Paginate
+        totalPages={totalPages}
+        hasMore={hasMore}
+        handlePageChange={handlePageChange}
+        currentPage={currentPage}
+        limit={limit}
+      />
     </PageWrapper>
   );
 }

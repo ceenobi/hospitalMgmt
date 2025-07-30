@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import usePaginate from "@/hooks/usePaginate";
 import { useOutletContext } from "react-router";
 import {
   appointmentsStatusColors,
@@ -7,22 +6,15 @@ import {
   formatTextDate,
 } from "@/utils/constants";
 import TableData from "@/components/tableData";
-import Paginate from "@/components/paginate";
 import { RiMoreLine } from "@remixicon/react";
 import UpdateAppointment from "./updateAppointment";
 import DeleteAppointment from "./deleteAppointment";
 
-export default function Table({ appointments, meta }) {
+export default function Table({ appointments }) {
   const [isOpen, setIsOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [appointmentId, setAppointmentId] = useState(null);
   const { user: loggedInUser } = useOutletContext();
-  const { handlePageChange, totalPages, hasMore, currentPage, limit } =
-    usePaginate({
-      totalPages: meta?.totalPages || 1,
-      hasMore: meta?.hasMore || false,
-      currentPage: meta?.currentPage || 1,
-    });
   const tableColumns = appointmentsTableColumns.filter((column) => {
     if (column.uid === "action") {
       return loggedInUser?.role === "admin";
@@ -125,13 +117,6 @@ export default function Table({ appointments, meta }) {
         tableColumns={tableColumns}
         tableData={appointments}
         renderCell={renderCell}
-      />
-      <Paginate
-        totalPages={totalPages}
-        hasMore={hasMore}
-        handlePageChange={handlePageChange}
-        currentPage={currentPage}
-        limit={limit}
       />
     </>
   );

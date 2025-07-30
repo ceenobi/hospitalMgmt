@@ -1,6 +1,4 @@
-import Paginate from "@/components/paginate";
 import TableData from "@/components/tableData";
-import usePaginate from "@/hooks/usePaginate";
 import {
   formatCurrency,
   formatTextDate,
@@ -12,16 +10,10 @@ import { useCallback, useState } from "react";
 import UpdatePayment from "./updatePayment";
 import DeletePayment from "./deletePayment";
 
-export default function Table({ payments, meta }) {
+export default function Table({ payments }) {
   const [isOpen, setIsOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [paymentId, setPaymentId] = useState(null);
-  const { handlePageChange, totalPages, hasMore, currentPage, limit } =
-    usePaginate({
-      totalPages: meta?.totalPages || 1,
-      hasMore: meta?.hasMore || false,
-      currentPage: meta?.currentPage || 1,
-    });
   const renderCell = useCallback(
     (payment, columnKey) => {
       const cellValue = payment[columnKey];
@@ -43,7 +35,13 @@ export default function Table({ payments, meta }) {
             <p className="capitalize">{formatCurrency(payment?.amount)}</p>
           );
         case "paymentDate":
-          return <p>{payment?.paymentDate ? formatTextDate(payment?.paymentDate) : "Not available"}</p>;
+          return (
+            <p>
+              {payment?.paymentDate
+                ? formatTextDate(payment?.paymentDate)
+                : "Not available"}
+            </p>
+          );
         case "receipt":
           return (
             <a
@@ -131,13 +129,6 @@ export default function Table({ payments, meta }) {
         tableColumns={paymentsTableColumns}
         tableData={payments}
         renderCell={renderCell}
-      />
-      <Paginate
-        totalPages={totalPages}
-        hasMore={hasMore}
-        handlePageChange={handlePageChange}
-        currentPage={currentPage}
-        limit={limit}
       />
     </>
   );

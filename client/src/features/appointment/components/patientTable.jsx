@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-import usePaginate from "@/hooks/usePaginate";
 import { useOutletContext } from "react-router";
 import {
   appointmentsStatusColors,
@@ -7,16 +6,9 @@ import {
   formatTextDate,
 } from "@/utils/constants";
 import TableData from "@/components/tableData";
-import Paginate from "@/components/paginate";
 
-export default function PatientTable({ appointments, meta }) {
+export default function PatientTable({ appointments }) {
   const { user: loggedInUser } = useOutletContext();
-  const { handlePageChange, totalPages, hasMore, currentPage, limit } =
-    usePaginate({
-      totalPages: meta?.totalPages || 1,
-      hasMore: meta?.hasMore || false,
-      currentPage: meta?.currentPage || 1,
-    });
   const tableColumns = appointmentsTableColumns.filter((column) => {
     if (column.uid === "action") {
       return loggedInUser?.role === "admin";
@@ -64,13 +56,6 @@ export default function PatientTable({ appointments, meta }) {
         tableColumns={tableColumns}
         tableData={appointments}
         renderCell={renderCell}
-      />
-      <Paginate
-        totalPages={totalPages}
-        hasMore={hasMore}
-        handlePageChange={handlePageChange}
-        currentPage={currentPage}
-        limit={limit}
       />
     </>
   );

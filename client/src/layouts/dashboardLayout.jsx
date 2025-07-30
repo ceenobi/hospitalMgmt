@@ -10,9 +10,9 @@ export function Component() {
 
   return (
     <>
-      <section className="min-h-screen">
+      <section className="min-h-screen bg-zinc-100">
         <Sidebar user={user} />
-        <div className="lg:ml-[200px] xl:ml-[240px] flex-1">
+        <div className="lg:ml-[200px] flex-1">
           <DashboardNav user={user} />
           <MobileNav user={user} />
           <Outlet context={{ user }} />

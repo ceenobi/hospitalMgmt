@@ -59,7 +59,7 @@ export const verifyAccountAction = async ({ request }) => {
 
 export const logoutAction = async ({ setAccessToken }) => {
   const res = await logout({});
-  toast.success(res.message || "Logout successfull");
+  toast.success(res.message || "Logout successfull", { id: "logout" });
   setAccessToken("");
   return res;
 };
@@ -109,6 +109,6 @@ export const refreshTokenAction = async ({ accessToken, setAccessToken }) => {
     if (import.meta.env.DEV) {
       console.error("Error refreshing token:", error);
     }
-    return null;
+    return await logoutAction({ setAccessToken });
   }
 };

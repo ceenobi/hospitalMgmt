@@ -1,25 +1,20 @@
-import Paginate from "@/components/paginate";
 import TableData from "@/components/tableData";
-import usePaginate from "@/hooks/usePaginate";
-import { formatCurrency, roomsStatusColors, roomsTableColumns } from "@/utils/constants";
+import {
+  formatCurrency,
+  roomsStatusColors,
+  roomsTableColumns,
+} from "@/utils/constants";
 import { RiMoreLine } from "@remixicon/react";
 import { useCallback, useState } from "react";
 import { useOutletContext } from "react-router";
 import UpdateRoom from "./updateRoom";
 import DeleteRoom from "./deleteRoom";
 
-export default function Table({ rooms, meta }) {
+export default function Table({ rooms }) {
   const [isOpen, setIsOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [roomId, setRoomId] = useState(null);
   const { user: loggedInUser } = useOutletContext();
-  const { handlePageChange, totalPages, hasMore, currentPage, limit } =
-    usePaginate({
-      totalPages: meta?.totalPages || 1,
-      hasMore: meta?.hasMore || false,
-      currentPage: meta?.currentPage || 1,
-    });
-
   const tableColumns = roomsTableColumns.filter((column) => {
     if (column.uid === "action") {
       return loggedInUser?.role === "admin";
@@ -131,13 +126,6 @@ export default function Table({ rooms, meta }) {
         tableColumns={tableColumns}
         tableData={rooms}
         renderCell={renderCell}
-      />
-      <Paginate
-        totalPages={totalPages}
-        hasMore={hasMore}
-        handlePageChange={handlePageChange}
-        currentPage={currentPage}
-        limit={limit}
       />
     </>
   );

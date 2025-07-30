@@ -96,7 +96,7 @@ export default function Drawer({ user }) {
                             `hover:text-blue-500 transition-all duration-300 px-4 py-2 flex items-center gap-2 ${
                               isActive ||
                               path.split("/")[2] === child.href.split("/")[2]
-                                ? "text-blue-500 border-blue-500 bg-blue-50"
+                                ? "text-blue-500 border-blue-500 bg-blue-100 font-bold rounded-full"
                                 : "text-[var(--paint-white)]"
                             }`
                           }
