@@ -119,9 +119,7 @@ const authService = {
     user.verificationToken = verificationCode;
     user.verificationTokenExpiry = verificationCodeExpiry;
     await user.save();
-
     const html = resendVerificationTemplate(user.fullname, verificationCode);
-
     try {
       await sendMail({
         to: user.email,

@@ -22,14 +22,12 @@ const sendErrorDev = (err, res) => {
 const sendErrorProd = (err, res) => {
   // Operational, trusted error: send message to client
   if (err.isOperational) {
-    return errorResponse(
-      res,
-      err.message,
-      err.statusCode || 500,
-      err.errors || null
-    );
+    const errResponse = {
+      status: err.status || "error",
+      message: err.message,
+    };
+    return res.status(err.statusCode || 500).json(errResponse);
   }
-
   // Programming or other unknown error: don't leak error details
   console.error("ERROR ", err);
   return res.status(err.statusCode).json({
@@ -81,7 +79,6 @@ export const globalErrorHandler = (err, req, res, next) => {
       error = handleValidationErrorDB(error);
     if (error.name === "JsonWebTokenError") error = handleJWTError();
     if (error.name === "TokenExpiredError") error = handleJWTExpiredError();
-
     sendErrorProd(error, res);
   }
 };

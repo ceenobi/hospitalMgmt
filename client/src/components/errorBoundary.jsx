@@ -1,6 +1,6 @@
 import { useAuthToken } from "@/context";
 import { refreshTokenAction } from "@/features/auth/services/actions";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import {
   isRouteErrorResponse,
   useRouteError,
@@ -34,7 +34,7 @@ export default function ErrorBoundary() {
     stack = error.stack;
     console.log(stack);
   }
-  const msgs = useMemo(() => ["jwt expired"], []);
+  // const msgs = useMemo(() => ["jwt expired"], []);
 
   const redirect = () => {
     details === "Invalid refresh token"
@@ -43,7 +43,7 @@ export default function ErrorBoundary() {
   };
 
   useEffect(() => {
-    if (msgs.includes(details)) {
+    if (error?.status === 401) {
       setIsAuthenticating(true);
       async function refresh() {
         const res = await refreshTokenAction({ accessToken, setAccessToken });
@@ -53,7 +53,7 @@ export default function ErrorBoundary() {
       }
       refresh();
     }
-  }, [accessToken, details, msgs, setAccessToken, setIsAuthenticating, submit]);
+  }, [accessToken, error?.status, setAccessToken, setIsAuthenticating]);
 
   return (
     <div className="container mx-auto p-4 flex flex-col items-center justify-center min-h-screen gap-2">
