@@ -96,7 +96,7 @@ export const refreshTokenAction = async ({ accessToken, setAccessToken }) => {
     const expirationTime = decodedToken?.exp ?? 0;
     const currentTime = Date.now();
     const timeUntilExpiry = expirationTime * 1000 - currentTime;
-    const refreshBuffer = 5 * 60 * 1000;
+    const refreshBuffer = 2 * 60 * 1000;
     const timeUntilRefresh = timeUntilExpiry - refreshBuffer;
     if (timeUntilRefresh <= 0) {
       const res = await refreshToken(setAccessToken);

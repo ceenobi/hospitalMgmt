@@ -1,17 +1,16 @@
 import { useAuthToken } from "@/context";
 import { useEffect } from "react";
-import { useActionData, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 export function Component() {
   const navigate = useNavigate();
-  const data = useActionData();
-  const { user } = useAuthToken();
+  const { user, accessToken } = useAuthToken();
 
   useEffect(() => {
-    if (!data || !user) {
+    if (!accessToken || !user) {
       navigate("/account/signin");
     }
-  }, [navigate, data, user]);
+  }, [navigate, accessToken, user]);
 
   return null;
 }

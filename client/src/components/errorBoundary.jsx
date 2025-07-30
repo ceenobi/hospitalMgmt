@@ -34,10 +34,7 @@ export default function ErrorBoundary() {
     stack = error.stack;
     console.log(stack);
   }
-  const msgs = useMemo(
-    () => ["You are not logged in!", "jwt expired", "jwt malformed"],
-    []
-  );
+  const msgs = useMemo(() => ["jwt expired"], []);
 
   const redirect = () => {
     details === "Invalid refresh token"
@@ -67,20 +64,14 @@ export default function ErrorBoundary() {
       )}
       <h1 className="text-2xl font-bold">Something went wrong</h1>
       <p className="text-red-600 font-bold text-xl">{message}</p>
-      <p className="text-gray-600">
-        {details === "jwt expired" || details === "jwt malformed"
-          ? "Checking session..."
-          : details}
-      </p>
-      {!msgs.includes(details) && (
-        <button
-          onClick={redirect}
-          type="button"
-          className="my-4 btn bg-blue-500 hover:bg-blue-700 text-white"
-        >
-          Go back
-        </button>
-      )}
+      <p className="text-gray-600">{details}</p>
+      <button
+        onClick={redirect}
+        type="button"
+        className="my-4 btn bg-blue-500 hover:bg-blue-700 text-white"
+      >
+        Go back
+      </button>
     </div>
   );
 }

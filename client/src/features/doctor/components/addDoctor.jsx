@@ -24,7 +24,7 @@ export default function AddDoctor({ meta, users }) {
   });
 
   const getUserData = useMemo(() => {
-    return users.map((user) => ({
+    return users?.map((user) => ({
       name: user.fullname,
       id: user._id,
       phone: user.phone || "Not available",
