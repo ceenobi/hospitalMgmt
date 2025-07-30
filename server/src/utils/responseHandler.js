@@ -29,7 +29,7 @@ const sendResponse = (res, statusCode, data = null, message = null) => {
 const successResponse = (
   res,
   data,
-  message = "Request successfull",
+  message = "Request successful",
   statusCode = 200
 ) => {
   return sendResponse(res, statusCode, data, message);

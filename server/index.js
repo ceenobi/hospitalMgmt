@@ -34,7 +34,12 @@ const corsOptions = {
     "Access-Control-Allow-Origin",
     "Access-Control-Allow-Credentials",
   ],
-  exposedHeaders: ["Content-Range", "X-Content-Range"],
+  exposedHeaders: [
+    "Content-Range",
+    "X-Content-Range",
+    "x-refresh-token",
+    "set-cookie",
+  ],
   optionsSuccessStatus: 200,
 };
 

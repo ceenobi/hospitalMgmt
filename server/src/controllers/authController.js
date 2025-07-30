@@ -8,7 +8,7 @@ export const signup = tryCatchFn(async (req, res, next) => {
   const user = await authService.register(req.validatedData, next);
   const { accessToken, refreshToken, cookieOptions } = createSendToken(user);
   res.cookie("clinicareRfToken", refreshToken, cookieOptions);
-  return successResponse(res, { accessToken }, "Registration successfull", 201);
+  return successResponse(res, { accessToken }, "Registration successful", 201);
 });
 
 export const signin = tryCatchFn(async (req, res, next) => {
