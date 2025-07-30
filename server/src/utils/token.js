@@ -20,7 +20,7 @@ export const createSendToken = (user) => {
     maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
     secure: isProduction,
-    path: "/api/v1/auth/refresh-token",
+    path: "/",
     sameSite: isProduction ? "none" : "lax",
   };
 

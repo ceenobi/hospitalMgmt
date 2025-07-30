@@ -15,7 +15,7 @@ export default function Card({ users }) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {users?.map((user) => (
           <div
-            className="card border border-slate-200 rounded-lg shadow bg-white"
+            className="card border border-slate-200 rounded-xl shadow bg-white"
             key={user._id}
           >
             <div className="card-body">

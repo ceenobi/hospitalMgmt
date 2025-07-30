@@ -209,12 +209,12 @@ const authService = {
     return user;
   },
   logout: async (req, res, next) => {
-    res.cookie("clinicareUserRefreshToken", "", {
+    res.cookie("clinicareRfToken", "", {
       maxAge: 0,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      path: "/api/v1/auth/refresh-token",
+      path: "/",
     });
     return true;
   },

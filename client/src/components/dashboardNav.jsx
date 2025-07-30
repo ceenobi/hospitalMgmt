@@ -4,7 +4,7 @@ import { getTimeBasedGreeting } from "../utils/constants";
 export default function DashboardNav({ user }) {
   const greeting = getTimeBasedGreeting();
   return (
-    <div className="hidden lg:block sticky top-0 right-0 z-30 left-[200px] bg-white/50 backdrop-blur supports-[backdrop-filter]:bg-white/60 border border-zinc-200 rounded-full">
+    <div className="hidden lg:block sticky top-2 right-0 z-30 left-[200px] bg-white/50 backdrop-blur supports-[backdrop-filter]:bg-white/60 border border-zinc-200 rounded-full mx-4">
       <div className="container mx-auto py-[14px] px-4">
         <div className="flex justify-between items-center">
           <h1 className="text-lg font-bold text-foreground">
