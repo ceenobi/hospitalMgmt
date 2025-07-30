@@ -28,18 +28,18 @@ const corsOptions = {
   origin: ["http://localhost:4400", "https://hospital-mgmt-care.vercel.app"],
   credentials: true,
   methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: [
-    "Content-Type",
-    "Authorization",
-    "Access-Control-Allow-Origin",
-    "Access-Control-Allow-Credentials",
-  ],
-  exposedHeaders: [
-    "Content-Range",
-    "X-Content-Range",
-    "x-refresh-token",
-    "set-cookie",
-  ],
+  // allowedHeaders: [
+  //   "Content-Type",
+  //   "Authorization",
+  //   "Access-Control-Allow-Origin",
+  //   "Access-Control-Allow-Credentials",
+  // ],
+  // exposedHeaders: [
+  //   "Content-Range",
+  //   "X-Content-Range",
+  //   "x-refresh-token",
+  //   "set-cookie",
+  // ],
   optionsSuccessStatus: 200,
 };
 
