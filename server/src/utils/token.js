@@ -12,12 +12,11 @@ export const signToken = (id) => {
 
 export const createSendToken = (user) => {
   if (!user) return null;
-
   const token = signToken(user._id);
   const isProduction = process.env.NODE_ENV === "production";
 
   const cookieOptions = {
-    maxAge: 7 * 24 * 60 * 60 * 1000,
+    maxAge: 5 * 60 * 1000, //5 minutes
     httpOnly: true,
     secure: isProduction,
     path: "/",

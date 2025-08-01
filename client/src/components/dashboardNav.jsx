@@ -37,12 +37,6 @@ export default function DashboardNav({ user }) {
                   )}
                 </div>
               </div>
-              {/* <div>
-              <h1 className="font-bold text-base">{user?.fullname}</h1>
-              <p className="capitalize text-gray-500 text-sm font-medium">
-                {user?.role}
-              </p>
-            </div> */}
             </div>
           </div>
         </div>

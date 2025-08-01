@@ -37,13 +37,13 @@ export default function ErrorBoundary() {
   // const msgs = useMemo(() => ["jwt expired"], []);
 
   const redirect = () => {
-    details === "Invalid refresh token"
+    details === "jwt expired"
       ? submit({}, { action: "/logout", method: "post" })
       : navigate("/dashboard");
   };
 
   useEffect(() => {
-    if (error?.status === 401) {
+    if (error?.status === 401 || error?.status === 500) {
       setIsAuthenticating(true);
       async function refresh() {
         const res = await refreshTokenAction({ accessToken, setAccessToken });
@@ -64,13 +64,15 @@ export default function ErrorBoundary() {
       )}
       <h1 className="text-2xl font-bold">Something went wrong</h1>
       <p className="text-red-600 font-bold text-xl">{message}</p>
-      <p className="text-gray-600">{details}</p>
+      <p className="text-gray-600">
+        {details === "jwt expired" ? "Session expired" : details}
+      </p>
       <button
         onClick={redirect}
         type="button"
         className="my-4 btn bg-blue-500 hover:bg-blue-700 text-white"
       >
-        Go back
+        {details === "jwt expired" ? "Logout" : "Go back"}
       </button>
     </div>
   );

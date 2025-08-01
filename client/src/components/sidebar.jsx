@@ -17,7 +17,7 @@ export default function Sidebar({ user }) {
     (userRole === "nurse" && roleBasedPathPermissions.nurse.allowedSubpaths);
 
   return (
-    <aside className="hidden bg-zinc-100 lg:block min-h-screen fixed z-50 w-[200px]">
+    <aside className="hidden bg-slate-100 lg:block min-h-screen fixed z-50 w-[200px]">
       <div className="p-4">
         <Logo />
       </div>

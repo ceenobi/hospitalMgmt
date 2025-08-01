@@ -62,7 +62,7 @@ export function Component() {
       >
         <RiLockFill
           size={40}
-          className="text-blue-500 p-2 border-[0.2px] border-blue-500 rounded-full shadow-lg"
+          className="text-blue-500 p-2 border-[0.2px] border-blue-500 rounded-full shadow"
         />
         <h1 className="text-2xl font-bold">Create New Password</h1>
         <p className="text-gray-600 text-center">

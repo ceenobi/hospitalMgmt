@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AuthContext } from ".";
 import { authUser } from "@/features/auth/services/api";
 import LazyLoader from "@/components/lazyLoader";
+import { refreshTokenAction } from "@/features/auth/services/actions";
 
 export default function AuthProvider({ children }) {
   const [accessToken, setAccessToken] = useState(() => {
@@ -15,23 +16,19 @@ export default function AuthProvider({ children }) {
     localStorage.setItem("clinicareAccessToken", accessToken);
   }, [accessToken]);
 
-  // useEffect(() => {
-  //   if (!accessToken) return;
-  //   async function refresh() {
-  //     setIsAuthenticating(true);
-  //     await refreshTokenAction({ accessToken, setAccessToken });
-  //     setIsAuthenticating(false);
-  //   }
-  //   refresh();
-  // }, [accessToken, setAccessToken]);
-
   useEffect(() => {
     if (!accessToken) return;
     async function fetchUser() {
       setIsAuthenticating(true);
-      const response = await authUser(accessToken);
-      if (response?.success) {
-        setUser(response?.data);
+      try {
+        const response = await authUser(accessToken);
+        if (response?.success) {
+          setUser(response?.data);
+          setIsAuthenticating(false);
+        }
+      } catch (error) {
+        console.error(error);
+        await refreshTokenAction({ accessToken, setAccessToken });
         setIsAuthenticating(false);
       }
     }
@@ -41,7 +38,6 @@ export default function AuthProvider({ children }) {
   if (isAuthenticating) {
     return <LazyLoader />;
   }
-
   return (
     <AuthContext.Provider
       value={{

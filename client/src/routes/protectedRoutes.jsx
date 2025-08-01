@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router";
 export const PublicRoutes = ({ children, accessToken, user }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const from = location.state?.from || "/dashboard";
+  const from = location.state || "/dashboard";
   useEffect(() => {
     if (accessToken && user) {
       navigate(from, { replace: true });
@@ -16,13 +16,12 @@ export const PublicRoutes = ({ children, accessToken, user }) => {
 export const PrivateRoutes = ({ children, accessToken, user }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from || "/dashboard";
 
   useEffect(() => {
-    if (!accessToken || !user) {
-      navigate("/account/signin", { state: { from }, replace: true });
+    if (!accessToken && !user) {
+      navigate("/account/signin", { state: { from: location }, replace: true });
     }
-  }, [accessToken, from, navigate, user]);
+  }, [accessToken, navigate, user, location]);
 
   useEffect(() => {
     if (user && !user.isVerified && location.pathname !== "/verify-account") {
@@ -31,7 +30,7 @@ export const PrivateRoutes = ({ children, accessToken, user }) => {
         replace: true,
       });
     }
-  }, [user, from, navigate, location]);
+  }, [user, navigate, location]);
 
   useEffect(() => {
     if (
@@ -46,7 +45,7 @@ export const PrivateRoutes = ({ children, accessToken, user }) => {
         replace: true,
       });
     }
-  }, [user, from, navigate, location]);
+  }, [user, navigate, location]);
 
   return children;
 };

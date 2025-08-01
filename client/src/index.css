@@ -1,4 +1,4 @@
-@import url("https://fonts.cdnfonts.com/css/familjen-grotesk");
+@import url("https://fonts.cdnfonts.com/css/br-shape");
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: light --default;
@@ -9,7 +9,7 @@
 }
 
 :root {
-  font-family: "Familjen Grotesk", sans-serif;
+  font-family: "BR Shape", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 

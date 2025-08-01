@@ -11,7 +11,6 @@ const sendErrorDev = (err, res) => {
       name: err.name,
       statusCode: err.statusCode,
       isOperational: err.isOperational,
-      // Add any other non-circular error properties here
     },
   };
   console.error("ERROR ", err);
@@ -20,7 +19,6 @@ const sendErrorDev = (err, res) => {
 
 // Error handler for production environment
 const sendErrorProd = (err, res) => {
-  // Operational, trusted error: send message to client
   if (err.isOperational) {
     const errResponse = {
       status: err.status || "error",

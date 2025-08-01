@@ -18,9 +18,24 @@ import {
   getAllPayments,
   getPatientPayments,
 } from "@/features/payments/services/api";
+import { PrivateRoutes, PublicRoutes } from "./protectedRoutes";
 
 export default function Routes() {
-  const { accessToken, setAccessToken } = useAuthToken();
+  const { accessToken, setAccessToken, user } = useAuthToken();
+  const protectedLoader = (loader) => {
+    return async (args) => {
+      if (!accessToken) {
+        throw new Response("", {
+          status: 302,
+          headers: {
+            Location: "/account/signin",
+            "X-Redirect": "true",
+          },
+        });
+      }
+      return loader ? await loader(args) : null;
+    };
+  };
   const routes = [
     {
       path: "/",
@@ -31,33 +46,52 @@ export default function Routes() {
       children: [
         {
           path: "account",
-          lazy: () => import("@/layouts/authLayout"),
+          lazy: async () => {
+            const { Component } = await import("@/layouts/authLayout");
+            return {
+              Component: () => (
+                <PublicRoutes accessToken={accessToken} user={user}>
+                  <Component />
+                </PublicRoutes>
+              ),
+            };
+          },
           children: [
             {
               path: "signup",
-              lazy: {
-                Component: async () =>
-                  (await import("@/pages/auth/signup")).Component,
-                action: async () =>
-                  (await import("@/features/auth/services/actions"))
-                    .registerAction,
+              lazy: async () => {
+                const { Component } = await import("@/pages/auth/signup");
+                return {
+                  Component: () => <Component />,
+                };
               },
+              action: async ({ request }) =>
+                (
+                  await import("@/features/auth/services/actions")
+                ).registerAction({ request }),
             },
             {
               path: "signin",
-              lazy: {
-                Component: async () =>
-                  (await import("@/pages/auth/signin")).Component,
-                action: async () =>
-                  (await import("@/features/auth/services/actions"))
-                    .loginAction,
+              lazy: async () => {
+                const { Component } = await import("@/pages/auth/signin");
+                return {
+                  Component: () => <Component />,
+                };
               },
+              action: async ({ request }) =>
+                (await import("@/features/auth/services/actions")).loginAction({
+                  request,
+                }),
             },
             {
               path: "forgot-password",
-              lazy: {
-                Component: async () =>
-                  (await import("@/pages/auth/forgotPassword")).Component,
+              lazy: async () => {
+                const { Component } = await import(
+                  "@/pages/auth/forgotPassword"
+                );
+                return {
+                  Component: () => <Component />,
+                };
               },
               action: async ({ request }) =>
                 (
@@ -66,85 +100,138 @@ export default function Routes() {
             },
             {
               path: "reset-password",
-              lazy: {
-                Component: async () =>
-                  (await import("@/pages/auth/resetPassword")).Component,
-                action: async () =>
-                  (await import("@/features/auth/services/actions"))
-                    .resetPasswordAction,
+              lazy: async () => {
+                const { Component } = await import(
+                  "@/pages/auth/resetPassword"
+                );
+                return {
+                  Component: () => <Component />,
+                };
               },
+              action: async ({ request }) =>
+                (
+                  await import("@/features/auth/services/actions")
+                ).resetPasswordAction({ request, accessToken }),
             },
           ],
         },
         {
-          lazy: () => import("@/layouts/onboardLayout"),
+          lazy: async () => {
+            const { Component } = await import("@/layouts/onboardLayout");
+            return {
+              Component: () => (
+                <PrivateRoutes accessToken={accessToken} user={user}>
+                  <Component />
+                </PrivateRoutes>
+              ),
+            };
+          },
           children: [
             {
               path: "verify-account",
-              lazy: {
-                Component: async () =>
-                  (await import("@/pages/auth/verifyAccount")).Component,
-                action: async () =>
-                  (await import("@/features/auth/services/actions"))
-                    .verifyAccountAction,
+              lazy: async () => {
+                const { Component } = await import(
+                  "@/pages/auth/verifyAccount"
+                );
+                return {
+                  Component: () => <Component />,
+                };
               },
+              action: async ({ request }) =>
+                (
+                  await import("@/features/auth/services/actions")
+                ).verifyAccountAction({ request, accessToken }),
             },
             {
               path: "patients-onboard",
-              lazy: {
-                Component: async () =>
-                  (await import("@/pages/patientsOnboard")).Component,
-                action: async () =>
-                  (await import("@/features/patient/services/actions"))
-                    .patientAction,
+              lazy: async () => {
+                const { Component } = await import("@/pages/patientsOnboard");
+                return {
+                  Component: () => <Component />,
+                };
               },
+              action: async ({ request }) =>
+                (
+                  await import("@/features/patient/services/actions")
+                ).patientAction({ request, accessToken }),
             },
           ],
         },
         {
           path: "/",
-          lazy: () => import("@/layouts/rootLayout"),
+          lazy: async () => {
+            const { Component } = await import("@/layouts/rootLayout");
+            return {
+              Component: () => (
+                <PublicRoutes accessToken={accessToken} user={user}>
+                  <Component />
+                </PublicRoutes>
+              ),
+            };
+          },
           children: [
             {
               index: true,
-              lazy: {
-                Component: async () => (await import("@/pages/home")).Component,
+              lazy: async () => {
+                const { Component } = await import("@/pages/home");
+                return {
+                  Component: () => <Component />,
+                };
               },
             },
             {
               path: "contact",
-              lazy: {
-                Component: async () =>
-                  (await import("@/pages/contact")).Component,
+              lazy: async () => {
+                const { Component } = await import("@/pages/contact");
+                return {
+                  Component: () => <Component />,
+                };
               },
             },
           ],
         },
         {
           path: "dashboard",
-          lazy: () => import("@/layouts/dashboardLayout"),
+          lazy: async () => {
+            const { Component } = await import("@/layouts/dashboardLayout");
+            return {
+              Component: () => (
+                <PrivateRoutes accessToken={accessToken} user={user}>
+                  <Component />
+                </PrivateRoutes>
+              ),
+            };
+          },
           children: [
             {
               index: true,
-              lazy: {
-                Component: async () =>
-                  (await import("@/pages/dashboard")).Component,
+              lazy: async () => {
+                const { Component } = await import("@/pages/dashboard");
+                return {
+                  Component: () => <Component />,
+                };
               },
             },
             {
               children: [
                 {
                   path: "settings",
-                  lazy: {
-                    Component: async () =>
-                      (await import("@/pages/settings")).Component,
+                  lazy: async () => {
+                    const { Component } = await import("@/pages/settings");
+                    return {
+                      Component: () => <Component />,
+                    };
                   },
                   children: [
                     {
                       path: "account",
-                      lazy: {
-                        Component: async () =>
-                          (await import("@/pages/settings/account")).Component,
+                      lazy: async () => {
+                        const { Component } = await import(
+                          "@/pages/settings/account"
+                        );
+                        return {
+                          Component: () => <Component />,
+                        };
                       },
                       action: async ({ request }) =>
                         (
@@ -153,9 +240,13 @@ export default function Routes() {
                     },
                     {
                       path: "password",
-                      lazy: {
-                        Component: async () =>
-                          (await import("@/pages/settings/password")).Component,
+                      lazy: async () => {
+                        const { Component } = await import(
+                          "@/pages/settings/password"
+                        );
+                        return {
+                          Component: () => <Component />,
+                        };
                       },
                       action: async ({ request }) =>
                         (
@@ -164,10 +255,15 @@ export default function Routes() {
                     },
                     {
                       path: "health",
-                      loader: async () => await getPatient(accessToken),
-                      lazy: {
-                        Component: async () =>
-                          (await import("@/pages/settings/health")).Component,
+                      loader: protectedLoader(() => getPatient(accessToken)),
+                      // loader: async () => await getPatient(accessToken),
+                      lazy: async () => {
+                        const { Component } = await import(
+                          "@/pages/settings/health"
+                        );
+                        return {
+                          Component: () => <Component />,
+                        };
                       },
                       action: async ({ request }) =>
                         (
@@ -179,16 +275,18 @@ export default function Routes() {
                 {
                   path: "doctors",
                   id: "doctor_users",
-                  loader: async ({ request }) => {
+                  loader: protectedLoader(async ({ request }) => {
                     const [meta, doctors] = await Promise.all([
                       getAllUserCollections(accessToken),
                       getDoctors({ request, accessToken }),
                     ]);
                     return { meta, doctors };
-                  },
-                  lazy: {
-                    Component: async () =>
-                      (await import("@/pages/doctor")).Component,
+                  }),
+                  lazy: async () => {
+                    const { Component } = await import("@/pages/doctor");
+                    return {
+                      Component: () => <Component />,
+                    };
                   },
                   action: async ({ request }) =>
                     (
@@ -197,11 +295,15 @@ export default function Routes() {
                 },
                 {
                   path: "patients",
-                  loader: async ({ request }) =>
-                    await getAllPatients({ request, accessToken }),
-                  lazy: {
-                    Component: async () =>
-                      (await import("@/pages/patient")).Component,
+                  loader: protectedLoader(
+                    async ({ request }) =>
+                      await getAllPatients({ request, accessToken })
+                  ),
+                  lazy: async () => {
+                    const { Component } = await import("@/pages/patient");
+                    return {
+                      Component: () => <Component />,
+                    };
                   },
                   action: async ({ request }) =>
                     (
@@ -212,9 +314,11 @@ export default function Routes() {
                   path: "inpatients",
                   // loader: async ({ request }) =>
                   //   await getAllPatients({ request, accessToken }),
-                  lazy: {
-                    Component: async () =>
-                      (await import("@/pages/inpatients")).Component,
+                  lazy: async () => {
+                    const { Component } = await import("@/pages/inpatients");
+                    return {
+                      Component: () => <Component />,
+                    };
                   },
                   // action: async ({ request }) =>
                   //   (
@@ -224,16 +328,18 @@ export default function Routes() {
                 {
                   path: "rooms",
                   id: "room_data",
-                  loader: async ({ request }) => {
+                  loader: protectedLoader(async ({ request }) => {
                     const [roomMeta, roomsData] = await Promise.all([
                       getRoomMeta(accessToken),
                       getAllRooms({ request, accessToken }),
                     ]);
                     return { roomMeta, roomsData };
-                  },
-                  lazy: {
-                    Component: async () =>
-                      (await import("@/pages/room")).Component,
+                  }),
+                  lazy: async () => {
+                    const { Component } = await import("@/pages/room");
+                    return {
+                      Component: () => <Component />,
+                    };
                   },
                   action: async ({ request }) =>
                     (
@@ -242,11 +348,15 @@ export default function Routes() {
                 },
                 {
                   path: "users",
-                  loader: async ({ request }) =>
-                    await getAllUsers({ request, accessToken }),
-                  lazy: {
-                    Component: async () =>
-                      (await import("@/pages/user")).Component,
+                  loader: protectedLoader(
+                    async ({ request }) =>
+                      await getAllUsers({ request, accessToken })
+                  ),
+                  lazy: async () => {
+                    const { Component } = await import("@/pages/user");
+                    return {
+                      Component: () => <Component />,
+                    };
                   },
                   action: async ({ request }) =>
                     (
@@ -256,7 +366,7 @@ export default function Routes() {
                 {
                   path: "appointments",
                   id: "appointment_data",
-                  loader: async ({ request }) => {
+                  loader: protectedLoader(async ({ request }) => {
                     const [appointmentMeta, appointmentsData] =
                       await Promise.all([
                         getAppointmentMeta(accessToken),
@@ -269,10 +379,12 @@ export default function Routes() {
                       appointmentMeta,
                       appointmentsData,
                     };
-                  },
-                  lazy: {
-                    Component: async () =>
-                      (await import("@/pages/appointment")).Component,
+                  }),
+                  lazy: async () => {
+                    const { Component } = await import("@/pages/appointment");
+                    return {
+                      Component: () => <Component />,
+                    };
                   },
                   action: async ({ request }) =>
                     (
@@ -281,12 +393,17 @@ export default function Routes() {
                 },
                 {
                   path: "patient-appointments",
-                  loader: async ({ request }) =>
-                    await getPatientAppointments({ request, accessToken }),
-                  lazy: {
-                    Component: async () =>
-                      (await import("@/pages/appointment/patientAppointments"))
-                        .Component,
+                  loader: protectedLoader(
+                    async ({ request }) =>
+                      await getPatientAppointments({ request, accessToken })
+                  ),
+                  lazy: async () => {
+                    const { Component } = await import(
+                      "@/pages/appointment/patientAppointments"
+                    );
+                    return {
+                      Component: () => <Component />,
+                    };
                   },
                   action: async ({ request }) =>
                     (
@@ -296,11 +413,7 @@ export default function Routes() {
                 {
                   path: "payments",
                   id: "payment_data",
-                  lazy: {
-                    Component: async () =>
-                      (await import("@/pages/payments")).Component,
-                  },
-                  loader: async ({ request }) => {
+                  loader: protectedLoader(async ({ request }) => {
                     const [paymentMeta, paymentData] = await Promise.all([
                       getAppointmentMeta(accessToken),
                       getAllPayments({
@@ -312,6 +425,12 @@ export default function Routes() {
                       paymentMeta,
                       paymentData,
                     };
+                  }),
+                  lazy: async () => {
+                    const { Component } = await import("@/pages/payments");
+                    return {
+                      Component: () => <Component />,
+                    };
                   },
                   action: async ({ request }) =>
                     (
@@ -320,12 +439,17 @@ export default function Routes() {
                 },
                 {
                   path: "patient-payments",
-                  loader: async ({ request }) =>
-                    await getPatientPayments({ request, accessToken }),
-                  lazy: {
-                    Component: async () =>
-                      (await import("@/pages/payments/patientPayments"))
-                        .Component,
+                  loader: protectedLoader(
+                    async ({ request }) =>
+                      await getPatientPayments({ request, accessToken })
+                  ),
+                  lazy: async () => {
+                    const { Component } = await import(
+                      "@/pages/payments/patientPayments"
+                    );
+                    return {
+                      Component: () => <Component />,
+                    };
                   },
                   action: async ({ request }) =>
                     (
@@ -338,9 +462,11 @@ export default function Routes() {
         },
         {
           path: "logout",
-          lazy: {
-            Component: async () =>
-              (await import("@/pages/auth/logout")).Component,
+          lazy: async () => {
+            const { Component } = await import("@/pages/auth/logout");
+            return {
+              Component: () => <Component />,
+            };
           },
           action: async () =>
             (await import("@/features/auth/services/actions")).logoutAction({

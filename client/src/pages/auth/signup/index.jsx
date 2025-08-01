@@ -52,7 +52,7 @@ export function Component() {
       >
         <RiUser4Fill
           size={40}
-          className="text-blue-500 p-2 border-[0.2px] border-blue-500 rounded-full shadow-lg"
+          className="text-blue-500 p-2 border-[0.2px] border-blue-500 rounded-full shadow"
         />
         <h1 className="text-2xl font-bold">Create Account</h1>
         <p className="text-muted-foreground text-center">Enter your details to sign up</p>

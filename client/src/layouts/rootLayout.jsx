@@ -1,14 +1,12 @@
 import Logo from "@/components/logo";
 import { RiCopyrightFill } from "@remixicon/react";
 import { NavLink, Outlet, useOutletContext } from "react-router";
-import { usePublicRoutes } from "@/hooks/useProtected";
 
 export function Component() {
-  const { accessToken, user } = useOutletContext();
-  usePublicRoutes(accessToken, user);
+  const { user } = useOutletContext();
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50 bg-white">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-slate-100">
         <div className="container mx-auto py-5 px-4 flex justify-between items-center">
           <Logo />
           <div className="flex gap-4 items-center">

@@ -29,30 +29,30 @@ export const loginAction = async ({ request }) => {
   return res;
 };
 
-export const getPasswordResetTokenAction = async ({ request }) => {
+export const getPasswordResetTokenAction = async ({ request, accessToken }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  const res = await getPasswordResetToken(data);
+  const res = await getPasswordResetToken(data, accessToken);
   return res;
 };
 
-export const resetPasswordAction = async ({ request }) => {
+export const resetPasswordAction = async ({ request, accessToken }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  const res = await resetPassword(data);
+  const res = await resetPassword(data, accessToken);
   return res;
 };
 
-export const verifyAccountAction = async ({ request }) => {
+export const verifyAccountAction = async ({ request, accessToken }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   const method = request.method;
   if (method === "POST") {
-    const res = await resendVerifyToken();
+    const res = await resendVerifyToken(accessToken);
     return res;
   }
   if (method === "PATCH") {
-    const res = await verifyAccount(data);
+    const res = await verifyAccount(data, accessToken);
     return res;
   }
 };
@@ -64,28 +64,28 @@ export const logoutAction = async ({ setAccessToken }) => {
   return res;
 };
 
-export const updateAccountAction = async ({ request }) => {
+export const updateAccountAction = async ({ request, accessToken }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   if (data.title === "account") {
-    const res = await updateUser(data);
+    const res = await updateUser(data, accessToken);
     return res;
   }
   if (data.title === "avatar") {
-    const res = await uploadAvatar(data);
+    const res = await uploadAvatar(data, accessToken);
     return res;
   }
   if (request.method === "DELETE") {
-    const res = await deleteAccount();
+    const res = await deleteAccount(accessToken);
     return res;
   }
   return null;
 };
 
-export const updatePasswordAction = async ({ request }) => {
+export const updatePasswordAction = async ({ request, accessToken }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  const res = await updateUserPassword(data);
+  const res = await updateUserPassword(data, accessToken);
   return res;
 };
 

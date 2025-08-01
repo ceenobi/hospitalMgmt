@@ -75,14 +75,13 @@ export const resendVerifyToken = async (accessToken) => {
   return response.data;
 };
 
-export const authUser = tryCatchFn(async (accesstoken) => {
+export const authUser = async (accesstoken) => {
   const response = await axiosInstance.get(
     "/api/v1/auth/user",
-    getHeaders(accesstoken),
-    { timeout: 5000 }
+    getHeaders(accesstoken)
   );
   return response.data;
-});
+};
 
 export const uploadAvatar = tryCatchFn(async (avatar, accessToken) => {
   const response = await axiosInstance.patch(

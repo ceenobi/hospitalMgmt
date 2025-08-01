@@ -6,7 +6,7 @@ export const usePublicRoutes = (accessToken, user) => {
   const navigate = useNavigate();
   const from = location.state?.from || "/dashboard";
   useEffect(() => {
-    if (accessToken && user) {
+    if (accessToken || user) {
       navigate(from, { replace: true });
     }
   }, [accessToken, user, from, navigate, location.pathname]);

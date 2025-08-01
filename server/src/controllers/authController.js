@@ -13,6 +13,9 @@ export const signup = tryCatchFn(async (req, res, next) => {
 
 export const signin = tryCatchFn(async (req, res, next) => {
   const user = await authService.login(req.validatedData, next);
+  if (!user) {
+    return next(errorResponse("Invalid email or password", 401));
+  }
   const { accessToken, refreshToken, cookieOptions } = createSendToken(user);
   res.cookie("clinicareRfToken", refreshToken, cookieOptions);
   return successResponse(
@@ -24,7 +27,7 @@ export const signin = tryCatchFn(async (req, res, next) => {
 });
 
 export const refreshToken = tryCatchFn(async (req, res, next) => {
-  let token = req.cookies?.clinicareRfToken || req.headers["x-refresh-token"];
+  let token = req.cookies?.clinicareRfToken;
   if (!token) {
     return next(errorResponse("No refresh token provided", 401));
   }

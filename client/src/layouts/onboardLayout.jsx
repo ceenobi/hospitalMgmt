@@ -1,12 +1,10 @@
 import Logo from "@/components/logo";
 import { Form } from "react-router";
-import { usePrivateRoutes } from "@/hooks/useProtected";
 import { Outlet, useOutletContext } from "react-router";
 import { RiCopyrightFill } from "@remixicon/react";
 
 export function Component() {
-  const { accessToken, user } = useOutletContext();
-  usePrivateRoutes(accessToken, user);
+  const { user } = useOutletContext();
   return (
     <div className="min-h-screen bg-slate-100 p-4">
       <div className="flex justify-between items-center">
